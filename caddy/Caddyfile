@@ -1,0 +1,12 @@
+{
+  email {{env "EMAIL"}}
+}
+
+${DOMAIN} {
+  encode zstd gzip
+  @static {
+    path /_next/* /favicon.ico /robots.txt /sitemap.xml
+  }
+  reverse_proxy web:3000
+}
+

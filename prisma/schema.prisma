@@ -1,0 +1,305 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String?   @unique
+  name          String?
+  image         String?
+  passwordHash  String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  settings      UserSettings?
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Таблица для хранения документов (постов)
+model Document {
+  id             String   @id @default(cuid())
+  title          String
+  userId         String
+  isArchived     Boolean  @default(false)
+  // Пометка избранного документа (глобальная, не по пользователю)
+  isFavorite     Boolean  @default(false)
+  parentDocument String?
+  content        String?
+  coverImage     String?
+  views          Int?     @default(0)
+  previewText    String?
+  readTime       Int?
+  icon           String?
+  isPublished    Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Обратная связь: какие инструменты ссылаются на этот документ
+  linkedFromTools AiTool[] @relation("AiToolLinkedDocument")
+
+  @@index([userId])
+  @@index([userId, parentDocument])
+}
+
+// Таблица для хранения AI инструментов
+model Category {
+  id          String   @id @default(cuid())
+  icon        String?
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  aiTools AiTool[]
+}
+
+// Таблица инструментов
+model AiTool {
+  id               String   @id @default(cuid())
+  name             String
+  description      String
+  coverImage       String?
+  url              String?
+  type             String
+  isActive         Boolean  @default(true)
+  rating           Float?
+  price            Float?
+  startPrice       Float?
+  categoryId       String
+  // Прикреплённый документ, чтобы подтянуть и отобразить его контент
+  linkedDocumentId String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  category       Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  linkedDocument Document?     @relation("AiToolLinkedDocument", fields: [linkedDocumentId], references: [id], onDelete: SetNull)
+  orders         AiToolOrder[]
+  favorites      Favorite[]
+  userPrices     UserToolPrice[]
+
+  @@index([categoryId])
+  @@index([rating])
+  @@index([linkedDocumentId])
+}
+
+model UserToolPrice {
+  id            String   @id @default(cuid())
+  userId        String
+  aiToolId      String
+  startPriceUsd Float
+  fx            Float
+  priceRub      Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  AiTool AiTool @relation(fields: [aiToolId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, aiToolId])
+  @@index([aiToolId])
+}
+
+// Таблица для хранения избранного
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  itemId    String
+  itemType  String // "aiTools" | "documents"
+  createdAt DateTime @default(now())
+
+  aiTool AiTool? @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, itemId])
+  @@index([userId, itemId, itemType])
+}
+
+model FeedbackMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  service   String?
+  userId    String?
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
+// Таблица для хранения отзывов
+model Review {
+  id         String   @id @default(cuid())
+  documentId String
+  author     String
+  content    String
+  rating     Int
+  createdAt  DateTime @default(now())
+
+  @@index([documentId])
+}
+
+// Таблица сервисов
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  price       String
+  url         String?
+  features    String[] // PostgreSQL array
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([title])
+  @@index([price])
+}
+
+model AiToolOrder {
+  id           String   @id @default(cuid())
+  userId       String
+  serviceId    String
+  details      String
+  contactInfo  String
+  amount       Float
+  status       String
+  createdAt    DateTime @default(now())
+  serviceName  String?
+  serviceCover String?
+  paymentId    String?
+  confirmationUrl String?
+  paidAt       DateTime?
+
+  aiTool AiTool @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+}
+
+model AiGadget {
+  id             String   @id @default(cuid())
+  name           String
+  description    String
+  price          Float
+  coverImage     String?
+  features       String[] // PostgreSQL array
+  status         String // "available" | "coming_soon" | "sold_out"
+  category       String // "smart_home" | "wearables" | "robots" | "other"
+  specifications Json? // PostgreSQL JSON
+  createdAt      DateTime @default(now())
+
+  @@index([category])
+  @@index([status])
+}
+
+// Таблица для кредитов пользователей
+model UserCredit {
+  id           String    @id @default(cuid())
+  userId       String
+  totalCredits Int       @default(0)
+  usedCredits  Int       @default(0)
+  lastReset    DateTime  @default(now())
+  plan         String    @default("free") // "free", "basic", "premium"
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+// Таблица для истории использования кредитов
+model CreditUsageHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  service   String // "ai-blog", "ai-search", etc.
+  timestamp DateTime @default(now())
+  amount    Int      @default(1)
+
+  @@index([userId])
+  @@index([userId, service])
+}
+
+// Таблица для покупок кредитов
+model CreditPurchase {
+  id        String   @id @default(cuid())
+  userId    String
+  amount    Int
+  price     Float
+  status    String // "pending", "completed", "failed"
+  paymentId String?
+  timestamp DateTime @default(now())
+
+  @@index([userId])
+  @@index([status])
+}
+
+// Дополнительные настройки пользователя и предпочтения
+model UserSettings {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  bio              String?
+  company          String?
+  position         String?
+  website          String?
+  location         String?
+  timezone         String?  @default("Europe/Moscow")
+  language         String?  @default("ru")
+  theme            String?  @default("system") // system | light | dark
+  analyticsEnabled Boolean  @default(true)
+  publicProfile    Boolean  @default(true)
+  newsEmails       Boolean  @default(false)
+  productEmails    Boolean  @default(false)
+  securityEmails   Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
