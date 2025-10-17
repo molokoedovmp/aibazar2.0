@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 
-export default function ResetPasswordPage() {
+function ResetPasswordInner() {
   const search = useSearchParams();
   const router = useRouter();
   const token = useMemo(() => search.get("token") || "", [search]);
@@ -91,3 +91,10 @@ export default function ResetPasswordPage() {
   );
 }
 
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Загрузка…</div>}>
+      <ResetPasswordInner />
+    </Suspense>
+  );
+}
