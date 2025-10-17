@@ -1,12 +1,11 @@
 {
-  email {{env "EMAIL"}}
+  # Правильная подстановка переменных окружения в Caddy:
+  # используем {$VAR}, а не {{env "VAR"}}
+  email {$EMAIL}
 }
 
-${DOMAIN} {
+# Обслуживаем корневой домен и www на одном бэкенде
+{$DOMAIN}, www.{$DOMAIN} {
   encode zstd gzip
-  @static {
-    path /_next/* /favicon.ico /robots.txt /sitemap.xml
-  }
   reverse_proxy web:3000
 }
-
