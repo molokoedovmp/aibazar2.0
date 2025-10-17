@@ -1,10 +1,10 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { Button, type ButtonProps } from '@/components/ui/button';
+import { useState, type ComponentProps } from 'react';
+import { Button } from '@/components/ui/button';
 
-interface TransitionButtonProps extends ButtonProps {
+interface TransitionButtonProps extends ComponentProps<typeof Button> {
   path: string;
 }
 
