@@ -14,10 +14,10 @@ interface PaymentDialogProps {
   title?: string;
   tool: {
     id?: string;
+    _id?: string;
     name?: string;
     description?: string | null;
     url?: string | null;
-    [key: string]: unknown;
   };
 }
 
