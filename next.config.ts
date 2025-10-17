@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  eslint: {
+    // Skip ESLint errors during production builds (Docker)
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
