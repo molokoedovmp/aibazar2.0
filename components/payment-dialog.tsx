@@ -4,7 +4,7 @@ import { type ReactNode } from "react"
 import { useSession } from "next-auth/react"
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, AlertDialogFooter, AlertDialogCancel } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, MessageCircle, AlertTriangle } from "lucide-react"
+import { ExternalLink, MessageCircle, AlertTriangle, Bot } from "lucide-react"
 import { useRouter } from "next/navigation"
 // убрали react-hot-toast, оставляем простое уведомление через alert
 
@@ -53,7 +53,9 @@ export function PaymentDialog({ priceRub, children, title, tool }: PaymentDialog
     const startParam = payloadParts.length ? `?start=${encodeURIComponent(payloadParts.join('|'))}` : '';
     window.open(`https://t.me/aibazaru${startParam}`, "_blank")
   }
-
+  const handleTelegramBotPayment = () => {
+    window.open("https://t.me/AnonPaySubBot", "_blank")
+  }
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -70,9 +72,23 @@ export function PaymentDialog({ priceRub, children, title, tool }: PaymentDialog
           </p>
         </AlertDialogHeader>
         <div className="flex flex-col gap-4 py-4">
-          <Button 
+           <Button 
+            onClick={handleTelegramBotPayment}
+            className="h-14 text-base bg-green-600 hover:bg-green-700 transition-colors justify-start"
+            size="lg"
+          >
+            <div className="flex items-center gap-3">
+              <Bot size={20} />
+              <div className="text-left">
+                <div>Оплатить через Telegram бота</div>
+                <div className="text-sm opacity-80 font-normal">Новая функция в тестировании</div>
+              </div>
+            </div>
+          </Button>
+          <Button
             onClick={handleTelegramPayment}
-            className="h-14 text-base bg-blue-600 hover:bg-blue-700 transition-colors justify-start"
+            variant="default"
+            className="h-14 text-base justify-start"
             size="lg"
           >
             <div className="flex items-center gap-3">

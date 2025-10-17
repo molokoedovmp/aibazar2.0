@@ -4,8 +4,13 @@
   email {$EMAIL}
 }
 
-# Обслуживаем корневой домен и www на одном бэкенде
-{$DOMAIN}, www.{$DOMAIN} {
+# Редиректим www → apex, чтобы OAuth-редиректы совпадали
+www.{$DOMAIN} {
+  redir https://{$DOMAIN}{uri} 308
+}
+
+# Основной сайт
+{$DOMAIN} {
   encode zstd gzip
   reverse_proxy web:3000
 }

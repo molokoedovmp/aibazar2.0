@@ -115,7 +115,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground overflow-x-hidden`}
       >
         <SessionProvider>{children}</SessionProvider>
       </body>

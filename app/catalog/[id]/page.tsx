@@ -8,6 +8,7 @@ import { calcRubPrice, getUsdFx } from "@/lib/pricing";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ToolPurchaseActions from "@/components/ToolPurchaseActions";
+import { Button } from "@/components/ui/button";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -85,20 +86,39 @@ export default async function ToolPage({ params }: PageProps) {
             {linkedDocument?.content && (
               <div className="mt-2">
                 <h2 className="text-xl font-semibold text-black dark:text-white mb-3">Описание и подробности</h2>
-                <div className="rounded-lg border border-black/10 dark:border-white/10 p-4">
-                  <BlockNoteViewer content={linkedDocument.content} />
+
+                {/* Desktop (>=lg): полный текст статьи с отзывами */}
+                <div className="hidden lg:block">
+                  <div className="rounded-lg border border-black/10 dark:border-white/10 p-4">
+                    <BlockNoteViewer content={linkedDocument.content} />
+                  </div>
+                  <div className="mt-3 flex gap-3">
+                    <a
+                      href={linkedDocument.isPublished ? `/blog/${linkedDocument.id}` : `/account/documents?doc=${linkedDocument.id}`}
+                      className="text-sm text-blue-600 hover:underline dark:text-blue-400"
+                      target={linkedDocument.isPublished ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                    >
+                      Открыть документ {linkedDocument.title ? `– ${linkedDocument.title}` : "в новой вкладке"}
+                    </a>
+                  </div>
+                  <div className="mt-4">
+                    <Reviews documentId={linkedDocument.id} />
+                  </div>
                 </div>
-                <div className="mt-3 flex gap-3">
-                  <a
-                    href={linkedDocument.isPublished ? `/blog/${linkedDocument.id}` : `/account/documents?doc=${linkedDocument.id}`}
-                    className="text-sm text-blue-600 hover:underline dark:text-blue-400"
-                    target={linkedDocument.isPublished ? "_blank" : undefined}
-                    rel="noopener noreferrer"
-                  >
-                    Открыть документ {linkedDocument.title ? `– ${linkedDocument.title}` : "в новой вкладке"}
-                  </a>
+
+                {/* Mobile/Tablet (<lg): только кнопка-ссылка на статью, без текста */}
+                <div className="block lg:hidden">
+                  <Button variant="outline" asChild className="px-4 py-2">
+                    <a
+                      href={linkedDocument.isPublished ? `/blog/${linkedDocument.id}` : `/account/documents?doc=${linkedDocument.id}`}
+                      target={linkedDocument.isPublished ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                    >
+                      Читать статью{linkedDocument.title ? ` – ${linkedDocument.title}` : ""}
+                    </a>
+                  </Button>
                 </div>
-                <Reviews documentId={linkedDocument.id} />
               </div>
             )}
           </div>
