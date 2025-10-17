@@ -63,7 +63,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="ru" className="overflow-x-hidden" suppressHydrationWarning>
       <head>
         {/* JSON-LD: WebSite */}
         <script
@@ -115,7 +115,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
       >
         <SessionProvider>{children}</SessionProvider>
       </body>
