@@ -39,12 +39,11 @@ export async function POST(req: Request) {
     pro: { credits: 200, priceRub: 899, title: "Pro 200" },
     team: { credits: 500, priceRub: 1990, title: "Team 500" },
   };
-  let pack = packId ? packs[packId] : undefined;
-  if (!pack && packId !== 'unit') return NextResponse.json({ error: "Unknown packId" }, { status: 400 });
-  if (packId === 'unit') {
-    // Фиксированный план: 1 кредит = 1 ₽, покупка ровно 1 кредита
-    pack = { credits: 1, priceRub: 1, title: 'Unit 1' } as any;
-  }
+  // Выбираем пакет (включая спец-вариант "unit")
+  const pack = packId === 'unit'
+    ? { credits: 1, priceRub: 1, title: 'Unit 1' }
+    : (packId ? packs[packId] : undefined);
+  if (!pack) return NextResponse.json({ error: "Unknown packId" }, { status: 400 });
 
   const shopId = process.env.YOOKASSA_SHOP_ID;
   const secretKey = process.env.YOOKASSA_SECRET_KEY || (process.env.YOOKASSA_KEY as string | undefined);
