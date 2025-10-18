@@ -10,19 +10,41 @@ export async function GET() {
   const session = await getServerSession(authOptions as any).catch(() => null);
   const userId = (session as any)?.user?.id as string | undefined;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  let credit = await prisma.userCredit.findFirst({ where: { userId } });
-  if (!credit) {
-    credit = await prisma.userCredit.create({
+
+  // Бывают дубликаты записей userCredit (из прошлых импортов/миграций).
+  // Складываем баланс по всем записям и при необходимости консолидацируем в одну.
+  const rows = await prisma.userCredit.findMany({ where: { userId } });
+
+  if (!rows.length) {
+    const created = await prisma.userCredit.create({
       data: { userId, totalCredits: FREE_START_CREDITS, usedCredits: 0, plan: "free" },
     });
+    const remaining = Math.max(0, created.totalCredits - created.usedCredits);
+    return NextResponse.json({ plan: created.plan, total: created.totalCredits, used: created.usedCredits, remaining });
   }
-  const remaining = Math.max(0, credit.totalCredits - credit.usedCredits);
-  return NextResponse.json({
-    plan: credit.plan,
-    total: credit.totalCredits,
-    used: credit.usedCredits,
-    remaining,
-  });
+
+  const merged = rows.reduce(
+    (acc, r) => {
+      acc.total += r.totalCredits;
+      acc.used += r.usedCredits;
+      acc.plan = acc.plan || r.plan;
+      return acc;
+    },
+    { total: 0, used: 0, plan: rows[0].plan as string | undefined }
+  );
+
+  // Если записей несколько — аккуратно склеим в одну, чтобы в будущем не было рассинхрона.
+  if (rows.length > 1) {
+    try {
+      await prisma.$transaction([
+        prisma.userCredit.update({ where: { id: rows[0].id }, data: { totalCredits: merged.total, usedCredits: merged.used, plan: merged.plan || rows[0].plan } }),
+        prisma.userCredit.deleteMany({ where: { userId, NOT: { id: rows[0].id } } }),
+      ]);
+    } catch {}
+  }
+
+  const remaining = Math.max(0, merged.total - merged.used);
+  return NextResponse.json({ plan: merged.plan || "free", total: merged.total, used: merged.used, remaining });
 }
 
 // POST /api/credits { packId: string }
