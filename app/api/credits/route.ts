@@ -7,9 +7,9 @@ import { Buffer } from "buffer";
 const FREE_START_CREDITS = 5;
 
 export async function GET() {
-  const session = await getServerSession(authOptions as any);
-  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const userId = session.user.id;
+  const session = await getServerSession(authOptions as any).catch(() => null);
+  const userId = (session as any)?.user?.id as string | undefined;
+  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   let credit = await prisma.userCredit.findFirst({ where: { userId } });
   if (!credit) {
     credit = await prisma.userCredit.create({
@@ -27,9 +27,9 @@ export async function GET() {
 
 // POST /api/credits { packId: string }
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions as any);
-  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const userId = session.user.id;
+  const session = await getServerSession(authOptions as any).catch(() => null);
+  const userId = (session as any)?.user?.id as string | undefined;
+  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json().catch(() => null);
   const packId = body?.packId as string | undefined;

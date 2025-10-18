@@ -8,9 +8,9 @@ type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 const FREE_START_CREDITS = 5;
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions as any);
-  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const userId = session.user.id;
+  const session = await getServerSession(authOptions as any).catch(() => null);
+  const userId = (session as any)?.user?.id as string | undefined;
+  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
