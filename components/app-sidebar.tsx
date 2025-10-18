@@ -36,7 +36,6 @@ const data = {
   navMain: [
     { title: "Избранное", url: "/account/favorites", icon: Star, badge: "10" },
     { title: "Документы", url: "/account/documents", icon: File, badge: "10" },
-    { title: "Bazarius", url: "#", icon: Sparkles },
     { title: "Мои покупки", url: "/account/purchases", icon: ShoppingCart },
     { title: "Сообщество", url: "/blog", icon: Compass},
     { title: "ai инструменты", url: "/catalog", icon: Bot},
@@ -230,7 +229,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <div className="rounded-xl border border-gray-200 bg-white p-0 overflow-hidden">
                       <div className="flex items-center justify-between bg-gray-50 px-4 py-3">
                         <div className="text-sm text-gray-800">{analytics?.credit?.plan ? `Текущий план: ${analytics.credit.plan}` : "Вы используете бесплатный план"}</div>
-                        <Button variant="outline" className="rounded-md">Обновить тариф</Button>
+                        <Link href="/credits" className="rounded-md border border-gray-200 px-3 py-1 text-sm text-gray-800 hover:bg-gray-50">Обновить тариф</Link>
                       </div>
                       <div className="p-4 space-y-3">
                         {(() => {
@@ -416,15 +415,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               )}
 
               {settingsTab === "plan" && (
-                <div className="space-y-3">
-                  <div className="rounded-xl border border-gray-200 bg-white p-4">
-                    <div className="text-lg font-medium">Тариф и оплата</div>
-                    <div className="mt-2 text-sm text-gray-600">Вы используете бесплатный план. Улучшите тариф, чтобы увеличить лимиты и открыть интеграции.</div>
-                    <div className="mt-4">
-                      <Button>Обновить</Button>
-                    </div>
-                  </div>
-                </div>
+                <PlanAndBillingSection />
               )}
 
               {settingsTab === "account" && (
@@ -454,4 +445,51 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarRail />
     </Sidebar>
   );
+}
+
+function PlanAndBillingSection() {
+  const [qty, setQty] = React.useState(100);
+  const [loading, setLoading] = React.useState<string | null>(null);
+
+  const packs = [
+    { id: 'starter', title: 'Starter', credits: 50, priceRub: 299 },
+    { id: 'pro', title: 'Pro', credits: 200, priceRub: 899 },
+    { id: 'team', title: 'Team', credits: 500, priceRub: 1990 },
+    { id: 'unit', title: 'Unit', credits: 1, priceRub: 1 }, // 1 ₽ = 1 кредит (фиксировано)
+  ];
+
+  const buy = async (packId: string, credits?: number) => {
+    if (loading) return; setLoading(packId);
+    try {
+      const res = await fetch('/api/credits', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(packId === 'unit' ? { packId, credits } : { packId })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || 'Не удалось создать оплату');
+      if (data?.confirmationUrl) window.location.href = data.confirmationUrl;
+    } catch (e: any) {
+      alert(e?.message || 'Ошибка');
+    } finally { setLoading(null); }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-xl border border-gray-200 bg-white p-4">
+        <div className="text-lg font-medium">Тариф и оплата</div>
+        <div className="mt-2 text-sm text-gray-600">Вы используете бесплатный план. Пополните кредиты для расширения лимитов ИИ.</div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        {packs.map(p => (
+          <div key={p.id} className="rounded-xl border border-gray-200 bg-white p-4">
+            <div className="text-sm uppercase tracking-wide text-gray-500">{p.title}</div>
+            <div className="mt-2 text-2xl font-bold text-gray-900">{p.credits} кредитов</div>
+            <div className="mt-1 text-gray-600">{p.priceRub.toLocaleString('ru-RU')} ₽</div>
+            <Button className="mt-4 w-full" disabled={loading===p.id} onClick={() => buy(p.id)}>{loading===p.id?'Создаём оплату…':'Купить'}</Button>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }

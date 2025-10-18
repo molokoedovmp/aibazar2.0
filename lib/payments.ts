@@ -3,7 +3,8 @@ import { Buffer } from "buffer";
 type StatusMap = "pending" | "completed" | "failed";
 
 const shopId = process.env.YOOKASSA_SHOP_ID;
-const secretKey = process.env.YOOKASSA_SECRET_KEY;
+// Support both YOOKASSA_SECRET_KEY and legacy YOOKASSA_KEY
+const secretKey = process.env.YOOKASSA_SECRET_KEY || (process.env.YOOKASSA_KEY as string | undefined);
 
 export async function fetchYookassaPayment(paymentId: string) {
   if (!shopId || !secretKey) return null;

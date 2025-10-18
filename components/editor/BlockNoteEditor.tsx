@@ -8,14 +8,16 @@ import "@blocknote/core/fonts/inter.css";
 import "@blocknote/core/style.css";
 import "@blocknote/mantine/style.css";
 import { Input } from "@/components/ui/input";
+import AICompose from "@/components/editor/AICompose";
 
 type Props = {
   id: string;
   initialTitle: string;
   initialContent?: string | null;
+  dockRightOnDesktop?: boolean;
 };
 
-export default function BlockNoteEditor({ id, initialTitle, initialContent }: Props) {
+export default function BlockNoteEditor({ id, initialTitle, initialContent, dockRightOnDesktop }: Props) {
   const [title, setTitle] = useState(initialTitle);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
@@ -213,8 +215,15 @@ export default function BlockNoteEditor({ id, initialTitle, initialContent }: Pr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title]);
 
+  // Десктоп: делаем 2 колонки — редактор и правая боковая панель ИИ.
+  const twoCols = Boolean(dockRightOnDesktop);
+  const [sidebarWidth, setSidebarWidth] = useState<number>(360);
   return (
-    <div className="mx-auto w-full max-w-3xl space-y-4">
+    <div
+      className={twoCols ? "w-full lg:grid lg:gap-4" : "relative mx-auto w-full max-w-3xl space-y-4"}
+      style={twoCols ? { gridTemplateColumns: `minmax(0,1fr) ${sidebarWidth}px` } : undefined}
+    >
+      <div className={twoCols ? "min-w-0 space-y-4" : "space-y-4"}>
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -240,6 +249,35 @@ export default function BlockNoteEditor({ id, initialTitle, initialContent }: Pr
           {saving ? "Автосохранение..." : isDirty ? "Изменения не сохранены" : savedAt ? `Сохранено: ${savedAt.toLocaleTimeString()}` : ""}
         </span>
       </div>
+
+      {/* Мобильный плавающий вариант */}
+      {dockRightOnDesktop ? (
+        <div className="lg:hidden">
+          <AICompose editor={editor} documentTitle={title} />
+        </div>
+      ) : (
+        <AICompose editor={editor} documentTitle={title} />
+      )}
+      </div>
+
+      {/* Правая колонка — ИИ-панель (только >= lg) */}
+      {dockRightOnDesktop && (
+        <div
+          className="relative hidden lg:block lg:sticky min-h-0"
+          style={{
+            top: "var(--doc-sticky-top, 5rem)",
+            height: "calc(100dvh - var(--doc-sticky-top, 5rem))",
+          }}
+        >
+          <AICompose
+            editor={editor}
+            documentTitle={title}
+            mode="sidebar"
+            sidebarWidth={sidebarWidth}
+            onResize={setSidebarWidth}
+          />
+        </div>
+      )}
     </div>
   );
 }

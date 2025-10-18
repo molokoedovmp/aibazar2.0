@@ -172,6 +172,7 @@ export default async function PurchasesPage() {
         amount: true,
         price: true,
         status: true,
+        paymentId: true,
         timestamp: true,
       },
       take: 10,
@@ -190,6 +191,7 @@ export default async function PurchasesPage() {
   ]);
 
   let orders: ToolOrder[] = initialOrders as ToolOrder[];
+  let creditPurchasesList: any[] = creditPurchases as any[];
 
   const pendingWithPayments = orders.filter((order) => order.paymentId && order.status !== "completed" && order.status !== "failed");
 
@@ -259,8 +261,69 @@ export default async function PurchasesPage() {
     })) as ToolOrder[];
   }
 
+  // Соберём ссылки для продолжения оплаты по пополнениям кредитов (как у инструментов)
+  const creditConfirmUrls: Record<string, string | undefined> = {};
+  {
+    const toContinue = (creditPurchasesList as any[]).filter((p) => p.status === "pending" && p.paymentId);
+    if (toContinue.length && process.env.YOOKASSA_SHOP_ID && (process.env.YOOKASSA_SECRET_KEY || process.env.YOOKASSA_KEY)) {
+      const results = await Promise.all(
+        toContinue.map(async (p) => {
+          try {
+            const payment = await fetchYookassaPayment(p.paymentId);
+            return [p.id, payment?.confirmation?.confirmation_url as string | undefined] as const;
+          } catch {
+            return [p.id, undefined] as const;
+          }
+        })
+      );
+      for (const [id, url] of results) creditConfirmUrls[id] = url;
+    }
+  }
+
+  // Обновим покупки кредитов по статусу YooKassa и зачислим кредиты
+  const pendingCreditPurchases = (creditPurchasesList as any[]).filter((p) => p.status === "pending" && p.paymentId);
+  if (pendingCreditPurchases.length) {
+    await Promise.all(
+      pendingCreditPurchases.map(async (p) => {
+        try {
+          const payment = await fetchYookassaPayment(p.paymentId!);
+          if (!payment) return;
+          const { appStatus, paid } = mapYookassaStatus(payment.status);
+          const paidYn = paid || Boolean((payment as any)?.paid);
+          if (appStatus === "completed" || paidYn) {
+            const addCredits = Number(payment?.metadata?.credits ?? p.amount ?? 0) || 0;
+            const realPrice = Number(payment?.amount?.value ?? p.price) || p.price;
+            const existing = await prisma.userCredit.findFirst({ where: { userId } });
+            if (existing) {
+              await prisma.$transaction([
+                prisma.creditPurchase.update({ where: { id: p.id }, data: { status: "completed", price: realPrice } }),
+                prisma.userCredit.update({ where: { id: existing.id }, data: { totalCredits: { increment: addCredits }, plan: "basic" } }),
+              ]);
+            } else {
+              await prisma.$transaction([
+                prisma.creditPurchase.update({ where: { id: p.id }, data: { status: "completed", price: realPrice } }),
+                prisma.userCredit.create({ data: { userId, totalCredits: addCredits, usedCredits: 0, plan: "basic" } }),
+              ]);
+            }
+          } else if (appStatus === "failed") {
+            await prisma.creditPurchase.update({ where: { id: p.id }, data: { status: "failed" } });
+          }
+        } catch {}
+      })
+    );
+
+    // Перезагрузим список пополнений после обновления
+    const reloaded = await prisma.creditPurchase.findMany({
+      where: { userId },
+      orderBy: { timestamp: "desc" },
+      select: { id: true, amount: true, price: true, status: true, paymentId: true, timestamp: true },
+      take: 10,
+    });
+    creditPurchasesList = reloaded as any[];
+  }
+
   const toolOrders = orders;
-  const purchases: CreditPurchase[] = creditPurchases;
+  const purchases: CreditPurchase[] = creditPurchasesList as any;
   const usage: CreditUsage[] = creditUsage;
 
   const completedOrders = toolOrders.filter((order) => order.status === "completed");
@@ -501,6 +564,11 @@ export default async function PurchasesPage() {
                           <span className={`rounded-full px-3 py-1 text-xs font-medium ${statusInfo.color}`}>
                             {statusInfo.label}
                           </span>
+                          {purchase.status === "pending" && creditConfirmUrls[purchase.id] && (
+                            <Link href={creditConfirmUrls[purchase.id]!} target="_blank" rel="noopener noreferrer" className="text-xs text-slate-500 hover:text-slate-900">
+                              Оплатить
+                            </Link>
+                          )}
                         </div>
                       </div>
                     );

@@ -138,6 +138,10 @@ export default async function SettingsPage() {
     ]);
 
   const availableCredits = creditInfo ? Math.max(creditInfo.totalCredits - creditInfo.usedCredits, 0) : 0;
+  const totalCredits = creditInfo?.totalCredits ?? 0;
+  const usedCredits = creditInfo?.usedCredits ?? 0;
+  const totalForUi = totalCredits > 0 ? totalCredits : 5; // по умолчанию показываем бесплатные 5
+  const percentUsed = Math.min(100, Math.round(((usedCredits) / Math.max(1, totalForUi)) * 100));
 
   const stats: Array<{ title: string; value: number | string; hint: string }> = [
     {
@@ -296,6 +300,27 @@ export default async function SettingsPage() {
                 </div>
               );
             })}
+          </section>
+
+          {/* Использование кредитов */}
+          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-slate-900">Использование кредитов</h2>
+              <Link href="/credits" className="rounded-full border border-slate-200 px-3 py-1 text-sm text-slate-700 hover:bg-slate-50">Обновить тариф</Link>
+            </div>
+            <p className="mt-2 text-sm text-slate-500">Вы используете {planLabel(creditInfo?.plan)} план</p>
+            <div className="mt-4 space-y-4">
+              <div>
+                <div className="mb-1 flex items-center justify-between text-xs text-slate-500">
+                  <span>Кредиты</span>
+                  <span>{usedCredits} / {totalForUi}</span>
+                </div>
+                <div className="h-2 w-full rounded-full bg-slate-100">
+                  <div className="h-2 rounded-full bg-emerald-500" style={{ width: `${percentUsed}%` }} />
+                </div>
+                <div className="mt-1 text-xs text-slate-500">Использовано {percentUsed}%</div>
+              </div>
+            </div>
           </section>
 
           <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">

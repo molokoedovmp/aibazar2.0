@@ -365,7 +365,13 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
             </div>
           ) : (
             <div className="flex-1 rounded-3xl border border-gray-200 bg-white p-4 shadow-sm">
-              <BlockNoteClient key={doc.id} id={doc.id} initialTitle={doc.title} initialContent={doc.content} />
+              <BlockNoteClient
+                key={doc.id}
+                id={doc.id}
+                initialTitle={doc.title}
+                initialContent={doc.content}
+                dockRightOnDesktop
+              />
             </div>
           )}
         </div>
