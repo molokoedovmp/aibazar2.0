@@ -64,6 +64,31 @@ export async function POST(req: Request) {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL
     ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
+  // Формируем чек для ЮKassa: нужен customer.email или customer.phone
+  const user = await prisma.user.findUnique({ where: { id: userId }, select: { email: true, name: true } }).catch(() => null);
+  const emailForReceipt: string | undefined =
+    (typeof (session as any)?.user?.email === "string" && /.+@.+\..+/.test((session as any).user.email) ? (session as any).user.email : undefined) ||
+    (typeof user?.email === "string" && /.+@.+\..+/.test(user.email) ? user.email : undefined);
+  const vatCode = Number(process.env.YOOKASSA_RECEIPT_VAT_CODE ?? "1");
+  const taxSystemCode = process.env.YOOKASSA_TAX_SYSTEM_CODE ? Number(process.env.YOOKASSA_TAX_SYSTEM_CODE) : undefined;
+
+  const receiptPayload: any | undefined = emailForReceipt
+    ? {
+        ...(typeof taxSystemCode === "number" ? { tax_system_code: taxSystemCode } : {}),
+        customer: { email: emailForReceipt },
+        items: [
+          {
+            description: `Кредиты (${pack.title})`,
+            quantity: "1.0",
+            amount: { value: pack.priceRub.toFixed(2), currency: "RUB" },
+            vat_code: vatCode,
+            payment_mode: "full_prepayment",
+            payment_subject: "service",
+          },
+        ],
+      }
+    : undefined;
+
   const payload: any = {
     amount: { value: pack.priceRub.toFixed(2), currency: "RUB" },
     capture: true,
@@ -78,11 +103,7 @@ export async function POST(req: Request) {
       userId,
       credits: pack.credits,
     },
-    receipt: {
-      items: [
-        { description: `Кредиты (${pack.title})`, quantity: "1.0", amount: { value: pack.priceRub.toFixed(2), currency: "RUB" }, vat_code: Number(process.env.YOOKASSA_RECEIPT_VAT_CODE ?? "1"), payment_mode: "full_prepayment", payment_subject: "service" },
-      ],
-    },
+    ...(receiptPayload ? { receipt: receiptPayload } : {}),
   };
 
   const res = await fetch("https://api.yookassa.ru/v3/payments", {
