@@ -7,6 +7,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
+# Native runtime needed for Next.js (SWC/Turbopack) on Alpine
+RUN apk add --no-cache libc6-compat
+
 # Prisma generate (needed for build and runtime)
 COPY prisma ./prisma
 RUN npx prisma generate
@@ -21,6 +24,9 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# Ensure native deps exist in runtime too (sharp/swc)
+RUN apk add --no-cache libc6-compat
 
 # Install only production deps
 COPY package*.json ./
@@ -40,4 +46,3 @@ ENV PORT=3000
 EXPOSE 3000
 
 CMD ["npm","run","start"]
-
