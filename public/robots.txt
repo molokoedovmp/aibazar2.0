@@ -1,0 +1,20 @@
+# Правила для всех поисковых роботов
+User-agent: *
+Allow: /
+
+# Запрет доступа к административным разделам
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /_next/
+
+# Разрешаем индексацию основных разделов
+Allow: /services/
+Allow: /bazar/
+Allow: /blog/
+Allow: /about/
+Allow: /category/
+Allow: /gadgets/
+
+# Ссылка на карту сайта
+Sitemap: https://aibazar.ru/sitemap.xml 
