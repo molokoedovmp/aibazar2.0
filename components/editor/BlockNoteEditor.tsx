@@ -15,9 +15,10 @@ type Props = {
   initialTitle: string;
   initialContent?: string | null;
   dockRightOnDesktop?: boolean;
+  disableInlineAI?: boolean;
 };
 
-export default function BlockNoteEditor({ id, initialTitle, initialContent, dockRightOnDesktop }: Props) {
+export default function BlockNoteEditor({ id, initialTitle, initialContent, dockRightOnDesktop, disableInlineAI }: Props) {
   const [title, setTitle] = useState(initialTitle);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
@@ -85,6 +86,31 @@ export default function BlockNoteEditor({ id, initialTitle, initialContent, dock
       return URL.createObjectURL(file);
     }
   });
+
+  // Сделаем редактор доступным правой панели через window (для изолированного Sidebar справа)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      (window as any).__activeEditor = editor;
+      window.dispatchEvent(
+        new CustomEvent("bazarius-editor-ready", {
+          detail: { docId: id },
+        })
+      );
+    } catch {}
+    return () => {
+      try {
+        if ((window as any).__activeEditor === editor) {
+          (window as any).__activeEditor = undefined;
+          window.dispatchEvent(
+            new CustomEvent("bazarius-editor-reset", {
+              detail: { docId: id },
+            })
+          );
+        }
+      } catch {}
+    };
+  }, [editor, id]);
 
   // Локализация и вставка видео по ссылке (YouTube/VK)
   useEffect(() => {
@@ -215,31 +241,24 @@ export default function BlockNoteEditor({ id, initialTitle, initialContent, dock
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title]);
 
-  // Десктоп: делаем 2 колонки — редактор и правая боковая панель ИИ.
-  const twoCols = Boolean(dockRightOnDesktop);
-  const [sidebarWidth, setSidebarWidth] = useState<number>(360);
   return (
-    <div
-      className={twoCols ? "w-full lg:grid lg:gap-4" : "relative mx-auto w-full max-w-3xl space-y-4"}
-      style={twoCols ? { gridTemplateColumns: `minmax(0,1fr) ${sidebarWidth}px` } : undefined}
-    >
-      <div className={twoCols ? "min-w-0 space-y-4" : "space-y-4"}>
+    <div className="flex h-full min-h-0 w-full flex-col gap-4">
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Название документа"
       />
-      <div className="overflow-hidden">
+      <div className="flex-1 min-h-0 overflow-auto rounded-2xl border border-gray-100">
         {isMounted ? (
           <BlockNoteView
             editor={editor}
             theme="light"
             onChange={() => scheduleSave()}
-            className="bg-white !border-0 !shadow-none !ring-0 !outline-none"
+            className="h-full min-w-0 bg-white !border-0 !shadow-none !ring-0 !outline-none"
             data-testid="blocknote-editor"
           />
         ) : (
-          <div className="p-4 text-center text-muted-foreground">
+          <div className="flex h-full items-center justify-center text-muted-foreground">
             Загрузка редактора...
           </div>
         )}
@@ -250,33 +269,14 @@ export default function BlockNoteEditor({ id, initialTitle, initialContent, dock
         </span>
       </div>
 
-      {/* Мобильный плавающий вариант */}
-      {dockRightOnDesktop ? (
-        <div className="lg:hidden">
+      {!disableInlineAI && (
+        dockRightOnDesktop ? (
+          <div className="lg:hidden">
+            <AICompose editor={editor} documentTitle={title} />
+          </div>
+        ) : (
           <AICompose editor={editor} documentTitle={title} />
-        </div>
-      ) : (
-        <AICompose editor={editor} documentTitle={title} />
-      )}
-      </div>
-
-      {/* Правая колонка — ИИ-панель (только >= lg) */}
-      {dockRightOnDesktop && (
-        <div
-          className="relative hidden lg:block lg:sticky min-h-0"
-          style={{
-            top: "var(--doc-sticky-top, 5rem)",
-            height: "calc(100dvh - var(--doc-sticky-top, 5rem))",
-          }}
-        >
-          <AICompose
-            editor={editor}
-            documentTitle={title}
-            mode="sidebar"
-            sidebarWidth={sidebarWidth}
-            onResize={setSidebarWidth}
-          />
-        </div>
+        )
       )}
     </div>
   );

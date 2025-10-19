@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AppSidebar } from "@/components/app-sidebar"
+import AISidebar from "@/components/editor/AISidebar";
 import BlockNoteClient from "@/components/editor/BlockNoteClient";
 import CreateDocumentButton from "@/components/account/CreateDocumentButton"
 import DocumentActionsBar from "@/components/account/DocumentActionsBar";
@@ -364,14 +365,20 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
               )}
             </div>
           ) : (
-            <div className="flex-1 rounded-3xl border border-gray-200 bg-white p-4 shadow-sm">
-              <BlockNoteClient
-                key={doc.id}
-                id={doc.id}
-                initialTitle={doc.title}
-                initialContent={doc.content}
-                dockRightOnDesktop
-              />
+            <div className="flex flex-1 min-h-0 flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-5">
+              <div
+                className="flex-1 min-h-0 min-w-0 overflow-hidden rounded-3xl border border-gray-200 bg-white p-4 shadow-sm"
+                style={{ height: "calc(100dvh - 5rem - 4rem)", minHeight: 0 }}
+              >
+                <BlockNoteClient
+                  key={doc.id}
+                  id={doc.id}
+                  initialTitle={doc.title}
+                  initialContent={doc.content}
+                  disableInlineAI
+                />
+              </div>
+              <AISidebar width="21rem" documentTitle={doc.title ?? "Документ"} />
             </div>
           )}
         </div>
