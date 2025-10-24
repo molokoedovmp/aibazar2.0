@@ -10,11 +10,12 @@ Disallow: /_next/
 
 # Разрешаем индексацию основных разделов
 Allow: /services/
-Allow: /bazar/
+Allow: /services/webservices
+Allow: /catalog/
 Allow: /blog/
 Allow: /about/
 Allow: /category/
-Allow: /gadgets/
+Allow: /catalog/jd78abfgkqdj167271tdgy5s5d7aetgj
 
 # Ссылка на карту сайта
 Sitemap: https://aibazar.ru/sitemap.xml 
