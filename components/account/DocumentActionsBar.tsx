@@ -86,13 +86,13 @@ export default function DocumentActionsBar({
   const isFavoriting = pendingAction === "favorite";
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1.5">
       <button
         type="button"
         onClick={() => updateDocument({ isPublished: !isPublished })}
         disabled={Boolean(pendingAction)}
         className={cn(
-          "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition",
+          "inline-flex h-9 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition",
           isPublished
             ? "border-emerald-500 bg-emerald-500/10 text-emerald-700"
             : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100",
@@ -113,7 +113,7 @@ export default function DocumentActionsBar({
         onClick={() => updateDocument({ isFavorite: !isFavorite })}
         disabled={Boolean(pendingAction)}
         className={cn(
-          "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition",
+          "inline-flex h-9 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition",
           isFavorite
             ? "border-yellow-400 bg-yellow-300/20 text-yellow-700"
             : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100",

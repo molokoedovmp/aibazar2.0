@@ -19,7 +19,7 @@ type Props = {
 
 const MIN_WIDTH = 300;
 const MAX_WIDTH = 560;
-const PANEL_HEIGHT = "calc(100dvh - 9rem)";
+const PANEL_HEIGHT = "calc(100dvh - 5.5rem)";
 
 function clampWidth(value: number) {
   return Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, value));
@@ -111,7 +111,7 @@ export default function AISidebar({ editor, documentTitle, width }: Props) {
 
   return (
     <div
-      className="relative flex h-full min-h-0 w-full flex-col lg:h-[calc(100dvh-9rem)] lg:max-h-[calc(100dvh-9rem)] lg:w-auto lg:flex-none"
+      className="relative flex h-full min-h-0 w-full flex-col lg:h-[calc(100dvh-5.5rem)] lg:max-h-[calc(100dvh-5.5rem)] lg:w-auto lg:flex-none"
       style={{ height: PANEL_HEIGHT, maxHeight: PANEL_HEIGHT }}
     >
       <aside
@@ -127,7 +127,7 @@ export default function AISidebar({ editor, documentTitle, width }: Props) {
           maxWidth: `${panelWidth}px`,
         }}
       >
-        <div className="flex h-full flex-1 min-h-0 flex-col px-3 pb-3 pt-3">
+        <div className="flex h-full flex-1 min-h-0 flex-col px-2.5 pb-2.5 pt-2.5">
           <AICompose editor={resolvedEditor} documentTitle={documentTitle} mode="sidebar" />
         </div>
         <div

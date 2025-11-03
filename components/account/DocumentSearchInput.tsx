@@ -42,14 +42,29 @@ export default function DocumentSearchInput({ className, placeholder }: Document
   }, [debouncedValue]);
 
   return (
-    <div className={cn("relative", className)}>
-      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+    <div className={cn("relative w-full md:max-w-[220px]", className)}>
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
       <Input
         type="search"
         value={value}
         onChange={(event) => setValue(event.target.value)}
         placeholder={placeholder ?? "Поиск"}
-        className="h-11 rounded-full border-gray-200 bg-white pl-10 text-sm shadow-sm focus-visible:ring-2 focus-visible:ring-gray-200"
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            const trimmed = value.trim();
+            const params = new URLSearchParams(searchParams.toString());
+            if (trimmed) {
+              params.set("q", trimmed);
+            } else {
+              params.delete("q");
+            }
+            const next = params.toString();
+            const query = next ? `?${next}` : "";
+            router.replace(`${pathname}${query}`);
+          }
+        }}
+        className="h-9 rounded-full border-gray-200 bg-white pl-9 text-xs shadow-sm focus-visible:ring-2 focus-visible:ring-gray-200"
       />
     </div>
   );

@@ -186,8 +186,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset className="bg-gradient-to-b from-white to-gray-100">
-        <header className="flex h-20 shrink-0 items-center justify-between border-b border-gray-200 bg-white/80 px-4 backdrop-blur">
-          <div className="flex flex-1 items-center gap-3">
+        <header className="flex shrink-0 items-center justify-between border-b border-gray-200 bg-white/80 px-4 py-2 backdrop-blur">
+          <div className="flex flex-1 items-center gap-1.5">
             <SidebarTrigger className="text-gray-700 hover:bg-gray-100" />
             <Separator orientation="vertical" className="h-8 border-gray-200" />
             <Breadcrumb>
@@ -200,8 +200,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <div className="flex items-center gap-3">
-            <DocumentSearchInput className="hidden md:block" placeholder="Поиск по документам" />
+          <div className="flex items-center gap-1.5">
+            {!doc && (
+              <DocumentSearchInput className="hidden md:block" placeholder="Поиск по документам" />
+            )}
             <CreateDocumentButton className="hidden md:inline-flex bg-gray-900 text-white hover:bg-black" />
             {doc && (
               <div className="hidden md:flex">
@@ -215,9 +217,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
             )}
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-10 px-5 py-8">
-          <div className="md:hidden flex flex-col gap-3">
-            <DocumentSearchInput placeholder="Поиск по документам" />
+        <div className="flex flex-1 flex-col gap-4 px-3 py-4 md:px-4 md:py-5">
+          <div className="md:hidden flex flex-col gap-2">
+            {!doc && <DocumentSearchInput placeholder="Поиск по документам" />}
             <CreateDocumentButton className="w-full bg-gray-900 text-white hover:bg-black" />
             {doc && (
               <DocumentActionsBar
@@ -365,10 +367,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
               )}
             </div>
           ) : (
-            <div className="flex flex-1 min-h-0 flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-5">
+            <div className="flex flex-1 min-h-0 flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-4">
               <div
-                className="flex-1 min-h-0 min-w-0 overflow-hidden rounded-3xl border border-gray-200 bg-white p-4 shadow-sm"
-                style={{ height: "calc(100dvh - 5rem - 4rem)", minHeight: 0 }}
+                className="flex-1 min-h-0 min-w-0 overflow-hidden rounded-3xl border border-gray-200 bg-white p-3 shadow-sm"
+                style={{ height: "calc(100dvh - 5.5rem)", minHeight: 0 }}
               >
                 <BlockNoteClient
                   key={doc.id}
@@ -378,7 +380,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
                   disableInlineAI
                 />
               </div>
-              <AISidebar width="21rem" documentTitle={doc.title ?? "Документ"} />
+              <AISidebar width="24rem" documentTitle={doc.title ?? "Документ"} />
             </div>
           )}
         </div>

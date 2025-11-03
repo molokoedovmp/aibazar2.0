@@ -12,12 +12,15 @@ import {
   GalleryVerticalEnd,
   LineChart,
   Link,
+  Loader2,
   MoreHorizontal,
+  Search,
   Settings2,
   Star,
   Trash,
   Trash2,
 } from "lucide-react"
+import NextLink from "next/link"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -34,6 +37,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Input } from "@/components/ui/input"
 
 const data = [
   [
@@ -104,6 +108,10 @@ export function NavActions({ docId, initialTitle, initialFavorite, initialUpdate
   const [isFavorite, setIsFavorite] = React.useState(!!initialFavorite)
   const [title, setTitle] = React.useState(initialTitle || "")
   const [isPublished, setIsPublished] = React.useState(!!initialPublished)
+  const [documents, setDocuments] = React.useState<Array<{ id: string; title: string; updatedAt?: string | null }>>([])
+  const [docsFetched, setDocsFetched] = React.useState(false)
+  const [docsLoading, setDocsLoading] = React.useState(false)
+  const [searchTerm, setSearchTerm] = React.useState("")
 
   // Initialize popover open state
   React.useEffect(() => {
@@ -140,6 +148,83 @@ export function NavActions({ docId, initialTitle, initialFavorite, initialUpdate
     window.addEventListener('document-updated', onDocUpdated as unknown as EventListener)
     return () => window.removeEventListener('document-updated', onDocUpdated as unknown as EventListener)
   }, [docId])
+
+  // Keep lightweight document directory for search
+  React.useEffect(() => {
+    const handler = (e: any) => {
+      const detail = e?.detail as { id?: string; title?: string; updatedAt?: string } | undefined
+      if (!detail?.id) return
+      setDocuments((prev) => {
+        const idx = prev.findIndex((doc) => doc.id === detail.id)
+        if (idx === -1) {
+          const next = [{ id: detail.id!, title: detail.title || "Документ", updatedAt: detail.updatedAt }, ...prev]
+          return next.slice(0, 50)
+        }
+        const clone = [...prev]
+        clone[idx] = {
+          ...clone[idx],
+          title: detail.title ?? clone[idx].title,
+          updatedAt: detail.updatedAt ?? clone[idx].updatedAt,
+        }
+        return clone
+      })
+    }
+    window.addEventListener("document-updated", handler as unknown as EventListener)
+    return () => window.removeEventListener("document-updated", handler as unknown as EventListener)
+  }, [])
+
+  React.useEffect(() => {
+    if (!isOpen || docsLoading || docsFetched) return
+    let active = true
+    setDocsLoading(true)
+    fetch("/api/documents", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("Failed to load documents"))))
+      .then((data) => {
+        if (!active || !Array.isArray(data)) return
+        setDocuments(
+          data
+            .map((doc: any) => ({
+              id: doc?.id,
+              title: doc?.title || "Документ",
+              updatedAt: typeof doc?.updatedAt === "string" ? doc.updatedAt : doc?.updatedAt?.toString?.() ?? null,
+            }))
+            .filter((doc: any) => !!doc.id)
+        )
+        setDocsFetched(true)
+      })
+      .catch(() => {
+        if (!active) return
+        setDocsFetched(false)
+      })
+      .finally(() => {
+        if (!active) return
+        setDocsLoading(false)
+      })
+    return () => {
+      active = false
+    }
+  }, [isOpen, docsFetched, docsLoading])
+
+  const formatDocUpdated = React.useCallback((value?: string | null) => {
+    if (!value) return null
+    const date = new Date(value)
+    if (Number.isNaN(date.getTime())) return null
+    try {
+      return date.toLocaleDateString("ru-RU", { day: "2-digit", month: "2-digit" })
+    } catch {
+      return date.toISOString().slice(5, 10)
+    }
+  }, [])
+
+  const filteredDocuments = React.useMemo(() => {
+    const query = searchTerm.trim().toLowerCase()
+    if (!query) return []
+    return documents
+      .filter((doc) => doc.title.toLowerCase().includes(query))
+      .slice(0, 12)
+  }, [documents, searchTerm])
+
+  const shouldShowSearchResults = Boolean(searchTerm.trim())
 
   async function toggleFavorite() {
     if (!docId) return
@@ -211,16 +296,55 @@ export function NavActions({ docId, initialTitle, initialFavorite, initialUpdate
           className="w-56 overflow-hidden rounded-lg p-0"
           align="end"
         >
+          <div className="border-b border-gray-100 bg-white/70 p-3">
+            
+            {shouldShowSearchResults && (
+              <div className="mt-3 max-h-60 space-y-1 overflow-auto">
+                {docsLoading ? (
+                  <div className="flex items-center justify-center gap-2 rounded-md border border-dashed border-gray-200 px-3 py-4 text-xs text-gray-500">
+                    <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+                    Загрузка...
+                  </div>
+                ) : filteredDocuments.length > 0 ? (
+                  filteredDocuments.map((doc) => {
+                    const updatedLabel = formatDocUpdated(doc.updatedAt)
+                    return (
+                      <NextLink
+                        key={doc.id}
+                        href={`/account/documents?doc=${doc.id}`}
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center justify-between gap-3 rounded-lg border border-transparent px-3 py-2 text-xs text-gray-700 transition hover:border-gray-200 hover:bg-gray-50"
+                      >
+                        <span className="truncate">{doc.title}</span>
+                        {updatedLabel && (
+                          <span className="flex-shrink-0 text-[10px] uppercase tracking-wide text-gray-400">
+                            {updatedLabel}
+                          </span>
+                        )}
+                      </NextLink>
+                    )
+                  })
+                ) : (
+                  <div className="rounded-md border border-dashed border-gray-200 px-3 py-4 text-center text-xs text-gray-500">
+                    Документы не найдены
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
           <Sidebar collapsible="none" className="bg-transparent">
             <SidebarContent>
               {data.map((group, index) => (
-                <SidebarGroup key={index} className="border-b last:border-none">
+                <SidebarGroup key={index} className="border-b border-gray-100 px-2.5 py-1.5 last:border-none">
                   <SidebarGroupContent className="gap-0">
-                    <SidebarMenu>
+                    <SidebarMenu className="gap-1">
                       {group.map((item, index) => (
                         <SidebarMenuItem key={index}>
-                          <SidebarMenuButton>
-                            <item.icon /> <span>{item.label}</span>
+                          <SidebarMenuButton
+                            size="sm"
+                            className="h-7 rounded-md px-2 text-xs hover:shadow-sm [&>svg]:h-3.5 [&>svg]:w-3.5"
+                          >
+                            <item.icon className="h-3.5 w-3.5" /> <span>{item.label}</span>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
                       ))}

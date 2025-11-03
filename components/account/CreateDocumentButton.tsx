@@ -36,7 +36,7 @@ export default function CreateDocumentButton({ className, children }: CreateDocu
       onClick={handleClick}
       disabled={isPending}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-xl bg-black px-5 py-2.5 text-sm font-semibold text-white shadow-[0_12px_25px_-12px_rgba(0,0,0,0.55)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-14px_rgba(0,0,0,0.65)] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-black",
+        "inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-black px-3 text-xs font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-black",
         className
       )}
     >
