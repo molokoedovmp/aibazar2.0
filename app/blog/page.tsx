@@ -192,8 +192,8 @@ export default function CommunityBlog() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar/>
-      {/* Hero + Featured Article Section (fullscreen) */}
-      <section className="bg-black text-white h-[100dvh] md:h-[calc(100dvh-64px)] relative overflow-hidden">
+      {/* Hero + Featured Article Section */}
+      <section className="relative overflow-hidden bg-black text-white">
         <div className="absolute inset-0 hidden sm:block">
           <div className="absolute top-20 left-10 w-32 h-32 border-2 border-white/10 rotate-45 animate-pulse" />
           <div className="absolute top-40 right-20 w-24 h-24 border border-white/20 rotate-12 animate-bounce" />
@@ -208,15 +208,15 @@ export default function CommunityBlog() {
           </div>
         </div>
 
-        <div className="container mx-auto px-[1cm] relative z-10 h-full">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6 items-center content-center h-full">
-            <div className="text-left md:col-span-2 mb-4 md:mb-0 pl-6 sm:pl-0">
-              <h1 className="text-3xl sm:text-5xl md:text-5xl font-black mb-3 md:mb-4 tracking-tighter leading-none">
+        <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-center px-4 py-16 sm:px-6 sm:py-20 md:min-h-[calc(100dvh-64px)] md:px-10">
+          <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-5">
+            <div className="text-left md:col-span-2">
+              <h1 className="mb-4 text-3xl font-black leading-none tracking-tighter sm:text-4xl md:text-5xl">
                 <span className="block">ОТКРОЙ ДЛЯ СЕБЯ</span>
                 <span className="block">МИР AI</span>
                 <span className="block">И СОВРЕМЕННЫХ ТЕХНОЛОГИЙ</span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl mb-4 md:mb-6 max-w-2xl md:max-w-4xl opacity-90 leading-relaxed">
+              <p className="mb-6 max-w-2xl text-base leading-relaxed opacity-90 sm:text-lg md:mb-8 md:max-w-4xl md:text-xl">
                 Исследуйте мир искусственного интеллекта через экспертные статьи,
                 <br />
                 <span className="text-lg opacity-70">гайды и практические советы от профессионалов</span>
@@ -350,14 +350,16 @@ export default function CommunityBlog() {
                 ))
               : paginated.map((doc) => (
                   <Link key={doc.id} href={`/blog/${doc.id}`} className="h-full">
-                    <Card className="h-full flex flex-col border-2 border-black rounded-xl hover:shadow-xl transition-all duration-300 transform md:hover:scale-105 bg-white group">
-                      <CardContent className="p-0 h-full flex flex-col">
-                        <div className="bg-gray-100 h-40 sm:h-44 flex items-center justify-center border-b-2 border-black">
+                    <Card className="group flex h-full flex-col overflow-hidden rounded-2xl border-2 border-black bg-white py-0 transition-all duration-300 hover:shadow-xl md:hover:scale-105 gap-0">
+                      <CardContent className="flex h-full flex-col px-0 pb-0 pt-0">
+                        <div className="relative h-40 overflow-hidden border-b-2 border-black bg-gray-900 sm:h-44">
                           {doc.coverImage ? (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img src={doc.coverImage} alt="cover" className="object-cover w-full h-full" />
+                            <img src={doc.coverImage} alt="cover" className="block h-full w-full object-cover" />
                           ) : (
-                            <div className="text-5xl sm:text-6xl font-black text-gray-300 opacity-50">IMG</div>
+                            <div className="flex h-full w-full items-center justify-center text-5xl font-black text-gray-300 opacity-50 sm:text-6xl">
+                              IMG
+                            </div>
                           )}
                         </div>
                         <div className="p-4 sm:p-5 flex flex-col grow">
@@ -452,7 +454,7 @@ export default function CommunityBlog() {
               <div className="space-y-8 py-4">
                 <div className="flex flex-col md:flex-row gap-6 items-start">
                   <div className="relative w-full md:w-1/2 aspect-video rounded-lg overflow-hidden">
-                    <Image src="/comm2.png" alt="Авторизация" fill className="object-cover" />
+                    <Image src="/bloginstr/step1.png" alt="Авторизация" fill className="object-cover" />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold mb-4">1. Подготовка</h3>
@@ -466,7 +468,7 @@ export default function CommunityBlog() {
                 <Separator />
                 <div className="flex flex-col md:flex-row gap-6 items-start">
                   <div className="relative w-full md:w-1/2 aspect-video rounded-lg overflow-hidden">
-                    <Image src="/comm1.png" alt="Создание поста" fill className="object-cover" />
+                    <Image src="/bloginstr/step2.png" alt="Создание поста" fill className="object-cover" />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold mb-4">2. Создание контента</h3>

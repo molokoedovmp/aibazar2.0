@@ -42,22 +42,22 @@ export default async function BlogArticle({ params }: { params: { id: string } }
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
-      <section className="bg-black text-white py-14">
-        <div className="container mx-auto px-6 md:px-10">
-          <h1 className="text-3xl md:text-5xl font-black leading-tight">{doc.title}</h1>
-          <div className="mt-4 flex items-center gap-4 text-white/80">
+      <section className="bg-black text-white py-12 sm:py-14">
+        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-10">
+          <h1 className="text-3xl font-black leading-tight sm:text-4xl md:text-5xl">{doc.title}</h1>
+          <div className="mt-4 flex flex-wrap items-center gap-3 text-white/80 sm:gap-4">
             <span className="flex items-center gap-1"><User className="w-4 h-4" />{authorName}</span>
             <span className="flex items-center gap-1"><Clock className="w-4 h-4" />{pluralizeMinutes(doc.readTime)}</span>
             <span className="flex items-center gap-1"><Eye className="w-4 h-4" />{doc.views ?? 0}</span>
-            <span className="ml-auto text-sm">Обновлено: {doc.updatedAt.toLocaleDateString("ru-RU")}</span>
+            <span className="ml-auto text-sm opacity-80">Обновлено: {doc.updatedAt.toLocaleDateString("ru-RU")}</span>
           </div>
         </div>
       </section>
       
-      <section className="py-10">
-        <div className="container mx-auto px-6 md:px-10">
-          <div className="rounded-xl border border-black/10 p-4 md:p-6">
-            <BlockNoteViewer content={doc.content} />
+      <section className="py-8 sm:py-12">
+        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-10">
+          <div className="blog-article-viewer rounded-2xl border border-black/10 p-3 sm:p-5 md:p-6">
+            <BlockNoteViewer content={doc.content} className="blog-article-content" />
           </div>
         </div>
       </section>
