@@ -26,7 +26,7 @@ export const Footer = () => {
             </Link>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
             <Link href="/legal/user-agreement">
               <Button variant="ghost" size="sm" className="whitespace-nowrap">Пользовательское соглашение</Button>
             </Link>
@@ -42,4 +42,3 @@ export const Footer = () => {
     </div>
   );
 };
-
