@@ -72,7 +72,7 @@ export function PaymentDialog({ priceRub, children, title, tool }: PaymentDialog
           </p>
         </AlertDialogHeader>
         <div className="flex flex-col gap-4 py-4">
-           <Button 
+           {/* <Button 
             onClick={handleTelegramBotPayment}
             className="h-14 text-base bg-green-600 hover:bg-green-700 transition-colors justify-start"
             size="lg"
@@ -84,7 +84,7 @@ export function PaymentDialog({ priceRub, children, title, tool }: PaymentDialog
                 <div className="text-sm opacity-80 font-normal">Новая функция в тестировании</div>
               </div>
             </div>
-          </Button>
+          </Button> */}
           <Button
             onClick={handleTelegramPayment}
             variant="default"

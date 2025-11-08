@@ -350,52 +350,50 @@ export default function CommunityBlog() {
                 ))
               : paginated.map((doc) => (
                   <Link key={doc.id} href={`/blog/${doc.id}`} className="h-full">
-                    <Card className="group flex h-full flex-col overflow-hidden rounded-2xl border-2 border-black bg-white py-0 transition-all duration-300 hover:shadow-xl md:hover:scale-105 gap-0">
-                      <CardContent className="flex h-full flex-col px-0 pb-0 pt-0">
-                        <div className="relative h-40 overflow-hidden border-b-2 border-black bg-gray-900 sm:h-44">
-                          {doc.coverImage ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={doc.coverImage} alt="cover" className="block h-full w-full object-cover" />
-                          ) : (
-                            <div className="flex h-full w-full items-center justify-center text-5xl font-black text-gray-300 opacity-50 sm:text-6xl">
-                              IMG
-                            </div>
-                          )}
-                        </div>
-                        <div className="p-4 sm:p-5 flex flex-col grow">
-                          <div className="flex items-center gap-2 mb-3">
-                            <span className="text-gray-400 text-xs">
-                              {new Date(doc.updatedAt).toLocaleDateString("ru-RU")}
-                            </span>
+                    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border-2 border-black bg-white transition-all duration-300 hover:shadow-xl md:hover:scale-105">
+                      <div className="relative h-40 overflow-hidden border-b-2 border-black bg-black sm:h-44">
+                        {doc.coverImage ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={doc.coverImage} alt="cover" className="block h-full w-full object-cover" />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center text-5xl font-black text-gray-300 opacity-50 sm:text-6xl">
+                            IMG
                           </div>
-                          <h3 className="text-lg sm:text-xl font-bold text-black mb-1 leading-tight group-hover:text-gray-700 transition-colors line-clamp-2 break-words">
-                            {doc.title}
-                          </h3>
-                          <p className="text-gray-600 text-[11px] sm:text-sm mb-2 sm:mb-3 leading-relaxed line-clamp-3">
-                            {doc.previewText || getPreviewText(doc.content || "")}
-                          </p>
-                          <div className="flex flex-wrap items-center justify-between text-gray-500 text-xs mb-3 sm:mb-4 gap-y-2">
-                            <div className="flex items-center gap-2 sm:gap-3">
-                              <div className="flex items-center gap-1">
-                                <User className="w-3 h-3" />
-                                <span>{doc.userId ? doc.userId.slice(0, 8) : "Автор"}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Clock className="w-3 h-3" />
-                                <span>{pluralizeMinutes(doc.readTime)}</span>
-                              </div>
+                        )}
+                      </div>
+                      <div className="flex grow flex-col px-4 pb-4 pt-5 sm:px-5 sm:pb-5 sm:pt-6">
+                        <div className="mb-3 flex items-center gap-2">
+                          <span className="text-xs text-gray-400">
+                            {new Date(doc.updatedAt).toLocaleDateString("ru-RU")}
+                          </span>
+                        </div>
+                        <h3 className="mb-1 line-clamp-2 break-words text-lg font-bold leading-tight text-black transition-colors group-hover:text-gray-700 sm:text-xl">
+                          {doc.title}
+                        </h3>
+                        <p className="mb-2 text-[11px] leading-relaxed text-gray-600 line-clamp-3 sm:mb-3 sm:text-sm">
+                          {doc.previewText || getPreviewText(doc.content || "")}
+                        </p>
+                        <div className="mb-3 flex flex-wrap items-center justify-between gap-y-2 text-xs text-gray-500 sm:mb-4">
+                          <div className="flex items-center gap-2 sm:gap-3">
+                            <div className="flex items-center gap-1">
+                              <User className="h-3 w-3" />
+                              <span>{doc.userId ? doc.userId.slice(0, 8) : "Автор"}</span>
                             </div>
                             <div className="flex items-center gap-1">
-                              <Eye className="w-3 h-3" />
-                              <span>{doc.views || "—"}</span>
+                              <Clock className="h-3 w-3" />
+                              <span>{pluralizeMinutes(doc.readTime)}</span>
                             </div>
                           </div>
-                          <Button className="mt-auto w-full bg-black text-white hover:bg-gray-800 font-bold py-2 sm:py-2.5 rounded-lg text-xs sm:text-base transition-all duration-300 transform md:group-hover:scale-105">
-                            ЧИТАТЬ
-                          </Button>
+                          <div className="flex items-center gap-1">
+                            <Eye className="h-3 w-3" />
+                            <span>{doc.views || "—"}</span>
+                          </div>
                         </div>
-                      </CardContent>
-                    </Card>
+                        <Button className="mt-auto w-full rounded-lg bg-black py-2 text-xs font-bold text-white transition-all duration-300 hover:bg-gray-800 sm:py-2.5 sm:text-base md:group-hover:scale-105">
+                          ЧИТАТЬ
+                        </Button>
+                      </div>
+                    </article>
                   </Link>
                 ))}
           </div>
