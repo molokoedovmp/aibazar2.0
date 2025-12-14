@@ -1,0 +1,132 @@
+[
+  {
+    "id": "cmgl0cidn0000tzi04yi7is8j",
+    "email": "despot551@yandex.ru",
+    "name": "Михаил Молокоедов",
+    "createdAt": "2025-10-10T15:35:00.875Z",
+    "updatedAt": "2025-10-10T15:35:00.875Z",
+    "image": "https://avatars.yandex.net/get-yapic/33202/YdexYFcnA1U0GC7I49yphfw0OE-1/islands-200",
+    "emailVerified": null,
+    "passwordHash": null
+  },
+  {
+    "id": "cmgl0cj080002tzi0ejppm8uz",
+    "email": null,
+    "name": "Imported User",
+    "createdAt": "2025-10-11T08:57:22.870Z",
+    "updatedAt": "2025-10-11T08:57:22.870Z",
+    "image": null,
+    "emailVerified": null,
+    "passwordHash": null
+  },
+  {
+    "id": "cmguqegmr0000lo0izgpq94hg",
+    "email": "molokoedovm@icloud.com",
+    "name": "Михаил Молокоедов",
+    "createdAt": "2025-10-17T10:54:17.523Z",
+    "updatedAt": "2025-10-17T10:54:38.016Z",
+    "image": null,
+    "emailVerified": "2025-10-17T10:54:38.015Z",
+    "passwordHash": "s:76abed933dc29dbf181dd4aa4638fc6e:c19d5236fe3ac26c56aa7725deb47c193dd7891efb0fae0cc687e31426fce71a813c175f84fb09aff869bafee05a952a3033f51fa018c7fe490c88b52b3ee8df"
+  },
+  {
+    "id": "cmh098wqg0003mj0idrr7eikj",
+    "email": "ryadinskii.d@yandex.ru",
+    "name": "Даниил Рядинский",
+    "createdAt": "2025-10-21T07:40:42.040Z",
+    "updatedAt": "2025-10-21T07:40:42.040Z",
+    "image": "https://avatars.yandex.net/get-yapic/51381/Pu8qS6l1tctLcnNg13ngnLUoRRU-1568213731/islands-200",
+    "emailVerified": null,
+    "passwordHash": null
+  },
+  {
+    "id": "cmh24hdia000amj0ivls4dyuc",
+    "email": "pfrolov@cstep.tech",
+    "name": "Павел",
+    "createdAt": "2025-10-22T15:02:51.298Z",
+    "updatedAt": "2025-10-22T15:03:28.940Z",
+    "image": null,
+    "emailVerified": "2025-10-22T15:03:28.939Z",
+    "passwordHash": "s:ae1d2199511862a4338db1d34e0d420d:3b871be1ddfef5b2677291e7723cf8421fde94a349ea25a007320889e0929018ef98328595da51a70d8cabbac1cc1f0b58c950021a05d8ba8c170264eb2ebd80"
+  },
+  {
+    "id": "cmh9a2dis0001ky0ipdlut330",
+    "email": "mail@skam.in",
+    "name": "Max Fedorov",
+    "createdAt": "2025-10-27T15:13:32.404Z",
+    "updatedAt": "2025-10-27T15:13:44.354Z",
+    "image": null,
+    "emailVerified": "2025-10-27T15:13:44.352Z",
+    "passwordHash": "s:351de2021aa2574cbfce9933dad70d54:6415b6a0f6535a8eee1236de27f78e96f3624b83342a6d46d84e28e2fe049cd23139ed1831c8f19b9bbfec2795896ac8b02f0cc1b492021ba224156afaa6bdb8"
+  },
+  {
+    "id": "cmhb69mkb0004ky0i2rpe7wef",
+    "email": "d.zapevalin@ilogex.net",
+    "name": "d.zapevalin@ilogex.net",
+    "createdAt": "2025-10-28T23:02:44.604Z",
+    "updatedAt": "2025-10-28T23:02:44.604Z",
+    "image": "https://avatars.yandex.net/get-yapic/15298/KdVdCZuJam2lp0uBYuafI0DnEVk-1/islands-200",
+    "emailVerified": null,
+    "passwordHash": null
+  },
+  {
+    "id": "cmhh7uk7e000gky0iktp9izhi",
+    "email": "ivasenkovladislavevgenevic@gmail.com",
+    "name": "Vlad Ivas",
+    "createdAt": "2025-11-02T04:33:37.994Z",
+    "updatedAt": "2025-11-02T04:33:57.347Z",
+    "image": null,
+    "emailVerified": "2025-11-02T04:33:57.346Z",
+    "passwordHash": "s:0dec7d468b8e6d3392cf7e833c3d615e:869039838425a8dca2d01396adbda1960d564df47a5c8a2b966acade67855aa54a2af58551022234477ca09e0f42e23766c8496707084266b85dc1d67cf8e856"
+  },
+  {
+    "id": "cmhor0jmo0000ph0i0ljecqae",
+    "email": "pumanijiz819@gmail.com",
+    "name": "AypTjoEZAmfylQQTBrwz",
+    "createdAt": "2025-11-07T11:04:33.119Z",
+    "updatedAt": "2025-11-07T11:04:33.119Z",
+    "image": null,
+    "emailVerified": null,
+    "passwordHash": "s:e40e4ae042a1640f2aab41f1896191fd:2591b5a44cde144a2778065357a2d0b6ff44f423df409e35396fa3e084bdd8bf159087f9b656f92a995f20fbe4497ec8ad5a3a0d9b3fb7e8ed2c76ef5ea2c115"
+  },
+  {
+    "id": "cmhq77fuu0001ph0ide39cu68",
+    "email": "nik0205st@mail.ru",
+    "name": "Николай Староверов",
+    "createdAt": "2025-11-08T11:25:34.855Z",
+    "updatedAt": "2025-11-08T11:26:00.792Z",
+    "image": null,
+    "emailVerified": "2025-11-08T11:26:00.791Z",
+    "passwordHash": "s:278efd57746f07a15eec030dbba260e6:24225e0c900190d27262ce8933d32e8437b2c58323c632d729ca199c39b3b60c5170c4f33d60a2a915a0b790ee7c463a06a0f87f81e1b08432c7af86b60411aa"
+  },
+  {
+    "id": "cmiaiu1gv0000nv0iy5jgr0wp",
+    "email": "pobevuvonot43@gmail.com",
+    "name": "qVienYhANtEvgcgtgqQ",
+    "createdAt": "2025-11-22T16:46:28.588Z",
+    "updatedAt": "2025-11-22T16:46:28.588Z",
+    "image": null,
+    "emailVerified": null,
+    "passwordHash": "s:c59220399f0eadc07c42ac31ae7325db:491aaa5f84a2ce4bb8c454e19e65e1476c510c66f426764653a30141e6079c294de998c452275281f0d0991438af39d4a6d53eef8d75e9a9fca1a497fbf6ebd0"
+  },
+  {
+    "id": "cmidgtoa40001nv0in79azb2p",
+    "email": "ilja.batulin@yandex.ru",
+    "name": "Илья",
+    "createdAt": "2025-11-24T18:13:30.796Z",
+    "updatedAt": "2025-11-24T18:13:30.796Z",
+    "image": "https://avatars.yandex.net/get-yapic/27274/HRQwUe1h40blbjJCkk3FhZPFA-1/islands-200",
+    "emailVerified": null,
+    "passwordHash": null
+  },
+  {
+    "id": "cmiimptu30006nv0i7verzgf0",
+    "email": "w-eva@yandex.ru",
+    "name": "Елена",
+    "createdAt": "2025-11-28T08:57:19.945Z",
+    "updatedAt": "2025-11-28T08:57:19.945Z",
+    "image": "https://avatars.yandex.net/get-yapic/21493/enc-23e30fb1f260bd987a52bb75aa6cda0098eee9008467e0d4eb455d6405be2647/islands-200",
+    "emailVerified": null,
+    "passwordHash": null
+  }
+]

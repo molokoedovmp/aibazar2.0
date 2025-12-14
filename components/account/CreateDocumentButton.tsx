@@ -29,7 +29,7 @@ export default function CreateDocumentButton({ className, children }: CreateDocu
       setIsPending(false);
     }
   }
-
+  
   return (
     <button
       type="button"

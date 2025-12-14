@@ -1,0 +1,57 @@
+[
+  {
+    "id": "cmgwj8kpa0001o40jgocs65v6",
+    "userId": "cmguqegmr0000lo0izgpq94hg",
+    "totalCredits": 11,
+    "usedCredits": 0,
+    "lastReset": "2025-10-18T17:09:17.902Z",
+    "plan": "basic",
+    "expiresAt": null,
+    "createdAt": "2025-10-18T17:09:17.902Z",
+    "updatedAt": "2025-10-18T19:44:18.720Z"
+  },
+  {
+    "id": "cmh09hoat0009mj0ij733n4wv",
+    "userId": "cmh098wqg0003mj0idrr7eikj",
+    "totalCredits": 5,
+    "usedCredits": 0,
+    "lastReset": "2025-10-21T07:47:31.013Z",
+    "plan": "free",
+    "expiresAt": null,
+    "createdAt": "2025-10-21T07:47:31.013Z",
+    "updatedAt": "2025-10-21T07:47:31.013Z"
+  },
+  {
+    "id": "cmgwavg68000ftzmsks4d615v",
+    "userId": "cmgl0cidn0000tzi04yi7is8j",
+    "totalCredits": 2403,
+    "usedCredits": 27,
+    "lastReset": "2025-10-18T13:15:08.150Z",
+    "plan": "basic",
+    "expiresAt": null,
+    "createdAt": "2025-10-18T13:15:08.150Z",
+    "updatedAt": "2025-11-03T11:23:03.846Z"
+  },
+  {
+    "id": "cmidgu0mt0005nv0i071m6xny",
+    "userId": "cmidgtoa40001nv0in79azb2p",
+    "totalCredits": 5,
+    "usedCredits": 0,
+    "lastReset": "2025-11-24T18:13:46.806Z",
+    "plan": "free",
+    "expiresAt": null,
+    "createdAt": "2025-11-24T18:13:46.806Z",
+    "updatedAt": "2025-11-24T18:13:46.806Z"
+  },
+  {
+    "id": "cmiims73l000anv0ih6xj03wx",
+    "userId": "cmiimptu30006nv0i7verzgf0",
+    "totalCredits": 5,
+    "usedCredits": 0,
+    "lastReset": "2025-11-28T08:59:10.447Z",
+    "plan": "free",
+    "expiresAt": null,
+    "createdAt": "2025-11-28T08:59:10.447Z",
+    "updatedAt": "2025-11-28T08:59:10.447Z"
+  }
+]

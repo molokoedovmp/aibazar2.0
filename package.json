@@ -7,6 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "export:db": "tsx scripts/export-db.ts",
     "db:seed": "tsx prisma/seed.ts",
     "import:categories": "tsx scripts/import-categories.ts --dir data/convex-import/categories",
     "import:aitools": "tsx scripts/import-aitools.ts --dir data/convex-import/aitools",
