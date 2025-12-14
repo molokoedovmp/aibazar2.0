@@ -16,8 +16,8 @@ services:
     container_name: aibazar-caddy
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "8443:443"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
@@ -31,4 +31,3 @@ services:
 volumes:
   caddy_data:
   caddy_config:
-
