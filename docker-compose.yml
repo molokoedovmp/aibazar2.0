@@ -4,7 +4,7 @@ services:
     container_name: aibazar-web
     restart: unless-stopped
     env_file:
-      - .env.production
+      - .env
     environment:
       - PORT=3000
     expose:
@@ -31,9 +31,8 @@ services:
       - EMAIL=${ACME_EMAIL}
     depends_on:
       - web
-    # Optional: attach to proxy if you still want to run this caddy instance
-    # networks:
-    #   - proxy
+    networks:
+      - proxy
 
 volumes:
   caddy_data:
