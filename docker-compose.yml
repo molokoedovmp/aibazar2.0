@@ -12,6 +12,8 @@ services:
     depends_on: []
     networks:
       - proxy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   caddy:
     image: caddy:2

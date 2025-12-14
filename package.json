@@ -9,6 +9,7 @@
     "lint": "eslint",
     "export:db": "tsx scripts/export-db.ts",
     "db:seed": "tsx prisma/seed.ts",
+    "import:db": "tsx scripts/import-db.ts",
     "import:categories": "tsx scripts/import-categories.ts --dir data/convex-import/categories",
     "import:aitools": "tsx scripts/import-aitools.ts --dir data/convex-import/aitools",
     "import:documents": "tsx scripts/import-documents.ts --dir data/convex-import/documents"
