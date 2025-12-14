@@ -10,6 +10,8 @@ services:
     expose:
       - "3000"
     depends_on: []
+    networks:
+      - proxy
 
   caddy:
     image: caddy:2
@@ -27,7 +29,14 @@ services:
       - EMAIL=${ACME_EMAIL}
     depends_on:
       - web
+    # Optional: attach to proxy if you still want to run this caddy instance
+    # networks:
+    #   - proxy
 
 volumes:
   caddy_data:
   caddy_config:
+
+networks:
+  proxy:
+    external: true
