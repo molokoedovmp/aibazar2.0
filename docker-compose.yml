@@ -4,7 +4,7 @@ services:
     container_name: aibazar-web
     restart: unless-stopped
     env_file:
-      - .env
+      - .env.production
     environment:
       - PORT=3000
     expose:
@@ -14,6 +14,8 @@ services:
       - proxy
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    volumes:
+      - .env.production:/app/.env:ro
 
   caddy:
     image: caddy:2
