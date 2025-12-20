@@ -7,39 +7,9 @@ services:
       - .env.production
     environment:
       - PORT=3000
-    expose:
-      - "3000"
-    depends_on: []
-    networks:
-      - proxy
+    ports:
+      - "3001:3000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
       - .env.production:/app/.env:ro
-
-  caddy:
-    image: caddy:2
-    container_name: aibazar-caddy
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-      - "8443:443"
-    volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-    environment:
-      - DOMAIN=${DOMAIN}
-      - EMAIL=${ACME_EMAIL}
-    depends_on:
-      - web
-    networks:
-      - proxy
-
-volumes:
-  caddy_data:
-  caddy_config:
-
-networks:
-  proxy:
-    external: true
