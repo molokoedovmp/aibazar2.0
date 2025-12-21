@@ -7,7 +7,7 @@ import DocumentActionsBar from "@/components/account/DocumentActionsBar";
 import DocumentSearchInput from "@/components/account/DocumentSearchInput";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/auth-options";
 import { prisma } from "@/lib/db";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb"
 import DocHeaderTitle from "@/components/account/DocHeaderTitle";

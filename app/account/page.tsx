@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { AppSidebar } from "@/components/app-sidebar";
 import CreateDocumentButton from "@/components/account/CreateDocumentButton";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/auth-options";
 import { prisma } from "@/lib/db";
 import {
   Breadcrumb,

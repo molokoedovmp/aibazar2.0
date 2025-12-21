@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { randomUUID } from "crypto";
 import { Buffer } from "buffer";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/auth-options";
 import { prisma } from "@/lib/db";
 import { calcRubPrice, getUsdFx } from "@/lib/pricing";
 import { mapYookassaStatus } from "@/lib/payments";

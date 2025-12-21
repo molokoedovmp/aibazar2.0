@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 
 import { AppSidebar } from "@/components/app-sidebar";
 import SettingsForm from "@/components/account/SettingsForm";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/auth-options";
 import { prisma } from "@/lib/db";
 import {
   SidebarInset,

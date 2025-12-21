@@ -18,9 +18,14 @@ function pluralizeMinutes(minutes?: number | null) {
   return `${m} минут`;
 }
 
-export default async function BlogArticle({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function BlogArticle({ params }: PageProps) {
+  const { id } = await params;
   const doc = await prisma.document.findFirst({
-    where: { id: params.id, isPublished: true },
+    where: { id, isPublished: true },
     select: {
       id: true,
       title: true,
@@ -34,7 +39,7 @@ export default async function BlogArticle({ params }: { params: { id: string } }
   });
 
   if (!doc) return notFound();
-  await prisma.document.update({ where: { id: params.id }, data: { views: { increment: 1 } } }).catch(() => {});
+  await prisma.document.update({ where: { id }, data: { views: { increment: 1 } } }).catch(() => {});
 
   const author = doc ? await prisma.user.findUnique({ where: { id: doc.userId }, select: { name: true, email: true } }).catch(() => null) : null;
   const authorName = author?.name || (author?.email ? author.email.split("@")[0] : "Автор");

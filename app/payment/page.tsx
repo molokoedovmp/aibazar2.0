@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/auth-options";
 import { prisma } from "@/lib/db";
 import { calcRubPrice, getUsdFx } from "@/lib/pricing";
 import { AppSidebar } from "@/components/app-sidebar";

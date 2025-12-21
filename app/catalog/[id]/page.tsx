@@ -6,7 +6,7 @@ import BlockNoteViewer from "@/components/editor/BlockNoteViewerClient";
 import Reviews from "@/components/reviews/Reviews";
 import { calcRubPrice, getUsdFx } from "@/lib/pricing";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/auth-options";
 import ToolPurchaseActions from "@/components/ToolPurchaseActions";
 import { Button } from "@/components/ui/button";
 
