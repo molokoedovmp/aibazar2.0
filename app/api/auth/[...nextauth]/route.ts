@@ -10,6 +10,10 @@ const prisma = new PrismaClient();
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
+  // Доверяем X-Forwarded-* от reverse-proxy (NGINX) при расчете host/https.
+  trustHost: true,
+  // Форсируем secure-cookies, т.к. внешний трафик всегда HTTPS.
+  useSecureCookies: true,
   providers: [
     YandexProvider({
       clientId: process.env.YANDEX_CLIENT_ID!,
@@ -61,6 +65,26 @@ export const authOptions: AuthOptions = {
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
+  cookies: {
+    state: {
+      name: "__Secure-next-auth.state",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+      },
+    },
+    pkceCodeVerifier: {
+      name: "__Secure-next-auth.pkce.code_verifier",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+      },
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
