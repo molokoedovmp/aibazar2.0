@@ -24,9 +24,11 @@ export const metadata: Metadata = {
     "aiBazar - это сервис, который предоставляет доступ к различным AI-инструментам и сервисам.",
   icons: {
     icon: [
-      { media: "(prefers-color-scheme: light)", url: "/favicon.ico", href: "/favicon.ico" },
-      { media: "(prefers-color-scheme: dark)", url: "/favicon.ico", href: "/favicon.ico" },
+      { url: "/favicon-ptsr.png", type: "image/png" },
+      { url: "/favicon.ico", type: "image/x-icon" },
     ],
+    shortcut: ["/favicon.ico"],
+    apple: ["/favicon-ptsr.png"],
   },
   openGraph: {
     title: "aiBazar",
@@ -106,9 +108,10 @@ export default function RootLayout({
 
 
         {/* Favicons */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" href="/favicon-ptsr.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon-ptsr.png" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </head>
