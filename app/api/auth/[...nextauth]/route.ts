@@ -8,7 +8,7 @@ import type { SessionStrategy } from "next-auth";
 
 const prisma = new PrismaClient();
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   // Доверяем X-Forwarded-* от reverse-proxy (NGINX) при расчете host/https.
   trustHost: true,
