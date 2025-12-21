@@ -9,8 +9,6 @@ const prisma = new PrismaClient();
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
-  // Доверяем X-Forwarded-* от reverse-proxy (NGINX) при расчете host/https.
-  trustHost: true,
   // Форсируем secure-cookies, т.к. внешний трафик всегда HTTPS.
   useSecureCookies: true,
   providers: [
