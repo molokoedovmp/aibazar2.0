@@ -32,17 +32,45 @@ export async function getUsdFx(): Promise<number> {
     return global.__fxCache.value;
   }
 
-  const url = process.env.CBR_FX_URL || "https://www.cbr-xml-daily.ru/daily_json.js";
+  const cachedValue = global.__fxCache?.value;
+  const sources = [
+    {
+      url: process.env.CBR_FX_URL || "https://www.cbr-xml-daily.ru/daily_json.js",
+      parse: (json: any) => json?.Valute?.USD?.Value,
+    },
+    {
+      url: "https://open.er-api.com/v6/latest/USD",
+      parse: (json: any) => json?.rates?.RUB,
+    },
+    {
+      url: "https://api.exchangerate-api.com/v4/latest/USD",
+      parse: (json: any) => json?.rates?.RUB,
+    },
+  ];
 
   try {
-    const res = await fetch(url, { next: { revalidate: 600 } });
-    const json = await res.json().catch(() => null);
-    const value = json?.Valute?.USD?.Value;
-    if (typeof value === "number" && Number.isFinite(value)) {
-      global.__fxCache = { value, ts: now };
-      return value;
+    for (const source of sources) {
+      try {
+        const res = await fetch(source.url, { next: { revalidate: 600 } });
+        if (!res.ok) continue;
+        const json = await res.json().catch(() => null);
+        const value = source.parse(json);
+        if (typeof value === "number" && Number.isFinite(value) && value > 0) {
+          global.__fxCache = { value, ts: now };
+          return value;
+        }
+      } catch {
+        continue;
+      }
     }
-  } catch {}
+  } catch {
+    // ignore
+  }
+
+  if (typeof cachedValue === "number" && Number.isFinite(cachedValue) && cachedValue > 0) {
+    global.__fxCache = { value: cachedValue, ts: now };
+    return cachedValue;
+  }
 
   // дефолт на случай недоступности API или парсинга
   const fallback = 84;
