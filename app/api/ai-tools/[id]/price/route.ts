@@ -13,7 +13,22 @@ export async function GET(_: Request, ctx: { params: Promise<{ id: string }> }) 
     const personal = await prisma.userToolPrice
       .findUnique({ where: { userId_aiToolId: { userId, aiToolId: id } }, select: { startPriceUsd: true, priceRub: true, fx: true, updatedAt: true } })
       .catch(() => null);
-    if (personal) return NextResponse.json({ ...personal, type: "personal" });
+    if (personal) {
+      const fx = await getUsdFx();
+      let priceRub: number | null = null;
+      if (typeof personal.startPriceUsd === "number" && Number.isFinite(personal.startPriceUsd) && personal.startPriceUsd > 0) {
+        priceRub = calcRubPrice(personal.startPriceUsd, { fx });
+      } else if (typeof personal.priceRub === "number") {
+        priceRub = Math.round(personal.priceRub);
+      }
+      return NextResponse.json({
+        startPriceUsd: personal.startPriceUsd ?? null,
+        priceRub,
+        fx,
+        updatedAt: personal.updatedAt,
+        type: "personal",
+      });
+    }
   }
 
   const tool = await prisma.aiTool.findUnique({ where: { id }, select: { startPrice: true, price: true } });
@@ -52,4 +67,3 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
 
   return NextResponse.json({ ...up, type: "personal" });
 }
-

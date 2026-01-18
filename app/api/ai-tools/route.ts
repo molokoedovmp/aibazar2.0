@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { calcRubPrice, getUsdFx } from "@/lib/pricing";
 
 // Лёгкое кеширование списка (60с) — достаточно для ленты
 export const revalidate = 60;
@@ -22,10 +23,25 @@ export async function GET() {
       orderBy: { rating: 'desc' },
     });
 
+    const shouldConvert = aiTools.some(
+      (tool) => typeof tool.startPrice === "number" && Number.isFinite(tool.startPrice) && tool.startPrice > 0
+    );
+    const fx = shouldConvert ? await getUsdFx() : null;
+    const data = aiTools.map((tool) => {
+      let price = tool.price;
+      if (fx && typeof tool.startPrice === "number" && Number.isFinite(tool.startPrice) && tool.startPrice > 0) {
+        price = calcRubPrice(tool.startPrice, { fx });
+      } else if (typeof price === "number") {
+        price = Math.round(price);
+      }
+      return { ...tool, price };
+    });
+
     return NextResponse.json({ 
       success: true, 
-      data: aiTools,
-      count: aiTools.length 
+      data,
+      count: data.length,
+      fx,
     });
   } catch (error) {
     console.error("Ошибка при получении AI инструментов:", error);
@@ -35,4 +51,3 @@ export async function GET() {
     );
   }
 }
-
