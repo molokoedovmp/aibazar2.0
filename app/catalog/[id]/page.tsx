@@ -17,11 +17,15 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const tools = await prisma.aiTool.findMany({
-    where: { isActive: true },
-    select: { id: true },
-  });
-  return tools.map((t) => ({ id: t.id }));
+  try {
+    const tools = await prisma.aiTool.findMany({
+      where: { isActive: true },
+      select: { id: true },
+    });
+    return tools.map((t) => ({ id: t.id }));
+  } catch {
+    return [];
+  }
 }
 
 const getToolPageData = unstable_cache(
