@@ -3,6 +3,22 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/auth-options";
 import { prisma } from "@/lib/db";
 
+export async function GET(req: Request) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) return NextResponse.json({ isFavorited: false });
+
+  const { searchParams } = new URL(req.url);
+  const itemId = searchParams.get("itemId");
+  const itemType = searchParams.get("itemType") ?? "documents";
+  if (!itemId) return NextResponse.json({ isFavorited: false });
+
+  const fav = await prisma.favorite.findFirst({
+    where: { userId: session.user.id, itemId, itemType },
+    select: { id: true },
+  });
+  return NextResponse.json({ isFavorited: !!fav });
+}
+
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

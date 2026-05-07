@@ -42,4 +42,5 @@ next-env.d.ts
 
 /lib/generated/prisma
 data/convex-import/**
+data/db-export/**
 *.jsonl

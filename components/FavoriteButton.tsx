@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useEffect, useTransition } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Heart } from 'lucide-react'
@@ -14,10 +14,21 @@ interface FavoriteButtonProps {
 }
 
 export default function FavoriteButton({ toolId, isFavoritedInitial = false, className }: FavoriteButtonProps) {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const router = useRouter()
   const [isFav, setIsFav] = useState<boolean>(!!isFavoritedInitial)
   const [isPending, startTransition] = useTransition()
+
+  // Fetch real favorite status from server once session is known
+  useEffect(() => {
+    if (status !== 'authenticated') return
+    fetch(`/api/favorites?itemId=${toolId}&itemType=aiTools`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (typeof data?.isFavorited === 'boolean') setIsFav(data.isFavorited)
+      })
+      .catch(() => {})
+  }, [status, toolId])
 
   const onClick = async () => {
     if (!session?.user) {
@@ -58,6 +69,3 @@ export default function FavoriteButton({ toolId, isFavoritedInitial = false, cla
     </button>
   )
 }
-
-
-

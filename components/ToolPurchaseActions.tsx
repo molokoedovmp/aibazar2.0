@@ -14,7 +14,6 @@ interface ToolPurchaseActionsProps {
   initialRubPrice: number | null;
   initialStartPriceUsd?: number | null;
   fx: number;
-  isFavoritedInitial: boolean;
 }
 
 export default function ToolPurchaseActions({
@@ -25,7 +24,6 @@ export default function ToolPurchaseActions({
   initialRubPrice,
   initialStartPriceUsd,
   fx,
-  isFavoritedInitial,
 }: ToolPurchaseActionsProps) {
   const [rubPrice, setRubPrice] = useState<number | null>(initialRubPrice);
 
@@ -60,7 +58,6 @@ export default function ToolPurchaseActions({
         )}
         <FavoriteButton
           toolId={toolId}
-          isFavoritedInitial={isFavoritedInitial}
           className="flex-1 min-w-[140px] h-10 rounded-lg border border-black/10 text-sm font-medium transition hover:-translate-y-0.5 hover:shadow-sm dark:border-white/15"
         />
       </div>

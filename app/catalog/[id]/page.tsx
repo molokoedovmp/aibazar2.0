@@ -1,49 +1,66 @@
 import { notFound } from "next/navigation";
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
 import BlockNoteViewer from "@/components/editor/BlockNoteViewerClient";
 import Reviews from "@/components/reviews/Reviews";
 import { calcRubPrice, getUsdFx } from "@/lib/pricing";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/auth-options";
 import ToolPurchaseActions from "@/components/ToolPurchaseActions";
 import { Button } from "@/components/ui/button";
+
+export const revalidate = 60;
+export const dynamicParams = true;
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+export async function generateStaticParams() {
+  const tools = await prisma.aiTool.findMany({
+    where: { isActive: true },
+    select: { id: true },
+  });
+  return tools.map((t) => ({ id: t.id }));
+}
+
+const getToolPageData = unstable_cache(
+  async (id: string) => {
+    const tool = await prisma.aiTool.findUnique({
+      where: { id },
+      include: { category: true },
+    });
+    if (!tool) return null;
+
+    const [fx, linkedDocument, similarTools, categories] = await Promise.all([
+      getUsdFx(),
+      tool.linkedDocumentId
+        ? prisma.document.findUnique({
+            where: { id: tool.linkedDocumentId },
+            select: { id: true, title: true, content: true, isPublished: true },
+          })
+        : Promise.resolve(null),
+      prisma.aiTool.findMany({
+        where: { isActive: true, categoryId: tool.categoryId, id: { not: id } },
+        select: { id: true, name: true, coverImage: true, rating: true, url: true },
+        orderBy: [{ rating: "desc" }],
+        take: 6,
+      }),
+      prisma.category.findMany({ select: { id: true, name: true, icon: true }, orderBy: { name: "asc" } }),
+    ]);
+
+    return { tool, fx, linkedDocument, similarTools, categories };
+  },
+  ["tool-page-data"],
+  { revalidate: 60, tags: ["tools"] }
+);
+
 export default async function ToolPage({ params }: PageProps) {
   const { id } = await params;
-  const session = await getServerSession(authOptions);
-  const tool = await prisma.aiTool.findUnique({
-    where: { id },
-    include: { category: true },
-  });
+  const data = await getToolPageData(id);
+  if (!data) return notFound();
 
-  if (!tool) return notFound();
-
-  // Выполняем параллельно независимые запросы (сильно снижает TTFB)
-  const [fx, linkedDocument, similarTools, categories, fav] = await Promise.all([
-    getUsdFx(),
-    tool.linkedDocumentId
-      ? prisma.document.findUnique({
-          where: { id: tool.linkedDocumentId },
-          select: { id: true, title: true, content: true, isPublished: true },
-        })
-      : Promise.resolve(null),
-    prisma.aiTool.findMany({
-      where: { isActive: true, categoryId: tool.categoryId, id: { not: tool.id } },
-      select: { id: true, name: true, coverImage: true, rating: true, url: true },
-      orderBy: [{ rating: 'desc' }],
-      take: 6,
-    }),
-    prisma.category.findMany({ select: { id: true, name: true, icon: true }, orderBy: { name: 'asc' } }),
-    session?.user?.id
-      ? prisma.favorite.findFirst({ where: { itemId: id, itemType: 'aiTools', userId: session.user.id } })
-      : Promise.resolve(null),
-  ]);
+  const { tool, fx, linkedDocument, similarTools, categories } = data;
 
   let computedRubPrice: number | null = null;
   try {
@@ -53,8 +70,6 @@ export default async function ToolPage({ params }: PageProps) {
       computedRubPrice = tool.price;
     }
   } catch {}
-
-  const isFavoritedInitial = !!fav;
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">
@@ -158,7 +173,6 @@ export default async function ToolPage({ params }: PageProps) {
                   initialRubPrice={computedRubPrice}
                   initialStartPriceUsd={typeof tool.startPrice === 'number' ? tool.startPrice : null}
                   fx={fx}
-                  isFavoritedInitial={isFavoritedInitial}
                 />
               </div>
             </div>
