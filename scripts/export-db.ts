@@ -4,23 +4,28 @@ import { PrismaClient } from "@prisma/client";
 
 // Minimal .env loader so DATABASE_URL is available when running the script directly.
 function loadEnv() {
+  const localEnvPath = path.resolve(__dirname, "..", ".env.local");
   const envPath = path.resolve(__dirname, "..", ".env");
-  if (!fs.existsSync(envPath)) return;
+  const candidates = [localEnvPath, envPath];
 
-  const lines = fs.readFileSync(envPath, "utf8").split("\n");
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
+  for (const candidate of candidates) {
+    if (!fs.existsSync(candidate)) continue;
+    const isLocalEnv = candidate === localEnvPath;
+    const lines = fs.readFileSync(candidate, "utf8").split("\n");
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
 
-    const eqIndex = trimmed.indexOf("=");
-    if (eqIndex === -1) continue;
+      const eqIndex = trimmed.indexOf("=");
+      if (eqIndex === -1) continue;
 
-    const key = trimmed.slice(0, eqIndex).trim();
-    const rawValue = trimmed.slice(eqIndex + 1).trim();
-    if (!key || process.env[key]) continue;
+      const key = trimmed.slice(0, eqIndex).trim();
+      const rawValue = trimmed.slice(eqIndex + 1).trim();
+      if (!key || (!isLocalEnv && process.env[key])) continue;
 
-    const value = rawValue.replace(/^["'](.+)["']$/, "$1");
-    process.env[key] = value;
+      const value = rawValue.replace(/^["'](.+)["']$/, "$1");
+      process.env[key] = value;
+    }
   }
 }
 

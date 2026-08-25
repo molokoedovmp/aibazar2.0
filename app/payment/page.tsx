@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 
@@ -22,6 +21,7 @@ import { Separator } from "@/components/ui/separator";
 import { CheckoutForm } from "@/components/payment/CheckoutForm";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ShieldCheck, Clock, HelpCircle } from "lucide-react";
+import { ToolImage } from "@/app/components/ToolImage";
 
 interface SearchParams {
   toolId?: string;
@@ -87,11 +87,10 @@ export default async function PaymentPage({ searchParams }: { searchParams: Prom
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex flex-col gap-4 md:flex-row">
                 <div className="relative h-32 w-32 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-                  <Image
-                    src={tool.coverImage || "/placeholder-tool.png"}
+                  <ToolImage
+                    src={tool.coverImage}
                     alt={tool.name}
-                    fill
-                    className="object-cover"
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                 </div>
                 <div className="flex-1 space-y-2">

@@ -12,7 +12,14 @@
     "import:db": "tsx scripts/import-db.ts",
     "import:categories": "tsx scripts/import-categories.ts --dir data/convex-import/categories",
     "import:aitools": "tsx scripts/import-aitools.ts --dir data/convex-import/aitools",
-    "import:documents": "tsx scripts/import-documents.ts --dir data/convex-import/documents"
+    "import:documents": "tsx scripts/import-documents.ts --dir data/convex-import/documents",
+    "catalog:merge:collective": "tsx scripts/merge-collective-ai-tools.ts",
+    "catalog:images": "tsx scripts/enrich-catalog-images.ts",
+    "catalog:sync": "tsx scripts/sync-catalog.ts",
+    "build:deploy": "npm run catalog:sync && next build",
+    "db:local:start": "prisma dev -d -n aibazar-local -p 51213 -P 51214 --shadow-db-port 51215",
+    "db:local:stop": "prisma dev stop aibazar-local",
+    "db:local:status": "prisma dev ls"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",

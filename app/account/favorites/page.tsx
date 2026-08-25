@@ -19,13 +19,13 @@ import {
 import { Separator } from "@/components/ui/separator";
 import {
   ArrowUpRight,
-  Compass,
   Heart,
   Layers,
   Sparkles,
   Star,
   Trophy,
 } from "lucide-react";
+import { ToolImage } from "@/app/components/ToolImage";
 
 interface FavoriteTool {
   id: string;
@@ -284,18 +284,11 @@ export default async function FavoritesToolsPage() {
                     href={`/catalog/${tool.id}`}
                     className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                   >
-                    {tool.coverImage ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={tool.coverImage}
-                        alt={tool.name}
-                        className="h-40 w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-40 w-full items-center justify-center bg-slate-100 text-slate-400">
-                        <Compass className="h-6 w-6" />
-                      </div>
-                    )}
+                    <ToolImage
+                      src={tool.coverImage}
+                      alt={tool.name}
+                      className="h-40 w-full object-cover"
+                    />
                     <div className="flex flex-1 flex-col justify-between p-5">
                       <div className="space-y-3">
                         <div className="flex items-center gap-2 text-xs text-slate-500">

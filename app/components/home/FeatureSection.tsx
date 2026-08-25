@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { ChevronRight, Star, ExternalLink, ShoppingCart } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
+import { ToolImage } from "@/app/components/ToolImage"
 import { PaymentDialog } from "@/components/payment-dialog"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -139,7 +139,12 @@ export default function FeaturePage() {
                 className="snap-center shrink-0 w-[85%] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 relative"
               >
                 <div className="relative h-[360px] w-full">
-                  <Image src={tool.coverImage || "/default.png"} alt={tool.name} fill className="object-cover" />
+                  <ToolImage
+                    src={tool.coverImage}
+                    alt={tool.name}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    fallbackTextClassName="text-3xl sm:text-4xl"
+                  />
                   <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/60">
                     <h3 className="text-xl font-bold text-white mb-1">{tool.name}</h3>
                     <p className="text-white/80 text-sm line-clamp-2 mb-3">{tool.description}</p>
@@ -200,7 +205,12 @@ export default function FeaturePage() {
               transition={{ duration: 0.5 }}
               style={{ display: activeTab === index ? "block" : "none" }}
             >
-              <Image src={tool.coverImage || "/default.png"} alt={tool.name} fill className="object-cover" />
+              <ToolImage
+                src={tool.coverImage}
+                alt={tool.name}
+                className="absolute inset-0 h-full w-full object-cover"
+                fallbackTextClassName="text-3xl sm:text-4xl"
+              />
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-black/70 dark:bg-black/90">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-2xl font-bold text-white dark:text-white">

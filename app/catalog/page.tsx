@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Search as SearchIcon, FileText, Info, Compass } from "lucide-react";
+import { ToolImage } from "@/app/components/ToolImage";
 
 /* ---------- Типы ---------- */
 interface AiTool {
@@ -129,14 +130,7 @@ function ToolsGrid({ tools }: { tools: AiTool[] }) {
           href={`/catalog/${tool.id}`}
           className="group block overflow-hidden rounded-2xl bg-white ring-1 ring-black/10 transition-transform hover:-translate-y-0.5 hover:shadow-md"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          {tool.coverImage ? (
-            <img src={tool.coverImage} alt={tool.name} className="h-40 w-full object-cover" />
-          ) : (
-            <div className="flex h-40 w-full items-center justify-center bg-gray-100 text-gray-500">
-              Без изображения
-            </div>
-          )}
+          <ToolImage src={tool.coverImage} alt={tool.name} className="h-40 w-full object-cover" />
 
           <div className="p-4">
             <div className="flex items-start justify-between gap-3">

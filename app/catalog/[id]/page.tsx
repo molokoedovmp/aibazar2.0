@@ -8,6 +8,7 @@ import Reviews from "@/components/reviews/Reviews";
 import { calcRubPrice, getUsdFx } from "@/lib/pricing";
 import ToolPurchaseActions from "@/components/ToolPurchaseActions";
 import { Button } from "@/components/ui/button";
+import { ToolImage } from "@/app/components/ToolImage";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -87,9 +88,12 @@ export default async function ToolPage({ params }: PageProps) {
             >
               ← Назад к каталогу
             </a>
-            {tool.coverImage && (
-              <img src={tool.coverImage} alt={tool.name} className="w-full h-72 object-cover rounded-lg" />
-            )}
+            <ToolImage
+              src={tool.coverImage}
+              alt={tool.name}
+              className="h-72 w-full rounded-lg object-cover"
+              fallbackTextClassName="text-3xl sm:text-4xl"
+            />
             <h1 className="text-3xl font-bold text-black dark:text-white">{tool.name}</h1>
             <div className="flex flex-wrap items-center gap-3 text-sm text-black/70 dark:text-white/70">
               {tool.category?.icon && (
@@ -188,11 +192,12 @@ export default async function ToolPage({ params }: PageProps) {
                 <div className="space-y-3">
                   {similarTools.map((t) => (
                     <a key={t.id} href={`/catalog/${t.id}`} className="flex items-center gap-3 group">
-                      {t.coverImage ? (
-                        <img src={t.coverImage} alt={t.name} className="h-10 w-10 rounded object-cover border border-black/10 dark:border-white/10" />
-                      ) : (
-                        <div className="h-10 w-10 rounded bg-black/5 dark:bg-white/10" />
-                      )}
+                      <ToolImage
+                        src={t.coverImage}
+                        alt={t.name}
+                        className="h-10 w-10 rounded border border-black/10 object-cover dark:border-white/10"
+                        fallbackTextClassName="truncate px-1 text-[8px]"
+                      />
                       <div className="min-w-0">
                         <div className="truncate text-sm font-medium text-black dark:text-white group-hover:underline">{t.name}</div>
                         <div className="text-xs text-black/60 dark:text-white/60">{typeof t.rating === 'number' ? `⭐ ${t.rating.toFixed(1)}` : ''}</div>

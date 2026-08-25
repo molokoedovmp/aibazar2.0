@@ -78,5 +78,509 @@
     "description": "AI-помощники для создания сайтов",
     "createdAt": "2024-08-28T19:30:58.760Z",
     "updatedAt": "2025-10-30T15:29:55.410Z"
+  },
+  {
+    "id": "cat_collective_da0568a25209c76552026c3b",
+    "icon": null,
+    "name": "3D",
+    "description": "Imported from collective-ai-tools: 3D",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_3f52a423f8ebd4ccad56c627",
+    "icon": null,
+    "name": "Agriculture",
+    "description": "Imported from collective-ai-tools: Agriculture",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_3b17c343c3ac3a265f9e4a75",
+    "icon": null,
+    "name": "App Builder",
+    "description": "Imported from collective-ai-tools: App Builder",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_d3cec99112255db9bf4963f7",
+    "icon": null,
+    "name": "Art",
+    "description": "Imported from collective-ai-tools: Art",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_c57f03c612cae3458f9ef1ad",
+    "icon": null,
+    "name": "Audio & Speech",
+    "description": "Imported from collective-ai-tools: Audio & Speech",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_18839eec356af66ba67ee8e9",
+    "icon": null,
+    "name": "Avatars",
+    "description": "Imported from collective-ai-tools: Avatars",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_1fd4ef08ff23481d6a334b77",
+    "icon": null,
+    "name": "Browsers",
+    "description": "Imported from collective-ai-tools: Browsers",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_11d40417959631d3d2420e8c",
+    "icon": null,
+    "name": "Business",
+    "description": "Imported from collective-ai-tools: Business",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_a5ea7d719f7aba21d3f940a2",
+    "icon": null,
+    "name": "Chatbots",
+    "description": "Imported from collective-ai-tools: Chatbots",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_82bd81ea4b0302554165ae91",
+    "icon": null,
+    "name": "Cooking",
+    "description": "Imported from collective-ai-tools: Cooking",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_4a1359f78476e392cf5b1079",
+    "icon": null,
+    "name": "Copywriting",
+    "description": "Imported from collective-ai-tools: Copywriting",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_da2f073e06f78938166f2472",
+    "icon": null,
+    "name": "Crypto",
+    "description": "Imported from collective-ai-tools: Crypto",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_588c0628930086020a7beec4",
+    "icon": null,
+    "name": "Customer Support",
+    "description": "Imported from collective-ai-tools: Customer Support",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_16500769bdb5c4ee9f506f14",
+    "icon": null,
+    "name": "Data & BI",
+    "description": "Imported from collective-ai-tools: Data & BI",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_0bcc639f6c41a8b9ea537cd0",
+    "icon": null,
+    "name": "Dating",
+    "description": "Imported from collective-ai-tools: Dating",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_a77de8a6daa1129516b14c8c",
+    "icon": null,
+    "name": "Design",
+    "description": "Imported from collective-ai-tools: Design",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_88fa0d759f845b47c044c2cd",
+    "icon": null,
+    "name": "Developer",
+    "description": "Imported from collective-ai-tools: Developer",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_47c213598e79069a5e53b9ab",
+    "icon": null,
+    "name": "Developer Tools",
+    "description": "Imported from collective-ai-tools: Developer Tools",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_66a16477af3587de7dd6e631",
+    "icon": null,
+    "name": "Document Processing",
+    "description": "Imported from collective-ai-tools: Document Processing",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_b5f3227337446f504cd86941",
+    "icon": null,
+    "name": "E-Commerce",
+    "description": "Imported from collective-ai-tools: E-Commerce",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_68bf0109c6f8a87bfa96d1ec",
+    "icon": null,
+    "name": "Education",
+    "description": "Imported from collective-ai-tools: Education",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_3422931459279cca73a5ace4",
+    "icon": null,
+    "name": "Email Assistant",
+    "description": "Imported from collective-ai-tools: Email Assistant",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_8b2df81cc399a681a59030dc",
+    "icon": null,
+    "name": "Experiments",
+    "description": "Imported from collective-ai-tools: Experiments",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_309d267f086d5fe5433d5bcc",
+    "icon": null,
+    "name": "Fashion",
+    "description": "Imported from collective-ai-tools: Fashion",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_eab762a03fd979a04cc4706e",
+    "icon": null,
+    "name": "Finance",
+    "description": "Imported from collective-ai-tools: Finance",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_9ebf9b5978e6d486b0a66423",
+    "icon": null,
+    "name": "Fitness",
+    "description": "Imported from collective-ai-tools: Fitness",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_7b141876cb8818f3ca638573",
+    "icon": null,
+    "name": "Fun Tools",
+    "description": "Imported from collective-ai-tools: Fun Tools",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_8517b64a7dfada982abdf628",
+    "icon": null,
+    "name": "Gaming",
+    "description": "Imported from collective-ai-tools: Gaming",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_640d68bc6e5a99b5e3f566e5",
+    "icon": null,
+    "name": "Gift Ideas",
+    "description": "Imported from collective-ai-tools: Gift Ideas",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_3d8049711c0c70671c85bab5",
+    "icon": null,
+    "name": "HealthCare",
+    "description": "Imported from collective-ai-tools: HealthCare",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_2061685af327ab8cf47f5f5e",
+    "icon": null,
+    "name": "Human Resources",
+    "description": "Imported from collective-ai-tools: Human Resources",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_f201c10ef9ec89ddfbde881c",
+    "icon": null,
+    "name": "Image Classification",
+    "description": "Imported from collective-ai-tools: Image Classification",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_d19732435139884bf5e1536f",
+    "icon": null,
+    "name": "Image Editing",
+    "description": "Imported from collective-ai-tools: Image Editing",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_06061f3a890be0992593c168",
+    "icon": null,
+    "name": "Image Generator",
+    "description": "Imported from collective-ai-tools: Image Generator",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_fcb0c39558bf202fdeb16ccb",
+    "icon": null,
+    "name": "Interior Designing",
+    "description": "Imported from collective-ai-tools: Interior Designing",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_a708df92c9e46229e8f1cd50",
+    "icon": null,
+    "name": "Legal",
+    "description": "Imported from collective-ai-tools: Legal",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_2ef1dec55bb79459de51c6b1",
+    "icon": null,
+    "name": "Legal Assistant",
+    "description": "Imported from collective-ai-tools: Legal Assistant",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_e2a530e251d3675034d23f5c",
+    "icon": null,
+    "name": "Marketing",
+    "description": "Imported from collective-ai-tools: Marketing",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_0fd924362117d03662f0e86e",
+    "icon": null,
+    "name": "Meeting",
+    "description": "Imported from collective-ai-tools: Meeting",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_9372c470eeadd5ecd9c3c74c",
+    "icon": null,
+    "name": "Model",
+    "description": "Imported from collective-ai-tools: Model",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_8edcc26c0f6c7256a71a8ede",
+    "icon": null,
+    "name": "Models",
+    "description": "Imported from collective-ai-tools: Models",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_80f189984e5ca70287d13342",
+    "icon": null,
+    "name": "Music",
+    "description": "Imported from collective-ai-tools: Music",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_b01fb80c12ff792c9812f170",
+    "icon": null,
+    "name": "Paraphraser",
+    "description": "Imported from collective-ai-tools: Paraphraser",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_55a484f502103aba8b0693ab",
+    "icon": null,
+    "name": "Personal Assistant",
+    "description": "Imported from collective-ai-tools: Personal Assistant",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_bfac314fefdc07451af1792a",
+    "icon": null,
+    "name": "Presentation",
+    "description": "Imported from collective-ai-tools: Presentation",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_994d7d6ffaf3b4f623fe361b",
+    "icon": null,
+    "name": "Presentations",
+    "description": "Imported from collective-ai-tools: Presentations",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_bd1b16004d22b1a8de82b70f",
+    "icon": null,
+    "name": "Productivity",
+    "description": "Imported from collective-ai-tools: Productivity",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_eb7526362ee7678cb5650f67",
+    "icon": null,
+    "name": "Prompts",
+    "description": "Imported from collective-ai-tools: Prompts",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_f054cfcb3f1cdb5c350cbf50",
+    "icon": null,
+    "name": "Psychology",
+    "description": "Imported from collective-ai-tools: Psychology",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_d7efa2f7a9e1b512fd646d3e",
+    "icon": null,
+    "name": "Real Estate",
+    "description": "Imported from collective-ai-tools: Real Estate",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_139d14b61cae91c759a05e3f",
+    "icon": null,
+    "name": "Religion",
+    "description": "Imported from collective-ai-tools: Religion",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_66f62d1807d3821a3865f257",
+    "icon": null,
+    "name": "Research",
+    "description": "Imported from collective-ai-tools: Research",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_a83a31320d921b888a48fa5e",
+    "icon": null,
+    "name": "Resume",
+    "description": "Imported from collective-ai-tools: Resume",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_30f50f7fa4fa466a13861ff1",
+    "icon": null,
+    "name": "SEO",
+    "description": "Imported from collective-ai-tools: SEO",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_e04eb29020eaa961e99d3162",
+    "icon": null,
+    "name": "Sales",
+    "description": "Imported from collective-ai-tools: Sales",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_0ced62366227bbfaf9d2da23",
+    "icon": null,
+    "name": "Search Engine",
+    "description": "Imported from collective-ai-tools: Search Engine",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_96726f43210da1fe435a255e",
+    "icon": null,
+    "name": "Social Media",
+    "description": "Imported from collective-ai-tools: Social Media",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_d479f1971015ef0493532f5c",
+    "icon": null,
+    "name": "Summarizer",
+    "description": "Imported from collective-ai-tools: Summarizer",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_839cd11692e82b3539980277",
+    "icon": null,
+    "name": "Translation",
+    "description": "Imported from collective-ai-tools: Translation",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_0209442e115ad7bc79fd281d",
+    "icon": null,
+    "name": "Travel",
+    "description": "Imported from collective-ai-tools: Travel",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_0cab1c9617404faf2b24e221",
+    "icon": null,
+    "name": "Video",
+    "description": "Imported from collective-ai-tools: Video",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_e5e72beb4e3c6926d3dc9e3e",
+    "icon": null,
+    "name": "Weather",
+    "description": "Imported from collective-ai-tools: Weather",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
+  },
+  {
+    "id": "cat_collective_ee871105e875f3de6e0da042",
+    "icon": null,
+    "name": "Writing",
+    "description": "Imported from collective-ai-tools: Writing",
+    "createdAt": "2026-08-25T08:06:06.795Z",
+    "updatedAt": "2026-08-25T08:06:06.795Z"
   }
 ]

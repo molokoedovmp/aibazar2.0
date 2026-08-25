@@ -5,11 +5,8 @@ import { ArrowRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import TransitionButton from '@/app/components/home/TransitionButton';
 import Stars from "@/app/components/home/Stars";
-import FeaturePage from './FeatureSection';
 import PaymentInstructionSection from './payment-instruction';
-
-// import FeaturePage from './FeatureSection';
-import ContentPage from '@/app/components/home/ContentSection';
+import PopularToolsSection from './PopularToolsSection';
 import {
   Accordion,
   AccordionContent,
@@ -23,11 +20,6 @@ const Spline = dynamic(() => import("@/app/components/home/SplineClient"), { ssr
   // Исправлено: переносим параметры внутрь объекта, передаваемого в dynami
 
 export function Landingsecond() {
-  const formatPrice = (price?: number) => {
-    if (price === undefined || price === 0) return 'Бесплатно';
-    return `${price.toLocaleString('ru-RU')} ₽`;
-  };
-
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans">
       <main className="flex-1">
@@ -170,17 +162,7 @@ export function Landingsecond() {
           <PaymentInstructionSection />
         </section>
 
-        <section className="relative py-12 bg-white dark:bg-black flex justify-center items-center">
-          <div className="relative z-10">
-            <ContentPage />
-          </div>
-        </section>
-
-        <section >
-         
-            <FeaturePage /> 
-
-        </section>
+        <PopularToolsSection />
 
         <section className="relative py-24 bg-white dark:bg-black">
           <div className="absolute inset-0 overflow-hidden">

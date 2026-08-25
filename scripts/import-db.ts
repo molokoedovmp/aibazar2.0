@@ -4,12 +4,14 @@ import { PrismaClient } from "@prisma/client";
 
 // Minimal .env loader so DATABASE_URL is available when running the script directly.
 function loadEnv() {
+  const localEnvPath = path.resolve(__dirname, "..", ".env.local");
   const envPath = path.resolve(__dirname, "..", ".env");
   const prodEnvPath = path.resolve(__dirname, "..", ".env.production");
-  const candidates = [envPath, prodEnvPath];
+  const candidates = [localEnvPath, envPath, prodEnvPath];
 
   for (const candidate of candidates) {
     if (!fs.existsSync(candidate)) continue;
+    const isLocalEnv = candidate === localEnvPath;
     const lines = fs.readFileSync(candidate, "utf8").split("\n");
     for (const line of lines) {
       const trimmed = line.trim();
@@ -18,7 +20,7 @@ function loadEnv() {
       if (eqIndex === -1) continue;
       const key = trimmed.slice(0, eqIndex).trim();
       const rawValue = trimmed.slice(eqIndex + 1).trim();
-      if (!key || process.env[key]) continue;
+      if (!key || (!isLocalEnv && process.env[key])) continue;
       const value = rawValue.replace(/^["'](.+)["']$/, "$1");
       process.env[key] = value;
     }
@@ -116,6 +118,13 @@ async function importAll() {
 }
 
 async function main() {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) throw new Error("DATABASE_URL is not configured");
+  const target = new URL(databaseUrl);
+  console.log(
+    `Database target: ${target.hostname}:${target.port || "5432"}${target.pathname}`,
+  );
+
   console.log("Clearing existing data...");
   await clearAll();
 
