@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # 2. Ставим зависимости БЕЗ postinstall
-RUN npm install --ignore-scripts
+RUN npm ci --ignore-scripts
 
 COPY . .
 

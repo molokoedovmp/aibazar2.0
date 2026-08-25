@@ -19,7 +19,8 @@ export default function ContentPage() {
   const router = useRouter();
 
   const handleCardClick = (path: string) => {
-    router.push(`/services${path}`);
+    void path;
+    router.push("/catalog");
   };
 
   // Анимация для карточек

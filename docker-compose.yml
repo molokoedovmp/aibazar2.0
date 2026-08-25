@@ -1,8 +1,10 @@
 services:
   web:
     build: .
+    image: aibazar-web:latest
     container_name: aibazar-web
     restart: unless-stopped
+    init: true
 
     env_file:
       - .env
@@ -15,3 +17,14 @@ services:
 
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://127.0.0.1:3000/').then((response)=>{if(!response.ok)process.exit(1)}).catch(()=>process.exit(1))
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s

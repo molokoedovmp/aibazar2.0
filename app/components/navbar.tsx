@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Home, Grid2X2, Briefcase, Users, User as UserIcon } from "lucide-react";
+import { Calculator, Home, Grid2X2, Users, User as UserIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type Props = { overlay?: boolean };
@@ -39,8 +39,8 @@ export const Navbar = ({ overlay = false }: Props) => {
             <Link href="/catalog" className="text-sm font-medium hover:opacity-80">
               Каталог
             </Link>
-            <Link href="/services" className="text-sm font-medium hover:opacity-80">
-              Услуги
+            <Link href="/calculator" className="text-sm font-medium hover:opacity-80">
+              Калькулятор цен
             </Link>
             <Link href="/blog" className="text-sm hover:opacity-80">
               Сообщество
@@ -104,9 +104,9 @@ export const Navbar = ({ overlay = false }: Props) => {
             </Link>
           </li>
           <li>
-            <Link href="/services" className="flex flex-col items-center gap-1 rounded-xl px-2 py-1.5 hover:bg-white/10">
-              <Briefcase className="h-5 w-5" />
-              <span>Услуги</span>
+            <Link href="/calculator" className="flex flex-col items-center gap-1 rounded-xl px-2 py-1.5 hover:bg-white/10">
+              <Calculator className="h-5 w-5" />
+              <span>Расчёт</span>
             </Link>
           </li>
           <li>

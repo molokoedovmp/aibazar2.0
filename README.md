@@ -48,6 +48,15 @@ Download and cache missing catalog covers from each tool's official website:
 npm run catalog:images
 ```
 
+Translate descriptions that do not yet contain Russian text:
+
+```bash
+npm run catalog:translate:ru
+```
+
+The translator checkpoints the JSON after every small batch and skips
+descriptions that are already in Russian.
+
 The image importer prefers Open Graph covers, falls back to website icons,
 converts downloads to compact WebP files in `public/tool-images`, and skips
 tools that already have a `coverImage`.
@@ -66,10 +75,10 @@ the deployment build command below with the production `DATABASE_URL`:
 npm run build:deploy
 ```
 
-This adds only missing categories and AI tools before building. It does not
-clear the database and does not delete or overwrite existing users, orders, or
-catalog entries. A regular `npm run build` still builds without changing the
-database.
+This adds missing AI tools, synchronizes their category assignments, and
+removes only empty legacy categories replaced by the Russian taxonomy. It does
+not clear the database and does not delete or overwrite users or orders. A
+regular `npm run build` still builds without changing the database.
 
 Stop the isolated database when it is no longer needed:
 

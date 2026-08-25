@@ -1,586 +1,474 @@
 [
   {
-    "id": "js70k3dfv9ket0twdypeexh6ts6zrwgp",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW11c2ljIj48cGF0aCBkPSJNOSAxOFY1bDEyLTJ2MTMiLz48Y2lyY2xlIGN4PSI2IiBjeT0iMTgiIHI9IjMiLz48Y2lyY2xlIGN4PSIxOCIgY3k9IjE2IiByPSIzIi8+PC9zdmc+",
-    "name": "Создание музыки",
-    "description": "Создание музыки",
-    "createdAt": "2024-08-29T12:40:18.972Z",
-    "updatedAt": "2024-08-29T12:40:18.972Z"
-  },
-  {
-    "id": "js71rsjzca483xnt1c705fzenx709acq",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoYXBlcyI+PHBhdGggZD0iTTguMyAxMGEuNy43IDAgMCAxLS42MjYtMS4wNzlMMTEuNCAzYS43LjcgMCAwIDEgMS4xOTgtLjA0M0wxNi4zIDguOWEuNy43IDAgMCAxLS41NzIgMS4xWiIvPjxyZWN0IHg9IjMiIHk9IjE0IiB3aWR0aD0iNyIgaGVpZ2h0PSI3IiByeD0iMSIvPjxjaXJjbGUgY3g9IjE3LjUiIGN5PSIxNy41IiByPSIzLjUiLz48L3N2Zz4=",
-    "name": "Особые",
-    "description": "Особые",
-    "createdAt": "2024-09-06T09:50:25.731Z",
-    "updatedAt": "2024-09-06T09:50:25.731Z"
-  },
-  {
-    "id": "js72wx6n9d3aefa1v8s6xhnayh6zre5n",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJ1aWxkaW5nIj48cmVjdCB3aWR0aD0iMTYiIGhlaWdodD0iMjAiIHg9IjQiIHk9IjIiIHJ4PSIyIiByeT0iMiIvPjxwYXRoIGQ9Ik05IDIydi00aDZ2NCIvPjxwYXRoIGQ9Ik04IDZoLjAxIi8+PHBhdGggZD0iTTE2IDZoLjAxIi8+PHBhdGggZD0iTTEyIDZoLjAxIi8+PHBhdGggZD0iTTEyIDEwaC4wMSIvPjxwYXRoIGQ9Ik0xMiAxNGguMDEiLz48cGF0aCBkPSJNMTYgMTBoLjAxIi8+PHBhdGggZD0iTTE2IDE0aC4wMSIvPjxwYXRoIGQ9Ik04IDEwaC4wMSIvPjxwYXRoIGQ9Ik04IDE0aC4wMSIvPjwvc3ZnPg==",
-    "name": "Бизнес",
-    "description": "Все для Ecommerce",
-    "createdAt": "2024-08-29T05:46:14.385Z",
-    "updatedAt": "2024-08-29T05:46:14.385Z"
-  },
-  {
-    "id": "js73d1rjpndx2bkv0ya0macx3n7k0h3m",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNwYXJrbGVzLWljb24gbHVjaWRlLXNwYXJrbGVzIj48cGF0aCBkPSJNOS45MzcgMTUuNUEyIDIgMCAwIDAgOC41IDE0LjA2M2wtNi4xMzUtMS41ODJhLjUuNSAwIDAgMSAwLS45NjJMOC41IDkuOTM2QTIgMiAwIDAgMCA5LjkzNyA4LjVsMS41ODItNi4xMzVhLjUuNSAwIDAgMSAuOTYzIDBMMTQuMDYzIDguNUEyIDIgMCAwIDAgMTUuNSA5LjkzN2w2LjEzNSAxLjU4MWEuNS41IDAgMCAxIDAgLjk2NEwxNS41IDE0LjA2M2EyIDIgMCAwIDAtMS40MzcgMS40MzdsLTEuNTgyIDYuMTM1YS41LjUgMCAwIDEtLjk2MyAweiIvPjxwYXRoIGQ9Ik0yMCAzdjQiLz48cGF0aCBkPSJNMjIgNWgtNCIvPjxwYXRoIGQ9Ik00IDE3djIiLz48cGF0aCBkPSJNNSAxOEgzIi8+PC9zdmc+",
-    "name": "LLM модели",
-    "description": "",
-    "createdAt": "2025-07-03T19:12:43.421Z",
-    "updatedAt": "2025-07-03T19:12:43.421Z"
-  },
-  {
-    "id": "js763dzftbftgh3z6z7ms55ezn70swke",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoYXJ0LXBpZSI+PHBhdGggZD0iTTIxIDEyYy41NTIgMCAxLjAwNS0uNDQ5Ljk1LS45OThhMTAgMTAgMCAwIDAtOC45NTMtOC45NTFjLS41NS0uMDU1LS45OTguMzk4LS45OTguOTV2OGExIDEgMCAwIDAgMSAxeiIvPjxwYXRoIGQ9Ik0yMS4yMSAxNS44OUExMCAxMCAwIDEgMSA4IDIuODMiLz48L3N2Zz4=",
-    "name": "Презентации",
-    "description": "Презентации",
-    "createdAt": "2024-09-14T19:44:12.413Z",
-    "updatedAt": "2024-09-14T19:44:12.413Z"
-  },
-  {
-    "id": "js78yryr4swpdacbprbqcszgdx706gc4",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXJhZGljYWwiPjxwYXRoIGQ9Ik0zIDEyaDMuMjhhMSAxIDAgMCAxIC45NDguNjg0bDIuMjk4IDcuOTM0YS41LjUgMCAwIDAgLjk2LS4wNDRMMTMuODIgNC43NzFBMSAxIDAgMCAxIDE0Ljc5MiA0SDIxIi8+PC9zdmc+",
-    "name": "Математика",
-    "description": "Математика",
-    "createdAt": "2024-09-05T07:29:24.653Z",
-    "updatedAt": "2024-09-05T07:29:24.653Z"
-  },
-  {
-    "id": "js7a599gyq7kx5mpq74cdwp18n7cdq79",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXRhYmxlLTIiPjxwYXRoIGQ9Ik05IDNINWEyIDIgMCAwIDAtMiAydjRtNi02aDEwYTIgMiAwIDAgMSAyIDJ2NE05IDN2MThtMCAwaDEwYTIgMiAwIDAgMCAyLTJWOU05IDIxSDVhMiAyIDAgMCAxLTItMlY5bTAgMGgxOCIvPjwvc3ZnPg==",
-    "name": "Excel",
-    "description": "Улучшаем Excel, gpt которые сделают вашу работу с данными в разы проще",
-    "createdAt": "2025-03-19T22:32:29.179Z",
-    "updatedAt": "2025-03-19T22:32:29.179Z"
-  },
-  {
-    "id": "js7cjkjpj7zhhq5j3qetwp4jcn6zhgwb",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXZpZGVvIj48cGF0aCBkPSJtMTYgMTMgNS4yMjMgMy40ODJhLjUuNSAwIDAgMCAuNzc3LS40MTZWNy44N2EuNS41IDAgMCAwLS43NTItLjQzMkwxNiAxMC41Ii8+PHJlY3QgeD0iMiIgeT0iNiIgd2lkdGg9IjE0IiBoZWlnaHQ9IjEyIiByeD0iMiIvPjwvc3ZnPg==",
-    "name": "Видео",
-    "description": "Создание видео",
-    "createdAt": "2024-08-25T11:39:54.219Z",
-    "updatedAt": "2024-08-25T11:39:54.219Z"
-  },
-  {
-    "id": "js7dcc1x308zram6z79tctc3c96zg0dm",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJydXNoIj48cGF0aCBkPSJtOS4wNiAxMS45IDguMDctOC4wNmEyLjg1IDIuODUgMCAxIDEgNC4wMyA0LjAzbC04LjA2IDguMDgiLz48cGF0aCBkPSJNNy4wNyAxNC45NGMtMS42NiAwLTMgMS4zNS0zIDMuMDIgMCAxLjMzLTIuNSAxLjUyLTIgMi4wMiAxLjA4IDEuMSAyLjQ5IDIuMDIgNCAyLjAyIDIuMiAwIDQtMS44IDQtNC4wNGEzLjAxIDMuMDEgMCAwIDAtMy0zLjAyeiIvPjwvc3ZnPg==",
-    "name": "Дизайн",
-    "description": "Изображения",
-    "createdAt": "2024-08-25T11:56:41.301Z",
-    "updatedAt": "2024-08-25T11:56:41.301Z"
-  },
-  {
-    "id": "js72va881zxp0wnjfmyvvkfq8s6zp6c3",
-    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNvZGUteG1sIj48cGF0aCBkPSJtMTggMTYgNC00LTQtNCIvPjxwYXRoIGQ9Im02IDgtNCA0IDQgNCIvPjxwYXRoIGQ9Im0xNC41IDQtNSAxNiIvPjwvc3ZnPg==",
-    "name": "Код и разработка",
-    "description": "AI-помощники для создания сайтов",
-    "createdAt": "2024-08-28T19:30:58.760Z",
-    "updatedAt": "2025-10-30T15:29:55.410Z"
-  },
-  {
     "id": "cat_collective_da0568a25209c76552026c3b",
-    "icon": null,
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJveCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0yMSA4YTIgMiAwIDAgMC0xLTEuNzNsLTctNGEyIDIgMCAwIDAtMiAwbC03IDRBMiAyIDAgMCAwIDMgOHY4YTIgMiAwIDAgMCAxIDEuNzNsNyA0YTIgMiAwIDAgMCAyIDBsNy00QTIgMiAwIDAgMCAyMSAxNloiPjwvcGF0aD48cGF0aCBkPSJtMy4zIDcgOC43IDUgOC43LTUiPjwvcGF0aD48cGF0aCBkPSJNMTIgMjJWMTIiPjwvcGF0aD48L3N2Zz4=",
     "name": "3D",
-    "description": "Imported from collective-ai-tools: 3D",
+    "description": "Подборка AI-инструментов в категории «3D».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_3f52a423f8ebd4ccad56c627",
-    "icon": null,
-    "name": "Agriculture",
-    "description": "Imported from collective-ai-tools: Agriculture",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNwcm91dCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xNCA5LjUzNlY3YTQgNCAwIDAgMSA0LTRoMS41YS41LjUgMCAwIDEgLjUuNVY1YTQgNCAwIDAgMS00IDQgNCA0IDAgMCAwLTQgNGMwIDIgMSAzIDEgNWE1IDUgMCAwIDEtMSAzIj48L3BhdGg+PHBhdGggZD0iTTQgOWE1IDUgMCAwIDEgOCA0IDUgNSAwIDAgMS04LTQiPjwvcGF0aD48cGF0aCBkPSJNNSAyMWgxNCI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Сельское хозяйство",
+    "description": "Подборка AI-инструментов в категории «Сельское хозяйство».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_3b17c343c3ac3a265f9e4a75",
-    "icon": null,
-    "name": "App Builder",
-    "description": "Imported from collective-ai-tools: App Builder",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJsb2NrcyIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xMCAyMlY3YTEgMSAwIDAgMC0xLTFINGEyIDIgMCAwIDAtMiAydjEyYTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMnYtNWExIDEgMCAwIDAtMS0xSDIiPjwvcGF0aD48cmVjdCB4PSIxNCIgeT0iMiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgcng9IjEiPjwvcmVjdD48L3N2Zz4=",
+    "name": "Конструкторы приложений",
+    "description": "Подборка AI-инструментов в категории «Конструкторы приложений».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_d3cec99112255db9bf4963f7",
-    "icon": null,
-    "name": "Art",
-    "description": "Imported from collective-ai-tools: Art",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBhbGV0dGUiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMTIgMjJhMSAxIDAgMCAxIDAtMjAgMTAgOSAwIDAgMSAxMCA5IDUgNSAwIDAgMS01IDVoLTIuMjVhMS43NSAxLjc1IDAgMCAwLTEuNCAyLjhsLjMuNGExLjc1IDEuNzUgMCAwIDEtMS40IDIuOHoiPjwvcGF0aD48Y2lyY2xlIGN4PSIxMy41IiBjeT0iNi41IiByPSIuNSIgZmlsbD0iY3VycmVudENvbG9yIj48L2NpcmNsZT48Y2lyY2xlIGN4PSIxNy41IiBjeT0iMTAuNSIgcj0iLjUiIGZpbGw9ImN1cnJlbnRDb2xvciI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iNi41IiBjeT0iMTIuNSIgcj0iLjUiIGZpbGw9ImN1cnJlbnRDb2xvciI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iOC41IiBjeT0iNy41IiByPSIuNSIgZmlsbD0iY3VycmVudENvbG9yIj48L2NpcmNsZT48L3N2Zz4=",
+    "name": "Искусство",
+    "description": "Подборка AI-инструментов в категории «Искусство».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_c57f03c612cae3458f9ef1ad",
-    "icon": null,
-    "name": "Audio & Speech",
-    "description": "Imported from collective-ai-tools: Audio & Speech",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWF1ZGlvLWxpbmVzIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTIgMTB2MyI+PC9wYXRoPjxwYXRoIGQ9Ik02IDZ2MTEiPjwvcGF0aD48cGF0aCBkPSJNMTAgM3YxOCI+PC9wYXRoPjxwYXRoIGQ9Ik0xNCA4djciPjwvcGF0aD48cGF0aCBkPSJNMTggNXYxMyI+PC9wYXRoPjxwYXRoIGQ9Ik0yMiAxMHYzIj48L3BhdGg+PC9zdmc+",
+    "name": "Аудио и речь",
+    "description": "Подборка AI-инструментов в категории «Аудио и речь».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_18839eec356af66ba67ee8e9",
-    "icon": null,
-    "name": "Avatars",
-    "description": "Imported from collective-ai-tools: Avatars",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNpcmNsZS11c2VyLXJvdW5kIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTE4IDIwYTYgNiAwIDAgMC0xMiAwIj48L3BhdGg+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMCIgcj0iNCI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiPjwvY2lyY2xlPjwvc3ZnPg==",
+    "name": "Аватары",
+    "description": "Подборка AI-инструментов в категории «Аватары».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_1fd4ef08ff23481d6a334b77",
-    "icon": null,
-    "name": "Browsers",
-    "description": "Imported from collective-ai-tools: Browsers",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWdsb2JlIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiPjwvY2lyY2xlPjxwYXRoIGQ9Ik0xMiAyYTE0LjUgMTQuNSAwIDAgMCAwIDIwIDE0LjUgMTQuNSAwIDAgMCAwLTIwIj48L3BhdGg+PHBhdGggZD0iTTIgMTJoMjAiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Браузеры",
+    "description": "Подборка AI-инструментов в категории «Браузеры».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_11d40417959631d3d2420e8c",
-    "icon": null,
-    "name": "Business",
-    "description": "Imported from collective-ai-tools: Business",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJyaWVmY2FzZS1idXNpbmVzcyIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xMiAxMmguMDEiPjwvcGF0aD48cGF0aCBkPSJNMTYgNlY0YTIgMiAwIDAgMC0yLTJoLTRhMiAyIDAgMCAwLTIgMnYyIj48L3BhdGg+PHBhdGggZD0iTTIyIDEzYTE4LjE1IDE4LjE1IDAgMCAxLTIwIDAiPjwvcGF0aD48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMTQiIHg9IjIiIHk9IjYiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+",
+    "name": "Бизнес",
+    "description": "Подборка AI-инструментов в категории «Бизнес».",
+    "createdAt": "2024-08-29T05:46:14.385Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_a5ea7d719f7aba21d3f940a2",
-    "icon": null,
-    "name": "Chatbots",
-    "description": "Imported from collective-ai-tools: Chatbots",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJvdCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xMiA4VjRIOCI+PC9wYXRoPjxyZWN0IHdpZHRoPSIxNiIgaGVpZ2h0PSIxMiIgeD0iNCIgeT0iOCIgcng9IjIiPjwvcmVjdD48cGF0aCBkPSJNMiAxNGgyIj48L3BhdGg+PHBhdGggZD0iTTIwIDE0aDIiPjwvcGF0aD48cGF0aCBkPSJNMTUgMTN2MiI+PC9wYXRoPjxwYXRoIGQ9Ik05IDEzdjIiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Чат-боты",
+    "description": "Подборка AI-инструментов в категории «Чат-боты».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_82bd81ea4b0302554165ae91",
-    "icon": null,
-    "name": "Cooking",
-    "description": "Imported from collective-ai-tools: Cooking",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNvb2tpbmctcG90IiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTIgMTJoMjAiPjwvcGF0aD48cGF0aCBkPSJNMjAgMTJ2OGEyIDIgMCAwIDEtMiAySDZhMiAyIDAgMCAxLTItMnYtOCI+PC9wYXRoPjxwYXRoIGQ9Im00IDggMTYtNCI+PC9wYXRoPjxwYXRoIGQ9Im04Ljg2IDYuNzgtLjQ1LTEuODFhMiAyIDAgMCAxIDEuNDUtMi40M2wxLjk0LS40OGEyIDIgMCAwIDEgMi40MyAxLjQ2bC40NSAxLjgiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Кулинария",
+    "description": "Подборка AI-инструментов в категории «Кулинария».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_4a1359f78476e392cf5b1079",
-    "icon": null,
-    "name": "Copywriting",
-    "description": "Imported from collective-ai-tools: Copywriting",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBlbi1saW5lIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTEzIDIxaDgiPjwvcGF0aD48cGF0aCBkPSJNMjEuMTc0IDYuODEyYTEgMSAwIDAgMC0zLjk4Ni0zLjk4N0wzLjg0MiAxNi4xNzRhMiAyIDAgMCAwLS41LjgzbC0xLjMyMSA0LjM1MmEuNS41IDAgMCAwIC42MjMuNjIybDQuMzUzLTEuMzJhMiAyIDAgMCAwIC44My0uNDk3eiI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Копирайтинг",
+    "description": "Подборка AI-инструментов в категории «Копирайтинг».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_da2f073e06f78938166f2472",
-    "icon": null,
-    "name": "Crypto",
-    "description": "Imported from collective-ai-tools: Crypto",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJpdGNvaW4iIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMTEuNzY3IDE5LjA4OWM0LjkyNC44NjggNi4xNC02LjAyNSAxLjIxNi02Ljg5NG0tMS4yMTYgNi44OTRMNS44NiAxOC4wNDdtNS45MDggMS4wNDItLjM0NyAxLjk3bTEuNTYzLTguODY0YzQuOTI0Ljg2OSA2LjE0LTYuMDI1IDEuMjE1LTYuODkzbS0xLjIxNSA2Ljg5My0zLjk0LS42OTRtNS4xNTUtNi4yTDguMjkgNC4yNm01LjkwOCAxLjA0Mi4zNDgtMS45N003LjQ4IDIwLjM2NGwzLjEyNi0xNy43MjciPjwvcGF0aD48L3N2Zz4=",
+    "name": "Криптовалюты",
+    "description": "Подборка AI-инструментов в категории «Криптовалюты».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_588c0628930086020a7beec4",
-    "icon": null,
-    "name": "Customer Support",
-    "description": "Imported from collective-ai-tools: Customer Support",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlYWRwaG9uZXMiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMyAxNGgzYTIgMiAwIDAgMSAyIDJ2M2EyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMnYtN2E5IDkgMCAwIDEgMTggMHY3YTIgMiAwIDAgMS0yIDJoLTFhMiAyIDAgMCAxLTItMnYtM2EyIDIgMCAwIDEgMi0yaDMiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Поддержка клиентов",
+    "description": "Подборка AI-инструментов в категории «Поддержка клиентов».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_16500769bdb5c4ee9f506f14",
-    "icon": null,
-    "name": "Data & BI",
-    "description": "Imported from collective-ai-tools: Data & BI",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoYXJ0LWNvbHVtbiIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0zIDN2MTZhMiAyIDAgMCAwIDIgMmgxNiI+PC9wYXRoPjxwYXRoIGQ9Ik0xOCAxN1Y5Ij48L3BhdGg+PHBhdGggZD0iTTEzIDE3VjUiPjwvcGF0aD48cGF0aCBkPSJNOCAxN3YtMyI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Данные и аналитика",
+    "description": "Подборка AI-инструментов в категории «Данные и аналитика».",
+    "createdAt": "2025-03-19T22:32:29.179Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_0bcc639f6c41a8b9ea537cd0",
-    "icon": null,
-    "name": "Dating",
-    "description": "Imported from collective-ai-tools: Dating",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlYXJ0IiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTIgOS41YTUuNSA1LjUgMCAwIDEgOS41OTEtMy42NzYuNTYuNTYgMCAwIDAgLjgxOCAwQTUuNDkgNS40OSAwIDAgMSAyMiA5LjVjMCAyLjI5LTEuNSA0LTMgNS41bC01LjQ5MiA1LjMxM2EyIDIgMCAwIDEtMyAuMDE5TDUgMTVjLTEuNS0xLjUtMy0zLjItMy01LjUiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Знакомства",
+    "description": "Подборка AI-инструментов в категории «Знакомства».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_a77de8a6daa1129516b14c8c",
-    "icon": null,
-    "name": "Design",
-    "description": "Imported from collective-ai-tools: Design",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
-  },
-  {
-    "id": "cat_collective_88fa0d759f845b47c044c2cd",
-    "icon": null,
-    "name": "Developer",
-    "description": "Imported from collective-ai-tools: Developer",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBhaW50YnJ1c2giIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJtMTQuNjIyIDE3Ljg5Ny0xMC42OC0yLjkxMyI+PC9wYXRoPjxwYXRoIGQ9Ik0xOC4zNzYgMi42MjJhMSAxIDAgMSAxIDMuMDAyIDMuMDAyTDE3LjM2IDkuNjQzYS41LjUgMCAwIDAgMCAuNzA3bC45NDQuOTQ0YTIuNDEgMi40MSAwIDAgMSAwIDMuNDA4bC0uOTQ0Ljk0NGEuNS41IDAgMCAxLS43MDcgMEw4LjM1NCA3LjM0OGEuNS41IDAgMCAxIDAtLjcwN2wuOTQ0LS45NDRhMi40MSAyLjQxIDAgMCAxIDMuNDA4IDBsLjk0NC45NDRhLjUuNSAwIDAgMCAuNzA3IDB6Ij48L3BhdGg+PHBhdGggZD0iTTkgOGMtMS44MDQgMi43MS0zLjk3IDMuNDYtNi41ODMgMy45NDhhLjUwNy41MDcgMCAwIDAtLjMwMi44MTlsNy4zMiA4Ljg4M2ExIDEgMCAwIDAgMS4xODUuMjA0QzEyLjczNSAyMC40MDUgMTYgMTYuNzkyIDE2IDE1Ij48L3BhdGg+PC9zdmc+",
+    "name": "Дизайн",
+    "description": "Подборка AI-инструментов в категории «Дизайн».",
+    "createdAt": "2024-08-25T11:56:41.301Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_47c213598e79069a5e53b9ab",
-    "icon": null,
-    "name": "Developer Tools",
-    "description": "Imported from collective-ai-tools: Developer Tools",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNvZGUteG1sIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0ibTE4IDE2IDQtNC00LTQiPjwvcGF0aD48cGF0aCBkPSJtNiA4LTQgNCA0IDQiPjwvcGF0aD48cGF0aCBkPSJtMTQuNSA0LTUgMTYiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Разработка",
+    "description": "Подборка AI-инструментов в категории «Разработка».",
+    "createdAt": "2024-08-28T19:30:58.760Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_66a16477af3587de7dd6e631",
-    "icon": null,
-    "name": "Document Processing",
-    "description": "Imported from collective-ai-tools: Document Processing",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZpbGVzIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTE1IDJhMiAyIDAgMCAxIDEuNDE0LjU4Nmw0IDRBMiAyIDAgMCAxIDIxIDh2N2EyIDIgMCAwIDEtMiAyaC04YTIgMiAwIDAgMS0yLTJWNGEyIDIgMCAwIDEgMi0yeiI+PC9wYXRoPjxwYXRoIGQ9Ik0xNSAydjRhMiAyIDAgMCAwIDIgMmg0Ij48L3BhdGg+PHBhdGggZD0iTTUgN2EyIDIgMCAwIDAtMiAydjExYTIgMiAwIDAgMCAyIDJoOGEyIDIgMCAwIDAgMS43MzItMSI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Работа с документами",
+    "description": "Подборка AI-инструментов в категории «Работа с документами».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_b5f3227337446f504cd86941",
-    "icon": null,
-    "name": "E-Commerce",
-    "description": "Imported from collective-ai-tools: E-Commerce",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNob3BwaW5nLWNhcnQiIGFyaWEtaGlkZGVuPSJ0cnVlIj48Y2lyY2xlIGN4PSI4IiBjeT0iMjEiIHI9IjEiPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjE5IiBjeT0iMjEiIHI9IjEiPjwvY2lyY2xlPjxwYXRoIGQ9Ik0yLjA1IDIuMDVoMmwyLjY2IDEyLjQyYTIgMiAwIDAgMCAyIDEuNThoOS43OGEyIDIgMCAwIDAgMS45NS0xLjU3bDEuNjUtNy40M0g1LjEyIj48L3BhdGg+PC9zdmc+",
+    "name": "Электронная коммерция",
+    "description": "Подборка AI-инструментов в категории «Электронная коммерция».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_68bf0109c6f8a87bfa96d1ec",
-    "icon": null,
-    "name": "Education",
-    "description": "Imported from collective-ai-tools: Education",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWdyYWR1YXRpb24tY2FwIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTIxLjQyIDEwLjkyMmExIDEgMCAwIDAtLjAxOS0xLjgzOEwxMi44MyA1LjE4YTIgMiAwIDAgMC0xLjY2IDBMMi42IDkuMDhhMSAxIDAgMCAwIDAgMS44MzJsOC41NyAzLjkwOGEyIDIgMCAwIDAgMS42NiAweiI+PC9wYXRoPjxwYXRoIGQ9Ik0yMiAxMHY2Ij48L3BhdGg+PHBhdGggZD0iTTYgMTIuNVYxNmE2IDMgMCAwIDAgMTIgMHYtMy41Ij48L3BhdGg+PC9zdmc+",
+    "name": "Образование",
+    "description": "Подборка AI-инструментов в категории «Образование».",
+    "createdAt": "2024-09-05T07:29:24.653Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_3422931459279cca73a5ace4",
-    "icon": null,
-    "name": "Email Assistant",
-    "description": "Imported from collective-ai-tools: Email Assistant",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1haWwiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJtMjIgNy04Ljk5MSA1LjcyN2EyIDIgMCAwIDEtMi4wMDkgMEwyIDciPjwvcGF0aD48cmVjdCB4PSIyIiB5PSI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+",
+    "name": "Email-ассистенты",
+    "description": "Подборка AI-инструментов в категории «Email-ассистенты».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_8b2df81cc399a681a59030dc",
-    "icon": null,
-    "name": "Experiments",
-    "description": "Imported from collective-ai-tools: Experiments",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZsYXNrLWNvbmljYWwiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMTQgMnY2YTIgMiAwIDAgMCAuMjQ1Ljk2bDUuNTEgMTAuMDhBMiAyIDAgMCAxIDE4IDIySDZhMiAyIDAgMCAxLTEuNzU1LTIuOTZsNS41MS0xMC4wOEEyIDIgMCAwIDAgMTAgOFYyIj48L3BhdGg+PHBhdGggZD0iTTYuNDUzIDE1aDExLjA5NCI+PC9wYXRoPjxwYXRoIGQ9Ik04LjUgMmg3Ij48L3BhdGg+PC9zdmc+",
+    "name": "Экспериментальные",
+    "description": "Подборка AI-инструментов в категории «Экспериментальные».",
+    "createdAt": "2024-09-06T09:50:25.731Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_309d267f086d5fe5433d5bcc",
-    "icon": null,
-    "name": "Fashion",
-    "description": "Imported from collective-ai-tools: Fashion",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoaXJ0IiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTIwLjM4IDMuNDYgMTYgMmE0IDQgMCAwIDEtOCAwTDMuNjIgMy40NmEyIDIgMCAwIDAtMS4zNCAyLjIzbC41OCAzLjQ3YTEgMSAwIDAgMCAuOTkuODRINnYxMGMwIDEuMS45IDIgMiAyaDhhMiAyIDAgMCAwIDItMlYxMGgyLjE1YTEgMSAwIDAgMCAuOTktLjg0bC41OC0zLjQ3YTIgMiAwIDAgMC0xLjM0LTIuMjN6Ij48L3BhdGg+PC9zdmc+",
+    "name": "Мода",
+    "description": "Подборка AI-инструментов в категории «Мода».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_eab762a03fd979a04cc4706e",
-    "icon": null,
-    "name": "Finance",
-    "description": "Imported from collective-ai-tools: Finance",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhbmRtYXJrIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTEwIDE4di03Ij48L3BhdGg+PHBhdGggZD0iTTExLjEyIDIuMTk4YTIgMiAwIDAgMSAxLjc2LjAwNmw3Ljg2NiAzLjg0N2MuNDc2LjIzMy4zMS45NDktLjIyLjk0OUgzLjQ3NGMtLjUzIDAtLjY5NS0uNzE2LS4yMi0uOTQ5eiI+PC9wYXRoPjxwYXRoIGQ9Ik0xNCAxOHYtNyI+PC9wYXRoPjxwYXRoIGQ9Ik0xOCAxOHYtNyI+PC9wYXRoPjxwYXRoIGQ9Ik0zIDIyaDE4Ij48L3BhdGg+PHBhdGggZD0iTTYgMTh2LTciPjwvcGF0aD48L3N2Zz4=",
+    "name": "Финансы",
+    "description": "Подборка AI-инструментов в категории «Финансы».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_9ebf9b5978e6d486b0a66423",
-    "icon": null,
-    "name": "Fitness",
-    "description": "Imported from collective-ai-tools: Fitness",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWR1bWJiZWxsIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTE3LjU5NiAxMi43NjhhMiAyIDAgMSAwIDIuODI5LTIuODI5bC0xLjc2OC0xLjc2N2EyIDIgMCAwIDAgMi44MjgtMi44MjlsLTIuODI4LTIuODI4YTIgMiAwIDAgMC0yLjgyOSAyLjgyOGwtMS43NjctMS43NjhhMiAyIDAgMSAwLTIuODI5IDIuODI5eiI+PC9wYXRoPjxwYXRoIGQ9Im0yLjUgMjEuNSAxLjQtMS40Ij48L3BhdGg+PHBhdGggZD0ibTIwLjEgMy45IDEuNC0xLjQiPjwvcGF0aD48cGF0aCBkPSJNNS4zNDMgMjEuNDg1YTIgMiAwIDEgMCAyLjgyOS0yLjgyOGwxLjc2NyAxLjc2OGEyIDIgMCAxIDAgMi44MjktMi44MjlsLTYuMzY0LTYuMzY0YTIgMiAwIDEgMC0yLjgyOSAyLjgyOWwxLjc2OCAxLjc2N2EyIDIgMCAwIDAtMi44MjggMi44Mjl6Ij48L3BhdGg+PHBhdGggZD0ibTkuNiAxNC40IDQuOC00LjgiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Фитнес",
+    "description": "Подборка AI-инструментов в категории «Фитнес».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_7b141876cb8818f3ca638573",
-    "icon": null,
-    "name": "Fun Tools",
-    "description": "Imported from collective-ai-tools: Fun Tools",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNwYXJrbGVzIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTExLjAxNyAyLjgxNGExIDEgMCAwIDEgMS45NjYgMGwxLjA1MSA1LjU1OGEyIDIgMCAwIDAgMS41OTQgMS41OTRsNS41NTggMS4wNTFhMSAxIDAgMCAxIDAgMS45NjZsLTUuNTU4IDEuMDUxYTIgMiAwIDAgMC0xLjU5NCAxLjU5NGwtMS4wNTEgNS41NThhMSAxIDAgMCAxLTEuOTY2IDBsLTEuMDUxLTUuNTU4YTIgMiAwIDAgMC0xLjU5NC0xLjU5NGwtNS41NTgtMS4wNTFhMSAxIDAgMCAxIDAtMS45NjZsNS41NTgtMS4wNTFhMiAyIDAgMCAwIDEuNTk0LTEuNTk0eiI+PC9wYXRoPjxwYXRoIGQ9Ik0yMCAydjQiPjwvcGF0aD48cGF0aCBkPSJNMjIgNGgtNCI+PC9wYXRoPjxjaXJjbGUgY3g9IjQiIGN5PSIyMCIgcj0iMiI+PC9jaXJjbGU+PC9zdmc+",
+    "name": "Развлечения",
+    "description": "Подборка AI-инструментов в категории «Развлечения».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_8517b64a7dfada982abdf628",
-    "icon": null,
-    "name": "Gaming",
-    "description": "Imported from collective-ai-tools: Gaming",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWdhbWVwYWQyIGx1Y2lkZS1nYW1lcGFkLTIiIGFyaWEtaGlkZGVuPSJ0cnVlIj48bGluZSB4MT0iNiIgeDI9IjEwIiB5MT0iMTEiIHkyPSIxMSI+PC9saW5lPjxsaW5lIHgxPSI4IiB4Mj0iOCIgeTE9IjkiIHkyPSIxMyI+PC9saW5lPjxsaW5lIHgxPSIxNSIgeDI9IjE1LjAxIiB5MT0iMTIiIHkyPSIxMiI+PC9saW5lPjxsaW5lIHgxPSIxOCIgeDI9IjE4LjAxIiB5MT0iMTAiIHkyPSIxMCI+PC9saW5lPjxwYXRoIGQ9Ik0xNy4zMiA1SDYuNjhhNCA0IDAgMCAwLTMuOTc4IDMuNTljLS4wMDYuMDUyLS4wMS4xMDEtLjAxNy4xNTJDMi42MDQgOS40MTYgMiAxNC40NTYgMiAxNmEzIDMgMCAwIDAgMyAzYzEgMCAxLjUtLjUgMi0xbDEuNDE0LTEuNDE0QTIgMiAwIDAgMSA5LjgyOCAxNmg0LjM0NGEyIDIgMCAwIDEgMS40MTQuNTg2TDE3IDE4Yy41LjUgMSAxIDIgMWEzIDMgMCAwIDAgMy0zYzAtMS41NDUtLjYwNC02LjU4NC0uNjg1LTcuMjU4LS4wMDctLjA1LS4wMTEtLjEtLjAxNy0uMTUxQTQgNCAwIDAgMCAxNy4zMiA1eiI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Игры",
+    "description": "Подборка AI-инструментов в категории «Игры».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_640d68bc6e5a99b5e3f566e5",
-    "icon": null,
-    "name": "Gift Ideas",
-    "description": "Imported from collective-ai-tools: Gift Ideas",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWdpZnQiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cmVjdCB4PSIzIiB5PSI4IiB3aWR0aD0iMTgiIGhlaWdodD0iNCIgcng9IjEiPjwvcmVjdD48cGF0aCBkPSJNMTIgOHYxMyI+PC9wYXRoPjxwYXRoIGQ9Ik0xOSAxMnY3YTIgMiAwIDAgMS0yIDJIN2EyIDIgMCAwIDEtMi0ydi03Ij48L3BhdGg+PHBhdGggZD0iTTcuNSA4YTIuNSAyLjUgMCAwIDEgMC01QTQuOCA4IDAgMCAxIDEyIDhhNC44IDggMCAwIDEgNC41LTUgMi41IDIuNSAwIDAgMSAwIDUiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Идеи подарков",
+    "description": "Подборка AI-инструментов в категории «Идеи подарков».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_3d8049711c0c70671c85bab5",
-    "icon": null,
-    "name": "HealthCare",
-    "description": "Imported from collective-ai-tools: HealthCare",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhlYXJ0LXB1bHNlIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTIgOS41YTUuNSA1LjUgMCAwIDEgOS41OTEtMy42NzYuNTYuNTYgMCAwIDAgLjgxOCAwQTUuNDkgNS40OSAwIDAgMSAyMiA5LjVjMCAyLjI5LTEuNSA0LTMgNS41bC01LjQ5MiA1LjMxM2EyIDIgMCAwIDEtMyAuMDE5TDUgMTVjLTEuNS0xLjUtMy0zLjItMy01LjUiPjwvcGF0aD48cGF0aCBkPSJNMy4yMiAxM0g5LjVsLjUtMSAyIDQuNSAyLTcgMS41IDMuNWg1LjI3Ij48L3BhdGg+PC9zdmc+",
+    "name": "Здоровье",
+    "description": "Подборка AI-инструментов в категории «Здоровье».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_2061685af327ab8cf47f5f5e",
-    "icon": null,
-    "name": "Human Resources",
-    "description": "Imported from collective-ai-tools: Human Resources",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTE2IDIxdi0yYTQgNCAwIDAgMC00LTRINmE0IDQgMCAwIDAtNCA0djIiPjwvcGF0aD48cGF0aCBkPSJNMTYgMy4xMjhhNCA0IDAgMCAxIDAgNy43NDQiPjwvcGF0aD48cGF0aCBkPSJNMjIgMjF2LTJhNCA0IDAgMCAwLTMtMy44NyI+PC9wYXRoPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ij48L2NpcmNsZT48L3N2Zz4=",
+    "name": "HR и подбор персонала",
+    "description": "Подборка AI-инструментов в категории «HR и подбор персонала».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_f201c10ef9ec89ddfbde881c",
-    "icon": null,
-    "name": "Image Classification",
-    "description": "Imported from collective-ai-tools: Image Classification",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNjYW4tc2VhcmNoIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTMgN1Y1YTIgMiAwIDAgMSAyLTJoMiI+PC9wYXRoPjxwYXRoIGQ9Ik0xNyAzaDJhMiAyIDAgMCAxIDIgMnYyIj48L3BhdGg+PHBhdGggZD0iTTIxIDE3djJhMiAyIDAgMCAxLTIgMmgtMiI+PC9wYXRoPjxwYXRoIGQ9Ik03IDIxSDVhMiAyIDAgMCAxLTItMnYtMiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiPjwvY2lyY2xlPjxwYXRoIGQ9Im0xNiAxNi0xLjktMS45Ij48L3BhdGg+PC9zdmc+",
+    "name": "Распознавание изображений",
+    "description": "Подборка AI-инструментов в категории «Распознавание изображений».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_d19732435139884bf5e1536f",
-    "icon": null,
-    "name": "Image Editing",
-    "description": "Imported from collective-ai-tools: Image Editing",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWltYWdlcyIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Im0yMiAxMS0xLjI5Ni0xLjI5NmEyLjQgMi40IDAgMCAwLTMuNDA4IDBMMTEgMTYiPjwvcGF0aD48cGF0aCBkPSJNNCA4YTIgMiAwIDAgMC0yIDJ2MTBhMiAyIDAgMCAwIDIgMmgxMGEyIDIgMCAwIDAgMi0yIj48L3BhdGg+PGNpcmNsZSBjeD0iMTMiIGN5PSI3IiByPSIxIiBmaWxsPSJjdXJyZW50Q29sb3IiPjwvY2lyY2xlPjxyZWN0IHg9IjgiIHk9IjIiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgcng9IjIiPjwvcmVjdD48L3N2Zz4=",
+    "name": "Редактирование изображений",
+    "description": "Подборка AI-инструментов в категории «Редактирование изображений».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_06061f3a890be0992593c168",
-    "icon": null,
-    "name": "Image Generator",
-    "description": "Imported from collective-ai-tools: Image Generator",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWltYWdlLXBsdXMiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMTYgNWg2Ij48L3BhdGg+PHBhdGggZD0iTTE5IDJ2NiI+PC9wYXRoPjxwYXRoIGQ9Ik0yMSAxMS41VjE5YTIgMiAwIDAgMS0yIDJINWEyIDIgMCAwIDEtMi0yVjVhMiAyIDAgMCAxIDItMmg3LjUiPjwvcGF0aD48cGF0aCBkPSJtMjEgMTUtMy4wODYtMy4wODZhMiAyIDAgMCAwLTIuODI4IDBMNiAyMSI+PC9wYXRoPjxjaXJjbGUgY3g9IjkiIGN5PSI5IiByPSIyIj48L2NpcmNsZT48L3N2Zz4=",
+    "name": "Генерация изображений",
+    "description": "Подборка AI-инструментов в категории «Генерация изображений».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_fcb0c39558bf202fdeb16ccb",
-    "icon": null,
-    "name": "Interior Designing",
-    "description": "Imported from collective-ai-tools: Interior Designing",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNvZmEiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMjAgOVY2YTIgMiAwIDAgMC0yLTJINmEyIDIgMCAwIDAtMiAydjMiPjwvcGF0aD48cGF0aCBkPSJNMiAxNmEyIDIgMCAwIDAgMiAyaDE2YTIgMiAwIDAgMCAyLTJ2LTVhMiAyIDAgMCAwLTQgMHYxLjVhLjUuNSAwIDAgMS0uNS41aC0xMWEuNS41IDAgMCAxLS41LS41VjExYTIgMiAwIDAgMC00IDB6Ij48L3BhdGg+PHBhdGggZD0iTTQgMTh2MiI+PC9wYXRoPjxwYXRoIGQ9Ik0yMCAxOHYyIj48L3BhdGg+PHBhdGggZD0iTTEyIDR2OSI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Дизайн интерьера",
+    "description": "Подборка AI-инструментов в категории «Дизайн интерьера».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_a708df92c9e46229e8f1cd50",
-    "icon": null,
-    "name": "Legal",
-    "description": "Imported from collective-ai-tools: Legal",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNjYWxlIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0ibTE2IDE2IDMtOCAzIDhjLS44Ny42NS0xLjkyIDEtMyAxcy0yLjEzLS4zNS0zLTFaIj48L3BhdGg+PHBhdGggZD0ibTIgMTYgMy04IDMgOGMtLjg3LjY1LTEuOTIgMS0zIDFzLTIuMTMtLjM1LTMtMVoiPjwvcGF0aD48cGF0aCBkPSJNNyAyMWgxMCI+PC9wYXRoPjxwYXRoIGQ9Ik0xMiAzdjE4Ij48L3BhdGg+PHBhdGggZD0iTTMgN2gyYzIgMCA1LTEgNy0yIDIgMSA1IDIgNyAyaDIiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Юридические инструменты",
+    "description": "Подборка AI-инструментов в категории «Юридические инструменты».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
-  },
-  {
-    "id": "cat_collective_2ef1dec55bb79459de51c6b1",
-    "icon": null,
-    "name": "Legal Assistant",
-    "description": "Imported from collective-ai-tools: Legal Assistant",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_e2a530e251d3675034d23f5c",
-    "icon": null,
-    "name": "Marketing",
-    "description": "Imported from collective-ai-tools: Marketing",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1lZ2FwaG9uZSIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xMSA2YTEzIDEzIDAgMCAwIDguNC0yLjhBMSAxIDAgMCAxIDIxIDR2MTJhMSAxIDAgMCAxLTEuNi44QTEzIDEzIDAgMCAwIDExIDE0SDVhMiAyIDAgMCAxLTItMlY4YTIgMiAwIDAgMSAyLTJ6Ij48L3BhdGg+PHBhdGggZD0iTTYgMTRhMTIgMTIgMCAwIDAgMi40IDcuMiAyIDIgMCAwIDAgMy4yLTIuNEE4IDggMCAwIDEgMTAgMTQiPjwvcGF0aD48cGF0aCBkPSJNOCA2djgiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Маркетинг",
+    "description": "Подборка AI-инструментов в категории «Маркетинг».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_0fd924362117d03662f0e86e",
-    "icon": null,
-    "name": "Meeting",
-    "description": "Imported from collective-ai-tools: Meeting",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNhbGVuZGFyLWNsb2NrIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTE2IDE0djIuMmwxLjYgMSI+PC9wYXRoPjxwYXRoIGQ9Ik0xNiAydjQiPjwvcGF0aD48cGF0aCBkPSJNMjEgNy41VjZhMiAyIDAgMCAwLTItMkg1YTIgMiAwIDAgMC0yIDJ2MTRhMiAyIDAgMCAwIDIgMmgzLjUiPjwvcGF0aD48cGF0aCBkPSJNMyAxMGg1Ij48L3BhdGg+PHBhdGggZD0iTTggMnY0Ij48L3BhdGg+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiI+PC9jaXJjbGU+PC9zdmc+",
+    "name": "Встречи",
+    "description": "Подборка AI-инструментов в категории «Встречи».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
-  },
-  {
-    "id": "cat_collective_9372c470eeadd5ecd9c3c74c",
-    "icon": null,
-    "name": "Model",
-    "description": "Imported from collective-ai-tools: Model",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_8edcc26c0f6c7256a71a8ede",
-    "icon": null,
-    "name": "Models",
-    "description": "Imported from collective-ai-tools: Models",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJyYWluLWNpcmN1aXQiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMTIgNWEzIDMgMCAxIDAtNS45OTcuMTI1IDQgNCAwIDAgMC0yLjUyNiA1Ljc3IDQgNCAwIDAgMCAuNTU2IDYuNTg4QTQgNCAwIDEgMCAxMiAxOFoiPjwvcGF0aD48cGF0aCBkPSJNOSAxM2E0LjUgNC41IDAgMCAwIDMtNCI+PC9wYXRoPjxwYXRoIGQ9Ik02LjAwMyA1LjEyNUEzIDMgMCAwIDAgNi40MDEgNi41Ij48L3BhdGg+PHBhdGggZD0iTTMuNDc3IDEwLjg5NmE0IDQgMCAwIDEgLjU4NS0uMzk2Ij48L3BhdGg+PHBhdGggZD0iTTYgMThhNCA0IDAgMCAxLTEuOTY3LS41MTYiPjwvcGF0aD48cGF0aCBkPSJNMTIgMTNoNCI+PC9wYXRoPjxwYXRoIGQ9Ik0xMiAxOGg2YTIgMiAwIDAgMSAyIDJ2MSI+PC9wYXRoPjxwYXRoIGQ9Ik0xMiA4aDgiPjwvcGF0aD48cGF0aCBkPSJNMTYgOFY1YTIgMiAwIDAgMSAyLTIiPjwvcGF0aD48Y2lyY2xlIGN4PSIxNiIgY3k9IjEzIiByPSIuNSI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTgiIGN5PSIzIiByPSIuNSI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMSIgcj0iLjUiPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjIwIiBjeT0iOCIgcj0iLjUiPjwvY2lyY2xlPjwvc3ZnPg==",
+    "name": "Модели ИИ",
+    "description": "Подборка AI-инструментов в категории «Модели ИИ».",
+    "createdAt": "2025-07-03T19:12:43.421Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_80f189984e5ca70287d13342",
-    "icon": null,
-    "name": "Music",
-    "description": "Imported from collective-ai-tools: Music",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW11c2ljMiBsdWNpZGUtbXVzaWMtMiIgYXJpYS1oaWRkZW49InRydWUiPjxjaXJjbGUgY3g9IjgiIGN5PSIxOCIgcj0iNCI+PC9jaXJjbGU+PHBhdGggZD0iTTEyIDE4VjJsNyA0Ij48L3BhdGg+PC9zdmc+",
+    "name": "Создание музыки",
+    "description": "Подборка AI-инструментов в категории «Создание музыки».",
+    "createdAt": "2024-08-29T12:40:18.972Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_b01fb80c12ff792c9812f170",
-    "icon": null,
-    "name": "Paraphraser",
-    "description": "Imported from collective-ai-tools: Paraphraser",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXJlcGxhY2UiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMTQgNGEyIDIgMCAwIDEgMi0yIj48L3BhdGg+PHBhdGggZD0iTTE2IDEwYTIgMiAwIDAgMS0yLTIiPjwvcGF0aD48cGF0aCBkPSJNMjAgMmEyIDIgMCAwIDEgMiAyIj48L3BhdGg+PHBhdGggZD0iTTIyIDhhMiAyIDAgMCAxLTIgMiI+PC9wYXRoPjxwYXRoIGQ9Im0zIDcgMyAzIDMtMyI+PC9wYXRoPjxwYXRoIGQ9Ik02IDEwVjVhMyAzIDAgMCAxIDMtM2gxIj48L3BhdGg+PHJlY3QgeD0iMiIgeT0iMTQiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+",
+    "name": "Перефразирование",
+    "description": "Подборка AI-инструментов в категории «Перефразирование».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_55a484f502103aba8b0693ab",
-    "icon": null,
-    "name": "Personal Assistant",
-    "description": "Imported from collective-ai-tools: Personal Assistant",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXItcm91bmQiIGFyaWEtaGlkZGVuPSJ0cnVlIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjUiPjwvY2lyY2xlPjxwYXRoIGQ9Ik0yMCAyMWE4IDggMCAwIDAtMTYgMCI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Персональные ассистенты",
+    "description": "Подборка AI-инструментов в категории «Персональные ассистенты».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_bfac314fefdc07451af1792a",
-    "icon": null,
-    "name": "Presentation",
-    "description": "Imported from collective-ai-tools: Presentation",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
-  },
-  {
-    "id": "cat_collective_994d7d6ffaf3b4f623fe361b",
-    "icon": null,
-    "name": "Presentations",
-    "description": "Imported from collective-ai-tools: Presentations",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXByZXNlbnRhdGlvbiIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0yIDNoMjAiPjwvcGF0aD48cGF0aCBkPSJNMjEgM3YxMWEyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMlYzIj48L3BhdGg+PHBhdGggZD0ibTcgMjEgNS01IDUgNSI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Презентации",
+    "description": "Подборка AI-инструментов в категории «Презентации».",
+    "createdAt": "2024-09-14T19:44:12.413Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_bd1b16004d22b1a8de82b70f",
-    "icon": null,
-    "name": "Productivity",
-    "description": "Imported from collective-ai-tools: Productivity",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWdhdWdlIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0ibTEyIDE0IDQtNCI+PC9wYXRoPjxwYXRoIGQ9Ik0zLjM0IDE5YTEwIDEwIDAgMSAxIDE3LjMyIDAiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Продуктивность",
+    "description": "Подборка AI-инструментов в категории «Продуктивность».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_eb7526362ee7678cb5650f67",
-    "icon": null,
-    "name": "Prompts",
-    "description": "Imported from collective-ai-tools: Prompts",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1lc3NhZ2Utc3F1YXJlLXRleHQiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMjIgMTdhMiAyIDAgMCAxLTIgMkg2LjgyOGEyIDIgMCAwIDAtMS40MTQuNTg2bC0yLjIwMiAyLjIwMkEuNzEuNzEgMCAwIDEgMiAyMS4yODZWNWEyIDIgMCAwIDEgMi0yaDE2YTIgMiAwIDAgMSAyIDJ6Ij48L3BhdGg+PHBhdGggZD0iTTcgMTFoMTAiPjwvcGF0aD48cGF0aCBkPSJNNyAxNWg2Ij48L3BhdGg+PHBhdGggZD0iTTcgN2g4Ij48L3BhdGg+PC9zdmc+",
+    "name": "Промпты",
+    "description": "Подборка AI-инструментов в категории «Промпты».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_f054cfcb3f1cdb5c350cbf50",
-    "icon": null,
-    "name": "Psychology",
-    "description": "Imported from collective-ai-tools: Psychology",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJyYWluIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTEyIDE4VjUiPjwvcGF0aD48cGF0aCBkPSJNMTUgMTNhNC4xNyA0LjE3IDAgMCAxLTMtNCA0LjE3IDQuMTcgMCAwIDEtMyA0Ij48L3BhdGg+PHBhdGggZD0iTTE3LjU5OCA2LjVBMyAzIDAgMSAwIDEyIDVhMyAzIDAgMSAwLTUuNTk4IDEuNSI+PC9wYXRoPjxwYXRoIGQ9Ik0xNy45OTcgNS4xMjVhNCA0IDAgMCAxIDIuNTI2IDUuNzciPjwvcGF0aD48cGF0aCBkPSJNMTggMThhNCA0IDAgMCAwIDItNy40NjQiPjwvcGF0aD48cGF0aCBkPSJNMTkuOTY3IDE3LjQ4M0E0IDQgMCAxIDEgMTIgMThhNCA0IDAgMSAxLTcuOTY3LS41MTciPjwvcGF0aD48cGF0aCBkPSJNNiAxOGE0IDQgMCAwIDEtMi03LjQ2NCI+PC9wYXRoPjxwYXRoIGQ9Ik02LjAwMyA1LjEyNWE0IDQgMCAwIDAtMi41MjYgNS43NyI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Психология",
+    "description": "Подборка AI-инструментов в категории «Психология».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_d7efa2f7a9e1b512fd646d3e",
-    "icon": null,
-    "name": "Real Estate",
-    "description": "Imported from collective-ai-tools: Real Estate",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhvdXNlIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTE1IDIxdi04YTEgMSAwIDAgMC0xLTFoLTRhMSAxIDAgMCAwLTEgMXY4Ij48L3BhdGg+PHBhdGggZD0iTTMgMTBhMiAyIDAgMCAxIC43MDktMS41MjhsNy01Ljk5OWEyIDIgMCAwIDEgMi41ODIgMGw3IDUuOTk5QTIgMiAwIDAgMSAyMSAxMHY5YTIgMiAwIDAgMS0yIDJINWEyIDIgMCAwIDEtMi0yeiI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Недвижимость",
+    "description": "Подборка AI-инструментов в категории «Недвижимость».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_139d14b61cae91c759a05e3f",
-    "icon": null,
-    "name": "Religion",
-    "description": "Imported from collective-ai-tools: Religion",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNodXJjaCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xMCA5aDQiPjwvcGF0aD48cGF0aCBkPSJNMTIgN3Y1Ij48L3BhdGg+PHBhdGggZD0iTTE0IDIydi00YTIgMiAwIDAgMC00IDB2NCI+PC9wYXRoPjxwYXRoIGQ9Ik0xOCAyMlY1LjYxOGExIDEgMCAwIDAtLjU1My0uODk0bC00LjU1My0yLjI3N2EyIDIgMCAwIDAtMS43ODggMEw2LjU1MyA0LjcyNEExIDEgMCAwIDAgNiA1LjYxOFYyMiI+PC9wYXRoPjxwYXRoIGQ9Im0xOCA3IDMuNDQ3IDEuNzI0YTEgMSAwIDAgMSAuNTUzLjg5NFYyMGEyIDIgMCAwIDEtMiAySDRhMiAyIDAgMCAxLTItMlY5LjYxOGExIDEgMCAwIDEgLjU1My0uODk0TDYgNyI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Религия",
+    "description": "Подборка AI-инструментов в категории «Религия».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_66f62d1807d3821a3865f257",
-    "icon": null,
-    "name": "Research",
-    "description": "Imported from collective-ai-tools: Research",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1pY3Jvc2NvcGUiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNNiAxOGg4Ij48L3BhdGg+PHBhdGggZD0iTTMgMjJoMTgiPjwvcGF0aD48cGF0aCBkPSJNMTQgMjJhNyA3IDAgMSAwIDAtMTRoLTEiPjwvcGF0aD48cGF0aCBkPSJNOSAxNGgyIj48L3BhdGg+PHBhdGggZD0iTTkgMTJhMiAyIDAgMCAxLTItMlY2aDZ2NGEyIDIgMCAwIDEtMiAyWiI+PC9wYXRoPjxwYXRoIGQ9Ik0xMiA2VjNhMSAxIDAgMCAwLTEtMUg5YTEgMSAwIDAgMC0xIDF2MyI+PC9wYXRoPjwvc3ZnPg==",
+    "name": "Исследования",
+    "description": "Подборка AI-инструментов в категории «Исследования».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_a83a31320d921b888a48fa5e",
-    "icon": null,
-    "name": "Resume",
-    "description": "Imported from collective-ai-tools: Resume",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZpbGUtdXNlciIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xNCAydjRhMiAyIDAgMCAwIDIgMmg0Ij48L3BhdGg+PHBhdGggZD0iTTE1IDE4YTMgMyAwIDEgMC02IDAiPjwvcGF0aD48cGF0aCBkPSJNMTUgMkg2YTIgMiAwIDAgMC0yIDJ2MTZhMiAyIDAgMCAwIDIgMmgxMmEyIDIgMCAwIDAgMi0yVjd6Ij48L3BhdGg+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMyIgcj0iMiI+PC9jaXJjbGU+PC9zdmc+",
+    "name": "Резюме",
+    "description": "Подборка AI-инструментов в категории «Резюме».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_30f50f7fa4fa466a13861ff1",
-    "icon": null,
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNlYXJjaC1jaGVjayIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Im04IDExIDIgMiA0LTQiPjwvcGF0aD48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48cGF0aCBkPSJtMjEgMjEtNC4zLTQuMyI+PC9wYXRoPjwvc3ZnPg==",
     "name": "SEO",
-    "description": "Imported from collective-ai-tools: SEO",
+    "description": "Подборка AI-инструментов в категории «SEO».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_e04eb29020eaa961e99d3162",
-    "icon": null,
-    "name": "Sales",
-    "description": "Imported from collective-ai-tools: Sales",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJhZGdlLWRvbGxhci1zaWduIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTMuODUgOC42MmE0IDQgMCAwIDEgNC43OC00Ljc3IDQgNCAwIDAgMSA2Ljc0IDAgNCA0IDAgMCAxIDQuNzggNC43OCA0IDQgMCAwIDEgMCA2Ljc0IDQgNCAwIDAgMS00Ljc3IDQuNzggNCA0IDAgMCAxLTYuNzUgMCA0IDQgMCAwIDEtNC43OC00Ljc3IDQgNCAwIDAgMSAwLTYuNzZaIj48L3BhdGg+PHBhdGggZD0iTTE2IDhoLTZhMiAyIDAgMSAwIDAgNGg0YTIgMiAwIDEgMSAwIDRIOCI+PC9wYXRoPjxwYXRoIGQ9Ik0xMiAxOFY2Ij48L3BhdGg+PC9zdmc+",
+    "name": "Продажи",
+    "description": "Подборка AI-инструментов в категории «Продажи».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_0ced62366227bbfaf9d2da23",
-    "icon": null,
-    "name": "Search Engine",
-    "description": "Imported from collective-ai-tools: Search Engine",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNlYXJjaCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Im0yMSAyMS00LjM0LTQuMzQiPjwvcGF0aD48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48L3N2Zz4=",
+    "name": "Поиск",
+    "description": "Подборка AI-инструментов в категории «Поиск».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_96726f43210da1fe435a255e",
-    "icon": null,
-    "name": "Social Media",
-    "description": "Imported from collective-ai-tools: Social Media",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoYXJlMiBsdWNpZGUtc2hhcmUtMiIgYXJpYS1oaWRkZW49InRydWUiPjxjaXJjbGUgY3g9IjE4IiBjeT0iNSIgcj0iMyI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iNiIgY3k9IjEyIiByPSIzIj48L2NpcmNsZT48Y2lyY2xlIGN4PSIxOCIgY3k9IjE5IiByPSIzIj48L2NpcmNsZT48bGluZSB4MT0iOC41OSIgeDI9IjE1LjQyIiB5MT0iMTMuNTEiIHkyPSIxNy40OSI+PC9saW5lPjxsaW5lIHgxPSIxNS40MSIgeDI9IjguNTkiIHkxPSI2LjUxIiB5Mj0iMTAuNDkiPjwvbGluZT48L3N2Zz4=",
+    "name": "Социальные сети",
+    "description": "Подборка AI-инструментов в категории «Социальные сети».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_d479f1971015ef0493532f5c",
-    "icon": null,
-    "name": "Summarizer",
-    "description": "Imported from collective-ai-tools: Summarizer",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxpc3QtY29sbGFwc2UiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBkPSJNMTAgMTJoMTEiPjwvcGF0aD48cGF0aCBkPSJNMTAgMThoMTEiPjwvcGF0aD48cGF0aCBkPSJNMTAgNmgxMSI+PC9wYXRoPjxwYXRoIGQ9Im0zIDEwIDMtMy0zLTMiPjwvcGF0aD48cGF0aCBkPSJtMyAyMCAzLTMtMy0zIj48L3BhdGg+PC9zdmc+",
+    "name": "Суммаризация",
+    "description": "Подборка AI-инструментов в категории «Суммаризация».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_839cd11692e82b3539980277",
-    "icon": null,
-    "name": "Translation",
-    "description": "Imported from collective-ai-tools: Translation",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhbmd1YWdlcyIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Im01IDggNiA2Ij48L3BhdGg+PHBhdGggZD0ibTQgMTQgNi02IDItMyI+PC9wYXRoPjxwYXRoIGQ9Ik0yIDVoMTIiPjwvcGF0aD48cGF0aCBkPSJNNyAyaDEiPjwvcGF0aD48cGF0aCBkPSJtMjIgMjItNS0xMC01IDEwIj48L3BhdGg+PHBhdGggZD0iTTE0IDE4aDYiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Перевод",
+    "description": "Подборка AI-инструментов в категории «Перевод».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_0209442e115ad7bc79fd281d",
-    "icon": null,
-    "name": "Travel",
-    "description": "Imported from collective-ai-tools: Travel",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBsYW5lIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTE3LjggMTkuMiAxNiAxMWwzLjUtMy41QzIxIDYgMjEuNSA0IDIxIDNjLTEtLjUtMyAwLTQuNSAxLjVMMTMgOCA0LjggNi4yYy0uNS0uMS0uOS4xLTEuMS41bC0uMy41Yy0uMi41LS4xIDEgLjMgMS4zTDkgMTJsLTIgM0g0bC0xIDEgMyAyIDIgMyAxLTF2LTNsMy0yIDMuNSA1LjNjLjMuNC44LjUgMS4zLjNsLjUtLjJjLjQtLjMuNi0uNy41LTEuMnoiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Путешествия",
+    "description": "Подборка AI-инструментов в категории «Путешествия».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_0cab1c9617404faf2b24e221",
-    "icon": null,
-    "name": "Video",
-    "description": "Imported from collective-ai-tools: Video",
-    "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXZpZGVvIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0ibTE2IDEzIDUuMjIzIDMuNDgyYS41LjUgMCAwIDAgLjc3Ny0uNDE2VjcuODdhLjUuNSAwIDAgMC0uNzUyLS40MzJMMTYgMTAuNSI+PC9wYXRoPjxyZWN0IHg9IjIiIHk9IjYiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxMiIgcng9IjIiPjwvcmVjdD48L3N2Zz4=",
+    "name": "Видео",
+    "description": "Подборка AI-инструментов в категории «Видео».",
+    "createdAt": "2024-08-25T11:39:54.219Z",
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_e5e72beb4e3c6926d3dc9e3e",
-    "icon": null,
-    "name": "Weather",
-    "description": "Imported from collective-ai-tools: Weather",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNsb3VkLXN1biIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xMiAydjIiPjwvcGF0aD48cGF0aCBkPSJtNC45MyA0LjkzIDEuNDEgMS40MSI+PC9wYXRoPjxwYXRoIGQ9Ik0yMCAxMmgyIj48L3BhdGg+PHBhdGggZD0ibTE5LjA3IDQuOTMtMS40MSAxLjQxIj48L3BhdGg+PHBhdGggZD0iTTE1Ljk0NyAxMi42NWE0IDQgMCAwIDAtNS45MjUtNC4xMjgiPjwvcGF0aD48cGF0aCBkPSJNMTMgMjJIN2E1IDUgMCAxIDEgNC45LTZIMTNhMyAzIDAgMCAxIDAgNloiPjwvcGF0aD48L3N2Zz4=",
+    "name": "Погода",
+    "description": "Подборка AI-инструментов в категории «Погода».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   },
   {
     "id": "cat_collective_ee871105e875f3de6e0da042",
-    "icon": null,
-    "name": "Writing",
-    "description": "Imported from collective-ai-tools: Writing",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZpbGUtdGV4dCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xNSAySDZhMiAyIDAgMCAwLTIgMnYxNmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWN1oiPjwvcGF0aD48cGF0aCBkPSJNMTQgMnY0YTIgMiAwIDAgMCAyIDJoNCI+PC9wYXRoPjxwYXRoIGQ9Ik0xMCA5SDgiPjwvcGF0aD48cGF0aCBkPSJNMTYgMTNIOCI+PC9wYXRoPjxwYXRoIGQ9Ik0xNiAxN0g4Ij48L3BhdGg+PC9zdmc+",
+    "name": "Работа с текстом",
+    "description": "Подборка AI-инструментов в категории «Работа с текстом».",
     "createdAt": "2026-08-25T08:06:06.795Z",
-    "updatedAt": "2026-08-25T08:06:06.795Z"
+    "updatedAt": "2026-08-25T12:38:24.515Z"
   }
 ]

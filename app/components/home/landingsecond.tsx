@@ -7,15 +7,6 @@ import TransitionButton from '@/app/components/home/TransitionButton';
 import Stars from "@/app/components/home/Stars";
 import PaymentInstructionSection from './payment-instruction';
 import PopularToolsSection from './PopularToolsSection';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-
-
-
 const Spline = dynamic(() => import("@/app/components/home/SplineClient"), { ssr: false });
   // Исправлено: переносим параметры внутрь объекта, передаваемого в dynami
 
@@ -163,56 +154,6 @@ export function Landingsecond() {
         </section>
 
         <PopularToolsSection />
-
-        <section className="relative py-24 bg-white dark:bg-black">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute h-px w-full bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-800 to-transparent top-1/4" />
-            <div className="absolute h-px w-full bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-800 to-transparent bottom-1/4" />
-            <div className="absolute w-px h-full bg-gradient-to-b from-transparent via-gray-200 dark:via-gray-800 to-transparent left-1/4" />
-            <div className="absolute w-px h-full bg-gradient-to-b from-transparent via-gray-200 dark:via-gray-800 to-transparent right-1/4" />
-          </div>
-
-          <div className="container mx-auto px-4 md:px-6 relative z-10 pb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-              Часто задаваемые вопросы
-            </h2>
-            <div className="max-w-3xl mx-auto">
-              <Accordion type="single" collapsible className="w-full">
-                {[
-                  {
-                    question: 'Как осуществляется оплата за подписку на Ai инструменты?',
-                    answer:
-                      'Оплата подписки и услуг осуществляется через безопасные платежные системы. Вы можете выбрать удобный для вас способ оплаты, включая банковские карты, электронные кошельки и другие методы.',
-                  },
-                  {
-                    question: 'Как работает услуга по разработке кастомных AI решений?',
-                    answer:
-                      'Наша услуга по разработке кастомных AI решений начинается с консультации для понимания ваших специфических потребностей. Затем мы разрабатываем и внедряем индивидуальное AI решение для вашего бизнеса.',
-                  },
-                  {
-                    question: 'Какие преимущества я получу, присоединившись к сообществу?',
-                    answer:
-                      'Получите доступ к реальным кейсам, обмену опытом и советам от экспертов.',
-                  },
-                  {
-                    question: 'Как мне понять, какой именно AI мне нужен?',
-                    answer:
-                      'Свяжитесь с менеджером в телеграм-чате — подскажем по вашим задачам.',
-                  },
-                ].map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="border-b border-gray-200 dark:border-gray-800">
-                    <AccordionTrigger className="hover:text-gray-700 dark:hover:text-gray-300 py-5">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-700 dark:text-gray-300 pb-5">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   );

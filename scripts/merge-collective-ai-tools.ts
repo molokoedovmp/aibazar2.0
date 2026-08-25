@@ -3,6 +3,12 @@
 import { createHash } from "node:crypto";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import {
+  categoryDefinitionFor,
+  categoryDescription,
+  categoryIconDataUrl,
+  categoryIdFor,
+} from "./catalog-category-taxonomy";
 
 const SOURCE_URL =
   "https://raw.githubusercontent.com/hanishrao/collective-ai-tools/main/README.md";
@@ -162,9 +168,7 @@ async function main() {
   const knownUrls = new Set(
     existingTools.map((tool) => normalizeUrl(tool.url)).filter((url): url is string => Boolean(url)),
   );
-  const categoryByName = new Map(
-    existingCategories.map((category) => [normalizeName(category.name), category]),
-  );
+  const categoryById = new Map(existingCategories.map((category) => [String(category.id), category]));
 
   const now = new Date().toISOString();
   const addedTools: JsonRecord[] = [];
@@ -181,18 +185,24 @@ async function main() {
       continue;
     }
 
+    const definition = categoryDefinitionFor(sourceTool.category);
     const normalizedCategory = normalizeName(sourceTool.category);
-    let categoryRecord = categoryByName.get(normalizedCategory);
+    const categoryId = definition
+      ? categoryIdFor(definition)
+      : stableId("cat_collective", normalizedCategory);
+    let categoryRecord = categoryById.get(categoryId);
     if (!categoryRecord) {
       categoryRecord = {
-        id: stableId("cat_collective", normalizedCategory),
-        icon: null,
-        name: sourceTool.category,
-        description: `Imported from collective-ai-tools: ${sourceTool.category}`,
+        id: categoryId,
+        icon: definition ? categoryIconDataUrl(definition) : null,
+        name: definition?.name ?? sourceTool.category,
+        description: definition
+          ? categoryDescription(definition)
+          : `Imported from collective-ai-tools: ${sourceTool.category}`,
         createdAt: now,
         updatedAt: now,
       };
-      categoryByName.set(normalizedCategory, categoryRecord);
+      categoryById.set(categoryId, categoryRecord);
       addedCategories.push(categoryRecord);
     }
 

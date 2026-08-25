@@ -46,8 +46,8 @@ function CategoryIcon({
 }) {
   if (!src) return null;
   if (/^(data:image\/|https?:\/\/)/i.test(src)) {
-    // eslint-disable-next-line @next/next/no-img-element
     return (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={src}
         alt={title || ""}
@@ -83,9 +83,11 @@ function Panel({
 }) {
   return (
     <section className={`mt-6 rounded-2xl bg-white p-4 sm:p-6 shadow-sm ring-1 ring-black/10 ${className}`}>
-      <div className="mb-4 flex items-end justify-between">
-        <h3 className="text-[12px] sm:text-[13px] uppercase tracking-[0.35em] text-slate-700">{title}</h3>
-        {subtitle ? <span className="text-xs text-gray-500">{subtitle}</span> : null}
+      <div className="mb-4 grid grid-cols-2 justify-center gap-3 sm:gap-4 lg:grid-cols-[repeat(auto-fill,minmax(220px,280px))]">
+        <div className="col-span-full flex items-end justify-between">
+          <h3 className="text-[12px] uppercase tracking-[0.35em] text-slate-700 sm:text-[13px]">{title}</h3>
+          {subtitle ? <span className="text-xs text-gray-500">{subtitle}</span> : null}
+        </div>
       </div>
       {children}
     </section>
@@ -96,8 +98,8 @@ function Panel({
 function SkeletonCard() {
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-black/10">
-      <div className="h-40 w-full animate-pulse bg-gray-200" />
-      <div className="p-4 space-y-2">
+      <div className="h-28 w-full animate-pulse bg-gray-200 sm:h-40" />
+      <div className="space-y-2 p-3 sm:p-4">
         <div className="h-4 w-3/4 bg-gray-200 animate-pulse rounded" />
         <div className="h-3 w-full bg-gray-200 animate-pulse rounded" />
         <div className="h-3 w-2/3 bg-gray-200 animate-pulse rounded" />
@@ -108,7 +110,7 @@ function SkeletonCard() {
 
 function SkeletonGrid({ count = 8 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-2 justify-center gap-3 sm:gap-4 lg:grid-cols-[repeat(auto-fill,minmax(220px,280px))]">
       {Array.from({ length: count }).map((_, i) => (
         <SkeletonCard key={i} />
       ))}
@@ -123,28 +125,33 @@ function ToolsGrid({ tools }: { tools: AiTool[] }) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-2 justify-center gap-3 sm:gap-4 lg:grid-cols-[repeat(auto-fill,minmax(220px,280px))]">
       {tools.map((tool) => (
         <Link
           key={tool.id}
           href={`/catalog/${tool.id}`}
-          className="group block overflow-hidden rounded-2xl bg-white ring-1 ring-black/10 transition-transform hover:-translate-y-0.5 hover:shadow-md"
+          className="group block min-w-0 overflow-hidden rounded-2xl bg-white ring-1 ring-black/10 transition-transform hover:-translate-y-0.5 hover:shadow-md lg:h-[320px] lg:w-full lg:max-w-[280px]"
         >
-          <ToolImage src={tool.coverImage} alt={tool.name} className="h-40 w-full object-cover" />
+          <ToolImage
+            src={tool.coverImage}
+            alt={tool.name}
+            className="h-28 w-full object-cover sm:h-40"
+            fallbackTextClassName="text-base sm:text-xl"
+          />
 
-          <div className="p-4">
-            <div className="flex items-start justify-between gap-3">
-              <h4 className="line-clamp-2 text-base font-semibold text-black tracking-tight">
+          <div className="p-3 sm:p-4">
+            <div className="flex items-start justify-between gap-1.5 sm:gap-3">
+              <h4 className="line-clamp-2 text-sm font-semibold tracking-tight text-black sm:text-base">
                 {tool.name}
               </h4>
               {typeof tool.rating === "number" && (
-                <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-md bg-black text-white text-[10px] font-semibold">
+                <span className="inline-flex shrink-0 items-center rounded-md bg-black px-1.5 py-0.5 text-[9px] font-semibold text-white sm:px-2 sm:text-[10px]">
                   {tool.rating.toFixed(1)}
                 </span>
               )}
             </div>
 
-            <p className="mt-2 line-clamp-2 text-sm text-gray-600">{tool.description}</p>
+            <p className="mt-2 line-clamp-2 text-xs text-gray-600 sm:text-sm">{tool.description}</p>
 
             <div className="mt-2 flex items-center gap-2 text-xs text-gray-600">
               <CategoryIcon src={tool.category.icon} size={16} title={tool.category.name} />
@@ -174,7 +181,16 @@ export default function CatalogPage() {
         const res = await fetch("/api/categories");
         const json = await res.json();
         const arr: Category[] = json?.success ? json.data : json;
-        setCategories(Array.isArray(arr) ? arr : []);
+        const nextCategories = Array.isArray(arr) ? arr : [];
+        setCategories(nextCategories);
+
+        const requestedCategory = new URLSearchParams(window.location.search).get("category");
+        if (
+          requestedCategory &&
+          nextCategories.some((category) => category.id === requestedCategory)
+        ) {
+          setActiveCategory(requestedCategory);
+        }
       } catch {
         setCategories([]);
       } finally {
@@ -210,12 +226,6 @@ export default function CatalogPage() {
     }
     return arr;
   }, [allTools, activeCategory, query]);
-
-  // Популярные и список всех — сортируем по рейтингу
-  const popularTools = useMemo(
-    () => [...baseFiltered].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 12),
-    [baseFiltered]
-  );
 
   const filteredAll = useMemo(
     () => [...baseFiltered].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)),
@@ -354,10 +364,6 @@ export default function CatalogPage() {
           </div>
 
           {/* Секции */}
-          <Panel title="Избранные инструменты" subtitle="Самые популярные сейчас">
-            {loading ? <SkeletonGrid count={8} /> : <ToolsGrid tools={popularTools} />}
-          </Panel>
-
           <div ref={allPanelRef} />
           <Panel
             title={activeCategory === "all" ? "Все инструменты" : `Категория: ${categories.find(c => c.id === activeCategory)?.name ?? ""}`}
