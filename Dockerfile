@@ -14,6 +14,7 @@ COPY . .
 
 RUN npx prisma generate
 RUN npm run build
+RUN mkdir -p /app/.next/cache && chown -R appuser:appuser /app/.next
 
 ENV NODE_ENV=production
 ENV PORT=3000
