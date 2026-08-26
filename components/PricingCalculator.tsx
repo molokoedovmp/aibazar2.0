@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Calculator, DollarSign } from "lucide-react";
+import { Calculator, DollarSign, MessageCircle } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { calcRubPrice } from "@/lib/pricing";
@@ -96,6 +96,16 @@ export default function PricingCalculator({
           Расчёт выполняется по той же формуле, которая используется на страницах
           инструментов. Итог обновляется автоматически при вводе суммы.
         </p>
+
+        <a
+          href="https://t.me/aibazaru"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-black px-5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+        >
+          <MessageCircle className="h-5 w-5" />
+          Уточнить цены
+        </a>
       </div>
     </div>
   );

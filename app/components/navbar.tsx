@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Calculator, Home, Grid2X2, Users, User as UserIcon } from "lucide-react";
+import { BrainCircuit, Calculator, Home, Users, User as UserIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type Props = { overlay?: boolean };
@@ -37,7 +37,7 @@ export const Navbar = ({ overlay = false }: Props) => {
           {/* Главное меню — просто ссылки */}
           <nav className="ml-6 flex items-center gap-6 lg:gap-8">
             <Link href="/catalog" className="text-sm font-medium hover:opacity-80">
-              Каталог
+              AI-инструменты
             </Link>
             <Link href="/calculator" className="text-sm font-medium hover:opacity-80">
               Калькулятор цен
@@ -99,8 +99,8 @@ export const Navbar = ({ overlay = false }: Props) => {
           </li>
           <li>
             <Link href="/catalog" className="flex flex-col items-center gap-1 rounded-xl px-2 py-1.5 hover:bg-white/10">
-              <Grid2X2 className="h-5 w-5" />
-              <span>Каталог</span>
+              <BrainCircuit className="h-5 w-5" />
+              <span>AI</span>
             </Link>
           </li>
           <li>

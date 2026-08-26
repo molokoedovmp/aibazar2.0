@@ -289,36 +289,36 @@ export default function CatalogPage() {
         <main className="min-w-0 px-4 py-6 md:px-6">
           {/* HERO */}
           <section className="overflow-hidden rounded-2xl bg-white ring-1 ring-black/10">
-            <div className="relative">
+            <div className="relative min-h-[310px] sm:min-h-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/cathero.png"
                 alt="Все инструменты в одном месте"
-                className="h-[260px] w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover sm:relative sm:h-[260px]"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/30 to-white/70" />
               <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-                <h1 className="text-[28px] font-bold leading-tight sm:text-[40px] text-black tracking-tight">
+                <h1 className="max-w-[330px] text-[24px] font-bold leading-tight tracking-tight text-black sm:max-w-none sm:text-[40px]">
                   Все инструменты, которые вам нужны
-                  <br />— в одном месте.
+                  <br className="hidden sm:block" /> — в одном месте.
                 </h1>
-                <p className="mt-2 max-w-2xl text-gray-700">
+                <p className="mt-2 max-w-[310px] text-sm text-gray-700 sm:max-w-2xl sm:text-base">
                   Инструменты, ресурсы и продукты. Обновляем каждую неделю.
                 </p>
                 <form
                   onSubmit={(e) => e.preventDefault()}
-                  className="mt-4 flex w-full max-w-md items-center gap-3 rounded-full border border-gray-300 bg-white/90 p-2 backdrop-blur"
+                  className="mt-4 flex w-full max-w-[340px] items-center gap-2 rounded-full border border-gray-300 bg-white/90 p-1.5 backdrop-blur sm:max-w-md sm:gap-3 sm:p-2"
                 >
                   <Input
                     type="email"
                     placeholder="Email"
-                    className="h-11 w-full rounded-full border-0 bg-transparent text-black placeholder:text-gray-500 focus-visible:ring-0"
+                    className="h-10 min-w-0 w-full rounded-full border-0 bg-transparent text-black placeholder:text-gray-500 focus-visible:ring-0 sm:h-11"
                   />
-                  <Button className="h-11 rounded-full bg-black text-white hover:bg-black/90">
+                  <Button className="h-10 shrink-0 rounded-full bg-black px-4 text-xs text-white hover:bg-black/90 sm:h-11 sm:px-5 sm:text-sm">
                     Подписаться
                   </Button>
                 </form>
-                <div className="mt-3 flex items-center gap-3 text-xs text-gray-600">
+                <div className="mt-3 flex items-center gap-2 text-[10px] text-gray-600 sm:gap-3 sm:text-xs">
                   <div className="flex -space-x-2">
                     {[...Array(5)].map((_, i) => (
                       <div key={i} className="h-6 w-6 rounded-full border border-gray-300 bg-gray-200" />
@@ -332,8 +332,8 @@ export default function CatalogPage() {
 
           {/* Поиск/фильтры */}
           <div className="sticky top-0 z-30 mt-4">
-            <div className="flex flex-col gap-3 rounded-xl bg-white/90 p-3 backdrop-blur md:flex-row md:items-center ring-1 ring-black/10">
-              <div className="relative flex-1">
+            <div className="flex items-center gap-2 rounded-xl bg-white/90 p-3 backdrop-blur ring-1 ring-black/10 md:gap-3">
+              <div className="relative min-w-0 flex-1">
                 <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
                 <Input
                   value={query}
@@ -343,7 +343,7 @@ export default function CatalogPage() {
                 />
               </div>
 
-              <div className="flex items-center gap-2 md:justify-end">
+              <div className="w-[38%] max-w-[160px] shrink-0 md:w-60 md:max-w-none">
                 <select
                   value={activeCategory}
                   onChange={(e) => {
@@ -351,7 +351,7 @@ export default function CatalogPage() {
                     // Скролл к панели "Все инструменты"
                     setTimeout(() => allPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
                   }}
-                  className="h-11 rounded-lg border border-gray-300 bg-white px-3 text-sm outline-none hover:bg-gray-50 text-black"
+                  className="h-11 w-full truncate rounded-lg border border-gray-300 bg-white px-2 text-xs text-black outline-none hover:bg-gray-50 sm:px-3 sm:text-sm"
                   aria-label="Категория"
                 >
                   <option value="all">Все категории</option>

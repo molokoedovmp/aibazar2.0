@@ -26,6 +26,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
+import { ToolImage } from "../components/ToolImage";
 
 type DocItem = {
   id: string;
@@ -53,12 +54,22 @@ function extractPreviewWords(text: string, maxWords = 30) {
 function getPreviewText(content?: string) {
   if (!content) return "";
   try {
-    const blocks = JSON.parse(content);
+    const blocks: unknown = JSON.parse(content);
     if (Array.isArray(blocks)) {
       const paragraphs = blocks
-        .filter((b: any) => b?.type === "paragraph")
-        .map((b: any) => b?.props?.text || b?.content?.[0]?.text)
-        .filter((t: any) => typeof t === "string" && t.trim().length > 0);
+        .filter(
+          (block): block is {
+            type: string;
+            props?: { text?: string };
+            content?: Array<{ text?: string }>;
+          } =>
+            typeof block === "object" &&
+            block !== null &&
+            "type" in block &&
+            block.type === "paragraph",
+        )
+        .map((block) => block.props?.text || block.content?.[0]?.text)
+        .filter((text): text is string => typeof text === "string" && text.trim().length > 0);
       const combined = paragraphs.join(" ");
       return extractPreviewWords(combined || String(content));
     }
@@ -76,18 +87,6 @@ function pluralizeMinutes(minutes?: number | null) {
   if (last === 1) return `${minutes} минута`;
   if (last >= 2 && last <= 4) return `${minutes} минуты`;
   return `${minutes} минут`;
-}
-
-function formatDateISO(iso: string) {
-  try {
-    return new Date(iso).toLocaleDateString("ru-RU", {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-    });
-  } catch {
-    return new Date(iso).toLocaleDateString();
-  }
 }
 
 export default function CommunityBlog() {
@@ -117,7 +116,7 @@ export default function CommunityBlog() {
     setLoading(true);
     fetch("/api/blog/summary")
       .then((r) => r.json())
-      .then((data: any[]) => {
+      .then((data: DocItem[]) => {
         if (!active) return;
         const mapped: DocItem[] = (data || []).map((d) => ({
           ...d,
@@ -173,19 +172,6 @@ export default function CommunityBlog() {
     }
   });
 
-  // Popular and Latest sections
-  const popular = useMemo(() => {
-    return [...documentsWithRatings]
-      .sort((a, b) => (b.views || 0) - (a.views || 0))
-      .slice(0, 8);
-  }, [documentsWithRatings]);
-
-  const latestFixed = useMemo(() => {
-    return [...documentsWithRatings]
-      .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-      .slice(0, 8);
-  }, [documentsWithRatings]);
-
   const pageCount = Math.ceil(sorted.length / perPage) || 1;
   const paginated = sorted.slice((page - 1) * perPage, page * perPage);
 
@@ -208,49 +194,56 @@ export default function CommunityBlog() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-center px-4 py-16 sm:px-6 sm:py-20 md:min-h-[calc(100dvh-64px)] md:px-10">
-          <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-5">
-            <div className="text-left md:col-span-2">
-              <h1 className="mb-4 text-3xl font-black leading-none tracking-tighter sm:text-4xl md:text-5xl">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-10 lg:py-20">
+          <div
+            className={
+              loading || featured
+                ? "grid min-w-0 grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12"
+                : "max-w-3xl"
+            }
+          >
+            <div className="min-w-0 text-left">
+              <h1 className="mb-5 text-3xl font-black leading-[1.02] tracking-[-0.045em] sm:text-4xl lg:text-5xl">
                 <span className="block">ОТКРОЙ ДЛЯ СЕБЯ</span>
                 <span className="block">МИР AI</span>
                 <span className="block">И СОВРЕМЕННЫХ ТЕХНОЛОГИЙ</span>
               </h1>
-              <p className="mb-6 max-w-2xl text-base leading-relaxed opacity-90 sm:text-lg md:mb-8 md:max-w-4xl md:text-xl">
+              <p className="max-w-xl text-base leading-7 text-white/75 sm:text-lg">
                 Исследуйте мир искусственного интеллекта через экспертные статьи,
-                <br />
-                <span className="text-lg opacity-70">гайды и практические советы от профессионалов</span>
+                гайды и практические советы от профессионалов.
               </p>
             </div>
             {/* Featured Article (прикреплённая по просмотрам) */}
-            {featured && (
-              <div className="md:col-span-3 w-full flex justify-center px-2 sm:px-0">
-                <Card className="bg-white text-black rounded-2xl shadow-xl overflow-hidden border border-white/10 w-full max-w-3xl">
-                  <CardContent className="p-0 h-full">
-                    <div className="flex flex-col md:flex-row">
-                      <div className="relative md:w-1/2 aspect-[16/9] md:aspect-[16/9] overflow-hidden bg-gray-100">
-                        {featured.coverImage ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={featured.coverImage!} alt={featured.title} className="absolute inset-0 w-full h-full object-cover" />
-                        ) : (
-                          <div className="absolute inset-0 flex items-center justify-center text-gray-400">IMG</div>
-                        )}
+            {loading ? (
+              <div className="h-[340px] w-full animate-pulse rounded-2xl border border-white/10 bg-white/10" />
+            ) : featured ? (
+              <div className="flex w-full min-w-0 justify-center">
+                <Card className="w-full overflow-hidden rounded-2xl border border-white/10 bg-white text-black shadow-2xl">
+                  <CardContent className="h-full p-0">
+                    <div className="grid h-full min-w-0 grid-cols-1 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                      <div className="relative aspect-[16/9] overflow-hidden bg-gray-100 sm:aspect-auto sm:min-h-[340px]">
+                        <ToolImage
+                          src={featured.coverImage}
+                          alt={featured.title}
+                          className="absolute inset-0 h-full w-full object-cover"
+                          fallbackTextClassName="px-4 text-2xl sm:text-3xl"
+                        />
                       </div>
-                      <div className="p-3 sm:p-4 md:p-6 flex flex-col h-full justify-between">
-                        <div className="flex flex-col gap-4 flex-grow">
-                          <div className="flex items-center gap-4">
-                            <span className="bg-black text-white px-3 py-1 rounded-lg text-base font-bold">
+                      <div className="flex min-w-0 flex-col justify-between p-5 sm:p-6 lg:p-7">
+                        <div className="flex grow flex-col gap-4">
+                          <div className="flex flex-wrap items-center gap-3">
+                            <span className="rounded-lg bg-black px-3 py-1 text-sm font-bold text-white">
                               {(featured?.averageRating ?? 0).toFixed(1)}
                             </span>
-                            <span className="text-gray-500 text-base">РЕКОМЕНДУЕМОЕ</span>
+                            <span className="text-xs font-medium tracking-wide text-gray-500 sm:text-sm">РЕКОМЕНДУЕМОЕ</span>
                           </div>
-                          <h3 className="text-2xl md:text-3xl font-black text-black leading-tight">
+                          <h3 className="line-clamp-3 break-words text-2xl font-black leading-tight text-black lg:text-3xl">
                             {featured.title}
                           </h3>
-                          <p className="text-gray-600 text-base sm:text-lg leading-relaxed line-clamp-3">
+                          <p className="line-clamp-3 text-sm leading-6 text-gray-600 sm:text-base">
                             {featured.previewText || getPreviewText(featured.content || "")}
                           </p>
-                          <div className="flex flex-wrap gap-4 text-gray-500 text-sm sm:text-base">
+                          <div className="flex flex-wrap gap-3 text-xs text-gray-500 sm:text-sm">
                             <div className="flex items-center gap-1">
                               <User className="w-4 h-4" />
                               <span>{featured.authorName || "Автор"}</span>
@@ -265,7 +258,7 @@ export default function CommunityBlog() {
                             </div>
                           </div>
                         </div>
-                        <div className="mt-6 flex items-end">
+                        <div className="mt-6">
                           <Link href={`/blog/${featured.id}`} className="w-full">
                             <Button className="w-full bg-black text-white hover:bg-gray-800 font-semibold rounded-lg h-11 flex items-center gap-2 justify-center">
                               Читать статью
@@ -278,7 +271,7 @@ export default function CommunityBlog() {
                   </CardContent>
                 </Card>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </section>
@@ -296,7 +289,7 @@ export default function CommunityBlog() {
             <div className="w-16 sm:w-24 h-1 bg-black mx-auto" />
             {search && (
               <p className="text-gray-600 mt-4">
-                Найдено {filtered.length} статей по запросу "{search}"
+                Найдено {filtered.length} статей по запросу «{search}»
               </p>
             )}
             {/* Поиск и фильтры */}
@@ -352,14 +345,12 @@ export default function CommunityBlog() {
                   <Link key={doc.id} href={`/blog/${doc.id}`} className="h-full">
                     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border-2 border-black bg-white transition-all duration-300 hover:shadow-xl md:hover:scale-105">
                       <div className="relative h-40 overflow-hidden border-b-2 border-black bg-black sm:h-44">
-                        {doc.coverImage ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={doc.coverImage} alt="cover" className="block h-full w-full object-cover" />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center text-5xl font-black text-gray-300 opacity-50 sm:text-6xl">
-                            IMG
-                          </div>
-                        )}
+                        <ToolImage
+                          src={doc.coverImage}
+                          alt={doc.title}
+                          className="block h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                          fallbackTextClassName="px-3 text-xl sm:text-2xl"
+                        />
                       </div>
                       <div className="flex grow flex-col px-4 pb-4 pt-5 sm:px-5 sm:pb-5 sm:pt-6">
                         <div className="mb-3 flex items-center gap-2">
@@ -459,7 +450,7 @@ export default function CommunityBlog() {
                     <div className="space-y-3 text-muted-foreground dark:text-gray-400">
                       <p>• Авторизуйтесь в своем аккаунте</p>
                       <p>• Перейдите в личный кабинет</p>
-                      <p>• Найдите кнопку "Создать страницу"</p>
+                      <p>• Найдите кнопку «Создать страницу»</p>
                     </div>
                   </div>
                 </div>
@@ -474,7 +465,7 @@ export default function CommunityBlog() {
                       <p>• Используйте редактор для форматирования текста</p>
                       <p>• Добавляйте изображения и видео</p>
                       <p>• Проверьте пост перед публикацией</p>
-                      <p>• Нажмите "Опубликовать"</p>
+                      <p>• Нажмите «Опубликовать»</p>
                     </div>
                   </div>
                 </div>

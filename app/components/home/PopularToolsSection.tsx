@@ -50,9 +50,9 @@ function typeLabel(type?: string | null) {
 
 function ToolSkeleton() {
   return (
-    <div className="overflow-hidden rounded-3xl border border-black/10 bg-white dark:border-white/10 dark:bg-zinc-950">
-      <div className="h-40 animate-pulse bg-zinc-100 dark:bg-zinc-900" />
-      <div className="space-y-3 p-5">
+    <div className="overflow-hidden rounded-2xl border border-black/10 bg-white dark:border-white/10 dark:bg-zinc-950 sm:rounded-3xl">
+      <div className="h-28 animate-pulse bg-zinc-100 dark:bg-zinc-900 sm:h-40" />
+      <div className="space-y-2 p-3 sm:space-y-3 sm:p-5">
         <div className="h-5 w-2/3 animate-pulse rounded bg-zinc-200 dark:bg-zinc-800" />
         <div className="h-4 w-full animate-pulse rounded bg-zinc-100 dark:bg-zinc-900" />
         <div className="h-4 w-4/5 animate-pulse rounded bg-zinc-100 dark:bg-zinc-900" />
@@ -130,13 +130,13 @@ export default function PopularToolsSection() {
         </div>
 
         {loading ? (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
             {Array.from({ length: 12 }, (_, index) => (
               <ToolSkeleton key={index} />
             ))}
           </div>
         ) : popularTools.length ? (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
             {popularTools.map((tool) => {
               const pricing = typeLabel(tool.type);
 
@@ -144,9 +144,9 @@ export default function PopularToolsSection() {
                 <Link
                   key={tool.id}
                   href={`/catalog/${tool.id}`}
-                  className="group flex min-h-[330px] flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-black"
+                  className="group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-black sm:min-h-[330px] sm:rounded-3xl"
                 >
-                  <div className="relative h-40 overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+                  <div className="relative h-28 overflow-hidden bg-zinc-100 dark:bg-zinc-900 sm:h-40">
                     <ToolImage
                       src={tool.coverImage}
                       alt={tool.name}
@@ -154,32 +154,37 @@ export default function PopularToolsSection() {
                     />
                     <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent" />
                     {typeof tool.rating === "number" ? (
-                      <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-black/75 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur">
+                      <div className="absolute right-3 top-3 hidden items-center gap-1 rounded-full bg-black/75 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur sm:flex">
                         <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                         {tool.rating.toFixed(1)}
                       </div>
                     ) : null}
                   </div>
 
-                  <div className="flex flex-1 flex-col p-5">
-                    <div className="mb-3 flex items-start justify-between gap-3">
-                      <h3 className="text-xl font-bold tracking-tight text-zinc-950 dark:text-white">
+                  <div className="flex flex-1 flex-col p-3 sm:p-5">
+                    <div className="mb-2 flex items-start justify-between gap-1.5 sm:mb-3 sm:gap-3">
+                      <h3 className="line-clamp-2 text-sm font-semibold tracking-tight text-zinc-950 dark:text-white sm:text-xl sm:font-bold">
                         {tool.name}
                       </h3>
+                      {typeof tool.rating === "number" ? (
+                        <span className="inline-flex shrink-0 items-center rounded-md bg-black px-1.5 py-0.5 text-[9px] font-semibold text-white sm:hidden">
+                          {tool.rating.toFixed(1)}
+                        </span>
+                      ) : null}
                       {pricing ? (
-                        <span className="shrink-0 rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-semibold text-zinc-600 dark:bg-zinc-900 dark:text-zinc-300">
+                        <span className="hidden shrink-0 rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-semibold text-zinc-600 dark:bg-zinc-900 dark:text-zinc-300 sm:inline-flex">
                           {pricing}
                         </span>
                       ) : null}
                     </div>
-                    <p className="line-clamp-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                    <p className="line-clamp-2 text-xs leading-5 text-zinc-600 dark:text-zinc-400 sm:line-clamp-3 sm:text-sm sm:leading-6">
                       {tool.description || "AI-инструмент для решения повседневных и профессиональных задач."}
                     </p>
-                    <div className="mt-auto flex items-center justify-between gap-3 pt-5 text-sm">
+                    <div className="mt-auto flex items-center justify-between gap-2 pt-3 text-xs sm:gap-3 sm:pt-5 sm:text-sm">
                       <span className="truncate text-zinc-500 dark:text-zinc-500">
                         {tool.category?.name || "AI-инструмент"}
                       </span>
-                      <span className="flex shrink-0 items-center gap-1 font-semibold text-zinc-950 transition group-hover:gap-2 dark:text-white">
+                      <span className="hidden shrink-0 items-center gap-1 font-semibold text-zinc-950 transition group-hover:gap-2 dark:text-white sm:flex">
                         Подробнее <ArrowRight className="h-4 w-4" />
                       </span>
                     </div>
@@ -201,7 +206,7 @@ export default function PopularToolsSection() {
             href="/catalog"
             className="inline-flex items-center gap-2 rounded-full bg-black px-7 py-3.5 font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
           >
-            Смотреть весь каталог
+            Смотреть все инструменты
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
