@@ -238,6 +238,139 @@ model AiGadget {
   @@index([status])
 }
 
+// MCP-серверы и клиенты из внешних каталогов
+model McpResource {
+  id              String    @id @default(cuid())
+  externalId      String    @unique
+  slug            String    @unique
+  name            String
+  description     String    @db.Text
+  descriptionRu   String?   @db.Text
+  longDescription String?   @db.Text
+  longDescriptionRu String? @db.Text
+  author          String?
+  githubUrl       String?
+  websiteUrl      String?
+  resourceType    String
+  languageName    String?
+  languageSlug    String?
+  languageIcon    String?
+  tags            String[]
+  categoryNames   String[]
+  categorySlugs   String[]
+  rating          Float?
+  downloads       Int?
+  stars           Int?
+  views           Int?
+  isOfficial      Boolean   @default(false)
+  location        String?
+  features        String[]
+  requirements    String[]
+  documentation   String?   @db.Text
+  license         String?
+  source          String
+  sourceUrl       String
+  sourceCreatedAt DateTime?
+  sourceUpdatedAt DateTime?
+  syncedAt        DateTime
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([resourceType])
+  @@index([languageSlug])
+  @@index([rating])
+  @@index([stars])
+  @@index([isActive])
+}
+
+// Готовые промпты из внешних каталогов
+model PromptResource {
+  id               String    @id @default(cuid())
+  externalId       String    @unique
+  title            String
+  titleRu          String?
+  description      String?   @db.Text
+  descriptionRu    String?   @db.Text
+  content          String    @db.Text
+  tags             String[]
+  authorExternalId String?
+  authorName       String?
+  sourceKind       String
+  rating           Int       @default(0)
+  votesCount       Int       @default(0)
+  isPublic         Boolean   @default(true)
+  status           String?
+  source           String
+  sourceUrl        String
+  sourceCreatedAt  DateTime?
+  sourceUpdatedAt  DateTime?
+  syncedAt         DateTime
+  isActive         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([sourceKind])
+  @@index([rating])
+  @@index([isActive])
+}
+
+// Навыки для AI-агентов
+model SkillResource {
+  id               String    @id @default(cuid())
+  externalId       String    @unique
+  name             String
+  description      String    @db.Text
+  descriptionRu    String?   @db.Text
+  author           String?
+  repoUrl          String?
+  stars            Int?
+  sourceLanguage   String?
+  installCommand   String?   @db.Text
+  compatibleAgents String[]
+  category         String?
+  isOfficial       Boolean   @default(false)
+  tags             String[]
+  status           String?
+  source           String
+  sourceUrl        String
+  sourceCreatedAt  DateTime?
+  sourceUpdatedAt  DateTime?
+  syncedAt         DateTime
+  isActive         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([category])
+  @@index([stars])
+  @@index([isActive])
+}
+
+// AI-репозитории, попавшие в подборку источника
+model RepositoryResource {
+  id                String    @id @default(cuid())
+  name              String
+  owner             String?
+  repositoryName    String?
+  description       String    @db.Text
+  descriptionRu     String?   @db.Text
+  url               String    @unique
+  language          String?
+  stars             Int?
+  source            String
+  sourceUrl         String
+  sourcePublishedAt DateTime?
+  syncedAt          DateTime
+  lastSeenAt        DateTime
+  isActive          Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([language])
+  @@index([stars])
+  @@index([isActive])
+}
+
 // Таблица для кредитов пользователей
 model UserCredit {
   id           String    @id @default(cuid())

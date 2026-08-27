@@ -3,7 +3,8 @@
 ## collective-ai-tools catalog
 
 Catalog records with IDs beginning with `tool_collective_` and
-`cat_collective_` were adapted from
+`cat_collective_`, plus MCP, prompt, skill, and repository metadata, are
+adapted or synchronized from
 [hanishrao/collective-ai-tools](https://github.com/hanishrao/collective-ai-tools).
 
 MIT License

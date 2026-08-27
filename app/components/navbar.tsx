@@ -37,7 +37,7 @@ export const Navbar = ({ overlay = false }: Props) => {
           {/* Главное меню — просто ссылки */}
           <nav className="ml-6 flex items-center gap-6 lg:gap-8">
             <Link href="/catalog" className="text-sm font-medium hover:opacity-80">
-              AI-инструменты
+              AI-библиотека
             </Link>
             <Link href="/calculator" className="text-sm font-medium hover:opacity-80">
               Калькулятор цен
