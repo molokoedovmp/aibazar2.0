@@ -1,73 +1,120 @@
-import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
+
 import { authOptions } from "@/app/api/auth/auth-options";
 import { prisma } from "@/lib/db";
 
-type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
+type ChatMessage = {
+  role: "system" | "user" | "assistant";
+  content: string;
+};
+
+type ComposeRequest = {
+  prompt?: string;
+  messages?: ChatMessage[];
+  documentTitle?: string;
+  selection?: string;
+  documentMarkdown?: string;
+  temperature?: number;
+};
 
 const FREE_START_CREDITS = 5;
 
-export async function POST(req: Request) {
-  const session = await getServerSession(authOptions as any).catch(() => null);
-  const userId = (session as any)?.user?.id as string | undefined;
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function isChatMessage(value: unknown): value is ChatMessage {
+  if (!isRecord(value)) return false;
+  return (
+    (value.role === "system" || value.role === "user" || value.role === "assistant") &&
+    typeof value.content === "string"
+  );
+}
+
+function getApiError(data: unknown) {
+  if (!isRecord(data) || !isRecord(data.error)) return null;
+  return typeof data.error.message === "string" ? data.error.message : null;
+}
+
+function getResponseText(data: unknown) {
+  if (!isRecord(data) || !Array.isArray(data.choices)) return "";
+  const choice = data.choices[0];
+  if (!isRecord(choice) || !isRecord(choice.message)) return "";
+  return typeof choice.message.content === "string" ? choice.message.content : "";
+}
+
+export async function POST(request: Request) {
+  const session = await getServerSession(authOptions).catch(() => null);
+  const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const apiKey = process.env.OPENAI_API_KEY;
+
+  const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
-      { error: "OPENAI_API_KEY is not configured" },
-      { status: 500 }
+      { error: "DEEPSEEK_API_KEY is not configured" },
+      { status: 500 },
     );
   }
 
-  let body: any = null;
+  let body: ComposeRequest;
   try {
-    body = await req.json();
-  } catch {}
+    body = (await request.json()) as ComposeRequest;
+  } catch {
+    return NextResponse.json({ error: "Некорректное тело запроса" }, { status: 400 });
+  }
 
-  const userPrompt: string | undefined = body?.prompt;
-  const messages: ChatMessage[] = Array.isArray(body?.messages)
-    ? body.messages
-    : [];
-  const documentTitle: string | undefined = body?.documentTitle;
-  const selection: string | undefined = body?.selection;
-  const documentMarkdown: string | undefined = body?.documentMarkdown;
-
-  const sys: ChatMessage = {
+  const systemMessage: ChatMessage = {
     role: "system",
     content:
-      "You are a writing assistant for a notes/documents editor. Write in Russian by default. Use Markdown syntax to structure content: # headings, lists (-, 1.), and fenced code blocks (```lang). Avoid images and HTML; produce pure Markdown only. The result will be parsed to rich blocks and inserted at the cursor.",
+      "Ты помощник для редактора заметок и документов. По умолчанию отвечай на русском языке. Используй Markdown: заголовки, списки и блоки кода. Не добавляй HTML и изображения. Возвращай только текст, который можно сразу вставить в документ.",
   };
 
-  const user: ChatMessage = {
+  const userMessage: ChatMessage = {
     role: "user",
     content: [
-      documentTitle ? `Документ: ${documentTitle}` : undefined,
-      documentMarkdown ? `Текущие материалы документа (Markdown):\n${documentMarkdown}` : undefined,
-      selection ? `Выделенный фрагмент (контекст):\n${selection}` : undefined,
-      userPrompt ? `Задача: ${userPrompt}` : "",
+      body.documentTitle ? `Документ: ${body.documentTitle}` : undefined,
+      body.documentMarkdown
+        ? `Текущие материалы документа (Markdown):\n${body.documentMarkdown}`
+        : undefined,
+      body.selection ? `Выделенный фрагмент (контекст):\n${body.selection}` : undefined,
+      body.prompt ? `Задача: ${body.prompt}` : "",
     ]
       .filter(Boolean)
       .join("\n\n"),
-  } as ChatMessage;
-
-  const payload = {
-    model: body?.model || "gpt-4o-mini",
-    temperature: typeof body?.temperature === "number" ? body.temperature : 0.7,
-    messages: [sys, ...messages.filter(Boolean), user],
   };
 
-  // Ensure credits and check balance (без upsert, так как userId не уникальный)
   let credit = await prisma.userCredit.findFirst({ where: { userId } });
   if (!credit) {
-    credit = await prisma.userCredit.create({ data: { userId, totalCredits: FREE_START_CREDITS, usedCredits: 0, plan: "free" } });
+    credit = await prisma.userCredit.create({
+      data: {
+        userId,
+        totalCredits: FREE_START_CREDITS,
+        usedCredits: 0,
+        plan: "free",
+      },
+    });
   }
-  const remaining = Math.max(0, credit.totalCredits - credit.usedCredits);
-  if (remaining <= 0) {
+
+  if (Math.max(0, credit.totalCredits - credit.usedCredits) <= 0) {
     return NextResponse.json({ error: "Нет доступных кредитов" }, { status: 402 });
   }
 
+  const baseUrl = (process.env.DEEPSEEK_BASE_URL || "https://api.deepseek.com").replace(/\/$/, "");
+  const payload = {
+    model: process.env.DEEPSEEK_MODEL || "deepseek-v4-flash",
+    temperature: typeof body.temperature === "number" ? body.temperature : 0.7,
+    thinking: { type: "disabled" },
+    stream: false,
+    messages: [
+      systemMessage,
+      ...(Array.isArray(body.messages) ? body.messages.filter(isChatMessage) : []),
+      userMessage,
+    ],
+  };
+
   try {
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,28 +124,37 @@ export async function POST(req: Request) {
       cache: "no-store",
     });
 
-    const data = await res.json().catch(() => null);
-    if (!res.ok) {
+    const data: unknown = await response.json().catch(() => null);
+    if (!response.ok) {
       return NextResponse.json(
-        { error: data?.error?.message || "OpenAI request failed" },
-        { status: res.status }
+        { error: getApiError(data) || "DeepSeek request failed" },
+        { status: response.status },
       );
     }
-    const text: string =
-      data?.choices?.[0]?.message?.content?.toString?.() ?? "";
-    // Deduct a credit on success
-    const existing = await prisma.userCredit.findFirst({ where: { userId } });
-    if (existing) {
+
+    const text = getResponseText(data);
+    if (!text) {
+      return NextResponse.json({ error: "DeepSeek вернул пустой ответ" }, { status: 502 });
+    }
+
+    const existingCredit = await prisma.userCredit.findFirst({ where: { userId } });
+    if (existingCredit) {
       await prisma.$transaction([
-        prisma.userCredit.update({ where: { id: existing.id }, data: { usedCredits: { increment: 1 } } }),
-        prisma.creditUsageHistory.create({ data: { userId, service: "ai-compose", amount: 1 } }),
+        prisma.userCredit.update({
+          where: { id: existingCredit.id },
+          data: { usedCredits: { increment: 1 } },
+        }),
+        prisma.creditUsageHistory.create({
+          data: { userId, service: "ai-compose-deepseek", amount: 1 },
+        }),
       ]);
     }
+
     return NextResponse.json({ text });
-  } catch (e: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { error: e?.message || "Failed to call OpenAI" },
-      { status: 500 }
+      { error: error instanceof Error ? error.message : "Failed to call DeepSeek" },
+      { status: 500 },
     );
   }
 }

@@ -161,6 +161,19 @@ model Favorite {
   @@index([userId, itemId, itemType])
 }
 
+// Избранные ресурсы общей AI-библиотеки, не связанные с таблицей AiTool
+model LibraryFavorite {
+  id        String   @id @default(cuid())
+  userId    String
+  itemId    String
+  itemType  String // "mcp" | "prompts" | "skills" | "repos"
+  createdAt DateTime @default(now())
+
+  @@unique([userId, itemId, itemType])
+  @@index([userId])
+  @@index([userId, itemType])
+}
+
 model FeedbackMessage {
   id        String   @id @default(cuid())
   name      String

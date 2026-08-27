@@ -25,7 +25,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { Home, Search, Settings2, Sparkles, Trash2, Star, ChevronsDownUp, LogOut, ShoppingCart, Plus, Compass, Bot, File} from "lucide-react";
+import { Home, Search, Settings2, Sparkles, Star, ChevronsDownUp, LogOut, ShoppingCart, Plus, Compass, Bot, File} from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -34,15 +34,12 @@ import SettingsForm from "@/components/account/SettingsForm";
 // Данные для навигации
 const data = {
   navMain: [
-    { title: "Избранное", url: "/account/favorites", icon: Star, badge: "10" },
-    { title: "Документы", url: "/account/documents", icon: File, badge: "10" },
+    { title: "Избранное", url: "/account/favorites", icon: Star },
+    { title: "Документы", url: "/account/documents", icon: File },
     { title: "Мои покупки", url: "/account/purchases", icon: ShoppingCart },
     { title: "Сообщество", url: "/blog", icon: Compass},
     { title: "ai инструменты", url: "/catalog", icon: Bot},
 
-  ],
-  navSecondary: [
-    { title: "Корзина", url: "#", icon: Trash2 },
   ],
   documents: [] as { id: string; title: string }[],
 };

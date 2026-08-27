@@ -25,9 +25,9 @@ export const Navbar = ({ overlay = false }: Props) => {
             : "border-b border-white/15 bg-black",
         ].join(" ")}
       >
-        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-10">
+        <div className="mx-auto grid h-full w-full max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-6 lg:px-10">
           {/* Брендинг */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 justify-self-start">
             <Link href="/" className="flex items-center gap-2">
               <Image src="/logo.png" alt="AI Bazar" width={40} height={40} className="rounded" />
               <span className="text-lg font-semibold tracking-tight">aibazar</span>
@@ -35,7 +35,7 @@ export const Navbar = ({ overlay = false }: Props) => {
           </div>
 
           {/* Главное меню — просто ссылки */}
-          <nav className="ml-6 flex items-center gap-6 lg:gap-8">
+          <nav className="flex items-center gap-6 justify-self-center lg:gap-8">
             <Link href="/catalog" className="text-sm font-medium hover:opacity-80">
               AI-библиотека
             </Link>
@@ -51,7 +51,7 @@ export const Navbar = ({ overlay = false }: Props) => {
           </nav>
 
           {/* Правый блок */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 justify-self-end">
             {!session ? (
               <>
                 <Link href="/auth/login">

@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Calculator, DollarSign, MessageCircle } from "lucide-react";
+import Link from "next/link";
+import { BookOpenText, Calculator, DollarSign, MessageCircle } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { calcRubPrice } from "@/lib/pricing";
@@ -106,6 +107,14 @@ export default function PricingCalculator({
           <MessageCircle className="h-5 w-5" />
           Уточнить цены
         </a>
+
+        <Link
+          href="/payment-instructions"
+          className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-black/15 bg-white px-5 text-sm font-semibold text-black transition hover:border-black hover:bg-black hover:text-white"
+        >
+          <BookOpenText className="h-4 w-4" />
+          Открыть инструкцию по оплате
+        </Link>
       </div>
     </div>
   );

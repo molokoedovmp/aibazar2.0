@@ -1,23 +1,25 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, type ChangeEvent, type FormEvent } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 
-interface CheckoutFormProps {
+type CheckoutFormProps = {
   toolId: string;
   toolName: string;
   priceRub: number;
   userEmail?: string | null;
   userName?: string | null;
+};
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
 }
 
-export function CheckoutForm({ toolId, toolName, priceRub, userEmail, userName }: CheckoutFormProps) {
+export function CheckoutForm({ toolId, priceRub, userEmail, userName }: CheckoutFormProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-
   const [form, setForm] = useState({
     name: userName ?? "",
     email: userEmail ?? "",
@@ -25,18 +27,19 @@ export function CheckoutForm({ toolId, toolName, priceRub, userEmail, userName }
     comment: "",
   });
 
-  const onChange = (key: keyof typeof form) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm((prev) => ({ ...prev, [key]: event.target.value }));
-  };
+  const onChange = (key: keyof typeof form) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setForm((previous) => ({ ...previous, [key]: event.target.value }));
+    };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isPending) return;
 
     setError(null);
     startTransition(async () => {
       try {
-        const res = await fetch("/api/orders", {
+        const response = await fetch("/api/orders", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -51,69 +54,94 @@ export function CheckoutForm({ toolId, toolName, priceRub, userEmail, userName }
           }),
         });
 
-        if (!res.ok) {
-          const data = await res.json().catch(() => ({}));
-          throw new Error(data?.error || "Не удалось оформить заказ");
+        const data: unknown = await response.json().catch(() => null);
+        if (!response.ok) {
+          const message = isRecord(data) && typeof data.error === "string"
+            ? data.error
+            : "Не удалось оформить заказ";
+          throw new Error(message);
         }
 
-        const data = await res.json();
-        const url: string | undefined = data?.confirmationUrl;
-        if (!url) throw new Error("Не удалось получить ссылку для оплаты");
-        window.location.href = url;
-      } catch (err: any) {
-        setError(err?.message || "Неизвестная ошибка");
+        const confirmationUrl = isRecord(data) && typeof data.confirmationUrl === "string"
+          ? data.confirmationUrl
+          : null;
+        if (!confirmationUrl) throw new Error("Не удалось получить ссылку для оплаты");
+
+        window.location.href = confirmationUrl;
+      } catch (caughtError: unknown) {
+        setError(caughtError instanceof Error ? caughtError.message : "Неизвестная ошибка");
       }
     });
   };
 
+  const fieldClassName = "h-11 rounded-xl border-black/10 bg-[#f7f7f5] px-3 text-sm shadow-none focus-visible:border-black/30 focus-visible:ring-0";
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-700" htmlFor="name">Имя</label>
+      <div className="space-y-1.5">
+        <label className="text-xs font-semibold text-black/60" htmlFor="name">Имя</label>
         <Input
           id="name"
           value={form.name}
           onChange={onChange("name")}
           placeholder="Как к вам обращаться"
+          className={fieldClassName}
           required
         />
       </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-700" htmlFor="email">Email</label>
+
+      <div className="space-y-1.5">
+        <label className="text-xs font-semibold text-black/60" htmlFor="email">Email</label>
         <Input
           id="email"
           type="email"
           value={form.email}
           onChange={onChange("email")}
           placeholder="example@domain.com"
+          className={fieldClassName}
           required
         />
       </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-700" htmlFor="telegram">Telegram или телефон</label>
+
+      <div className="space-y-1.5">
+        <label className="text-xs font-semibold text-black/60" htmlFor="telegram">Telegram или телефон</label>
         <Input
           id="telegram"
           value={form.telegram}
           onChange={onChange("telegram")}
           placeholder="@username или номер"
+          className={fieldClassName}
           required
         />
       </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-700" htmlFor="comment">Комментарий</label>
+
+      <div className="space-y-1.5">
+        <label className="text-xs font-semibold text-black/60" htmlFor="comment">Комментарий</label>
         <Textarea
           id="comment"
           value={form.comment}
           onChange={onChange("comment")}
-          placeholder="Укажите дополнительные пожелания"
-          rows={4}
+          placeholder="Дополнительные пожелания"
+          rows={3}
+          className="resize-none rounded-xl border-black/10 bg-[#f7f7f5] px-3 py-3 text-sm shadow-none focus-visible:border-black/30 focus-visible:ring-0"
         />
       </div>
 
-      {error && <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>}
-      <Button type="submit" disabled={isPending} className="w-full h-12 text-base font-semibold">
-        {isPending ? "Создаём оплату..." : `Перейти к оплате (${priceRub.toLocaleString("ru-RU")} ₽)`}
-      </Button>
+      {error && (
+        <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          {error}
+        </div>
+      )}
+
+      <button
+        type="submit"
+        disabled={isPending}
+        className="flex h-11 w-full items-center justify-center rounded-xl bg-black px-4 text-sm font-semibold text-white transition hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {isPending
+          ? "Создаём оплату..."
+          : `Перейти к оплате — ${priceRub.toLocaleString("ru-RU")} ₽`}
+      </button>
     </form>
   );
 }

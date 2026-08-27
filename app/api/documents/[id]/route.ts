@@ -1,35 +1,98 @@
-import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
+
 import { authOptions } from "@/app/api/auth/auth-options";
 import { prisma } from "@/lib/db";
 
-export async function GET(_: Request, ctx: any) {
-  const { id } = await ctx.params;
+type RouteContext = {
+  params: Promise<{ id: string }>;
+};
+
+type DocumentPatch = {
+  title?: string;
+  content?: string;
+  isFavorite?: boolean;
+  isPublished?: boolean;
+  isArchived?: boolean;
+};
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+export async function GET(_: Request, context: RouteContext) {
+  const { id } = await context.params;
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const doc = await prisma.document.findFirst({
+
+  const document = await prisma.document.findFirst({
     where: { id, userId: session.user.id },
     select: { id: true, title: true, content: true, updatedAt: true },
   });
-  if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  return NextResponse.json(doc);
+  if (!document) return NextResponse.json({ error: "Документ не найден" }, { status: 404 });
+
+  return NextResponse.json(document);
 }
 
-export async function PATCH(req: Request, ctx: any) {
-  const { id } = await ctx.params;
+export async function PATCH(request: Request, context: RouteContext) {
+  const { id } = await context.params;
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const body = await req.json();
-  const { title, content, isFavorite, isPublished } = body as { title?: string; content?: string; isFavorite?: boolean; isPublished?: boolean };
-  const doc = await prisma.document.update({
-    where: { id },
-    data: {
-      ...(title !== undefined ? { title } : {}),
-      ...(content !== undefined ? { content } : {}),
-      ...(typeof isFavorite === 'boolean' ? { isFavorite } : {}),
-      ...(typeof isPublished === 'boolean' ? { isPublished } : {}),
-    },
-    select: { id: true, title: true, content: true, updatedAt: true, isPublished: true, isFavorite: true },
+
+  const rawBody: unknown = await request.json().catch(() => null);
+  if (!isRecord(rawBody)) {
+    return NextResponse.json({ error: "Некорректное тело запроса" }, { status: 400 });
+  }
+
+  const body = rawBody as DocumentPatch;
+  const data = {
+    ...(typeof body.title === "string" ? { title: body.title } : {}),
+    ...(typeof body.content === "string" ? { content: body.content } : {}),
+    ...(typeof body.isFavorite === "boolean" ? { isFavorite: body.isFavorite } : {}),
+    ...(typeof body.isPublished === "boolean" ? { isPublished: body.isPublished } : {}),
+    ...(typeof body.isArchived === "boolean" ? { isArchived: body.isArchived } : {}),
+  };
+
+  const result = await prisma.document.updateMany({
+    where: { id, userId: session.user.id },
+    data,
   });
-  return NextResponse.json(doc);
+  if (!result.count) return NextResponse.json({ error: "Документ не найден" }, { status: 404 });
+
+  const document = await prisma.document.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      updatedAt: true,
+      isPublished: true,
+      isFavorite: true,
+      isArchived: true,
+    },
+  });
+
+  return NextResponse.json(document);
+}
+
+export async function DELETE(_: Request, context: RouteContext) {
+  const { id } = await context.params;
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const document = await prisma.document.findFirst({
+    where: { id, userId: session.user.id },
+    select: { id: true },
+  });
+  if (!document) return NextResponse.json({ error: "Документ не найден" }, { status: 404 });
+
+  await prisma.$transaction([
+    prisma.document.updateMany({
+      where: { userId: session.user.id, parentDocument: id },
+      data: { parentDocument: null },
+    }),
+    prisma.document.delete({ where: { id } }),
+  ]);
+
+  return NextResponse.json({ id, deleted: true });
 }

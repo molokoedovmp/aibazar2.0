@@ -1,392 +1,268 @@
 "use client";
 
-import { ArrowLeft, Check, Copy, ExternalLink } from "lucide-react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { ArrowLeft, ArrowRight, CheckCircle2, Info, MessageCircle } from "lucide-react";
+
+import { Footer } from "@/app/components/footer";
+import { Navbar } from "@/app/components/navbar";
+
+type InstructionStep = {
+  title: string;
+  description: string;
+  image?: string;
+  bullets?: string[];
+};
+
+type PaymentGuide = {
+  label: string;
+  title: string;
+  description: string;
+  notice?: string;
+  steps: InstructionStep[];
+};
+
+const guides: PaymentGuide[] = [
+  {
+    label: "Ссылка на оплату",
+    title: "Оплата по прямой ссылке",
+    description: "Подходит, если сервис создаёт отдельную страницу оформления подписки.",
+    steps: [
+      {
+        title: "Откройте страницу подписки",
+        description: "Перейдите на официальный сайт нужного сервиса, выберите тариф и начните оформление подписки.",
+        image: "/instruction/step.png",
+      },
+      {
+        title: "Скопируйте ссылку",
+        description: "На странице оплаты скопируйте полный адрес из адресной строки браузера.",
+        image: "/instruction/step2.png",
+      },
+      {
+        title: "Отправьте данные менеджеру",
+        description: "Напишите нам в Telegram и отправьте ссылку на оплату.",
+        bullets: ["Название сервиса", "Выбранный тариф", "Ссылка на страницу оплаты"],
+        image: "/instruction/step3.png",
+      },
+      {
+        title: "Подтвердите оплату",
+        description: "Получите расчёт, оплатите заказ и дождитесь сообщения об успешной активации подписки.",
+        image: "/instruction/step4.png",
+      },
+    ],
+  },
+  {
+    label: "Через аккаунт",
+    title: "Оплата через аккаунт сервиса",
+    description: "Используется, когда подписку нельзя оформить по отдельной платёжной ссылке.",
+    notice: "Не отправляйте данные банковской карты, коды из SMS и резервные коды. Если потребуется доступ к аккаунту, используйте временный пароль и смените его после активации.",
+    steps: [
+      {
+        title: "Свяжитесь с менеджером",
+        description: "Укажите название сервиса, тариф и срок подписки, который хотите оплатить.",
+      },
+      {
+        title: "Уточните способ активации",
+        description: "Менеджер проверит сервис и сообщит, потребуется ли временный доступ к вашему аккаунту.",
+      },
+      {
+        title: "Оплатите заказ",
+        description: "Получите итоговую стоимость и реквизиты, после чего отправьте подтверждение платежа.",
+      },
+      {
+        title: "Проверьте подписку",
+        description: "После активации войдите в сервис, убедитесь, что тариф подключён, и смените временный пароль.",
+      },
+    ],
+  },
+  {
+    label: "Через aiBazar",
+    title: "Оплата через страницу aiBazar",
+    description: "Выберите инструмент в каталоге и оформите запрос на оплату внутри сайта.",
+    steps: [
+      {
+        title: "Выберите AI-инструмент",
+        description: "Откройте библиотеку, найдите нужный сервис и перейдите на его страницу.",
+        image: "/instruction/step10.png",
+      },
+      {
+        title: "Укажите стоимость",
+        description: "Выберите тариф или введите стоимость подписки в долларах, чтобы увидеть расчёт в рублях.",
+        image: "/instruction/step11.png",
+      },
+      {
+        title: "Перейдите к оформлению",
+        description: "Нажмите кнопку покупки и заполните контактные данные для связи с менеджером.",
+        image: "/instruction/step12.png",
+      },
+      {
+        title: "Получите подтверждение",
+        description: "После оплаты дождитесь подтверждения и проверьте активацию подписки в выбранном сервисе.",
+        image: "/instruction/step13.png",
+      },
+    ],
+  },
+];
 
 export default function PaymentInstructionsPage() {
-  const [activeTab, setActiveTab] = useState(0);
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const [activeGuide, setActiveGuide] = useState(0);
+  const guide = guides[activeGuide];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Верхняя навигация */}
-      <div className="container mx-auto px-4 py-6">
-        <Link href="/" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground hover:underline">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Вернуться на главную
-        </Link>
-      </div>
+    <div className="flex min-h-screen flex-col overflow-x-hidden bg-white text-black dark:bg-black dark:text-white">
+      <Navbar />
 
-      {/* Заголовок */}
-      <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Как оплатить AI сервисы из России</h1>
-        <p className="text-lg max-w-3xl mx-auto text-muted-foreground">
-          Мы предлагаем простое и надежное решение для оплаты подписок на популярные AI сервисы, 
-          включая ChatGPT, Midjourney, Claude и другие.
-        </p>
-      </div>
-
-      {/* Основной контент */}
-      <div className="container mx-auto px-4 py-12 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          {/* Преимущества */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="p-6 rounded-xl border border-border bg-card relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 rounded-bl-3xl bg-primary/10 opacity-50"></div>
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 relative z-10">
-                <Check className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 relative z-10 text-card-foreground">Гарантия лучшей цены</h3>
-              <p className="relative z-10 text-muted-foreground">Мы предлагаем конкурентные цены и регулярно мониторим рынок.</p>
-            </div>
-            <div className="p-6 rounded-xl border border-border bg-card relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 rounded-bl-3xl bg-primary/10 opacity-50"></div>
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 relative z-10">
-                <Check className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 relative z-10 text-card-foreground">Быстрая оплата</h3>
-              <p className="relative z-10 text-muted-foreground">Процесс оплаты занимает всего несколько минут.</p>
-            </div>
-            <div className="p-6 rounded-xl border border-border bg-card relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 rounded-bl-3xl bg-primary/10 opacity-50"></div>
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 relative z-10">
-                <Check className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 relative z-10 text-card-foreground">Профессиональная поддержка</h3>
-              <p className="relative z-10 text-muted-foreground">Наши специалисты всегда готовы помочь с любыми вопросами.</p>
-            </div>
-          </div>
-
-          {/* Инструкция по оплате */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center text-foreground">Как оплатить AI сервисы из России</h2>
-            
-            <div className="bg-card rounded-xl border border-border">
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-              
-              {/* Табы с вариантами оплаты */}
-              <div className="flex border-b border-border">
-                <button 
-                  className={`flex-1 py-4 px-6 text-center font-medium ${activeTab === 0 ? 'text-primary font-bold border-b-2 border-primary' : 'text-muted-foreground'}`}
-                  onClick={() => setActiveTab(0)}
-                >
-                  Вариант 1: Прямая ссылка
-                </button>
-                <button 
-                  className={`flex-1 py-4 px-6 text-center font-medium ${activeTab === 1 ? 'text-primary font-bold border-b-2 border-primary' : 'text-muted-foreground'}`}
-                  onClick={() => setActiveTab(1)}
-                >
-                  Вариант 2: Логин и пароль
-                </button>
-                <button 
-                  className={`flex-1 py-4 px-6 text-center font-medium ${activeTab === 2 ? 'text-primary font-bold border-b-2 border-primary' : 'text-muted-foreground'}`}
-                  onClick={() => setActiveTab(2)}
-                >
-                  Вариант 3: Оплата на сайте
-                </button>
-              </div>
-              
-              {/* Содержимое табов */}
-              <div className="p-6">
-                {activeTab === 0 && (
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4 text-card-foreground">Оплата через прямую ссылку</h3>
-                    <div className="space-y-12">
-                      <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="p-6 rounded-xl flex items-center justify-center md:w-1/2 border border-border bg-card/50">
-                          <Image 
-                            src="/instruction/step.png" 
-                            alt="Шаг 1" 
-                            width={500} 
-                            height={300}
-                            className="rounded-lg w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 1</h4>
-                          <p className="mb-4 text-muted-foreground">
-                            Перейдите на сайт сервиса, который хотите оплатить (например, <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline inline-flex items-center">chat.openai.com <ExternalLink className="h-3 w-3 ml-1" /></a>) и нажмите кнопку для оформления подписки.
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="p-6 rounded-xl flex items-center justify-center md:w-1/2 border border-border bg-card/50">
-                          <Image 
-                            src="/instruction/step2.png" 
-                            alt="Шаг 2" 
-                            width={500} 
-                            height={300}
-                            className="rounded-lg w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 2</h4>
-                          <p className="mb-4 text-muted-foreground">
-                            На странице оплаты скопируйте URL из адресной строки браузера.
-                          </p>
-                          <div className="flex items-center p-3 rounded-lg border border-border bg-muted">
-                            <code className="text-sm flex-1 truncate text-muted-foreground">https://chat.openai.com/payments/checkout?plan=plus</code>
-                            <button 
-                              className="ml-2 p-2 hover:bg-primary/10 rounded-md"
-                              onClick={() => copyToClipboard("https://chat.openai.com/payments/checkout?plan=plus")}
-                            >
-                              {copied ? <Check className="h-4 w-4 text-primary" /> : <Copy className="h-4 w-4 text-muted-foreground" />}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="p-6 rounded-xl flex items-center justify-center md:w-1/2 border border-border bg-card/50">
-                          <Image 
-                            src="/instruction/step3.png" 
-                            alt="Шаг 3" 
-                            width={500} 
-                            height={300}
-                            className="rounded-lg w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 3</h4>
-                          <p className="mb-4 text-muted-foreground">
-                            Отправьте скопированную ссылку нашему менеджеру в Telegram и укажите:
-                          </p>
-                          <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                            <li>Сервис, который хотите оплатить</li>
-                            <li>Сумму оплаты</li>
-                            <li>Валюту оплаты (рубли)</li>
-                            <li>Вариант оплаты (прямая ссылка)</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="p-6 rounded-xl flex items-center justify-center md:w-1/2 border border-border bg-card/50">
-                          <Image 
-                            src="/instruction/step4.png" 
-                            alt="Шаг 4" 
-                            width={500} 
-                            height={300}
-                            className="rounded-lg w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 4</h4>
-                          <p className="mb-4 text-muted-foreground">
-                            Получите реквизиты для оплаты от менеджера, проведите оплату и отправьте подтверждение. После проверки платежа, менеджер оформит подписку и предоставит вам доступ.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Предупреждение для варианта 1 */}
-                    <div className="p-4 rounded-xl mt-8 border border-border bg-muted">
-                      <h4 className="text-lg font-medium mb-2 flex items-center text-card-foreground">
-                        <svg className="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Важно
-                      </h4>
-                      <p className="text-muted-foreground">
-                        После оплаты вы получите подтверждение от менеджера и сможете пользоваться всеми преимуществами платной версии сервиса.
-                      </p>
-                    </div>
-                  </div>
-                )}
-                
-                {activeTab === 1 && (
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4 text-card-foreground">Оплата через логин и пароль</h3>
-                    <div className="space-y-6">
-                      <div className="p-6 rounded-xl border border-border bg-card/50">
-                        <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 1</h4>
-                        <p className="text-muted-foreground">
-                          Напишите нашему менеджеру в Telegram и предоставьте:
-                        </p>
-                        <ul className="list-disc pl-5 space-y-2 mt-2 text-muted-foreground">
-                          <li>Логин и пароль от вашего аккаунта в сервисе, который хотите оплатить</li>
-                          <li>Сервис, который хотите оплатить</li>
-                          <li>Сумму оплаты</li>
-                          <li>Валюту оплаты (рубли)</li>
-                          <li>Вариант оплаты (логин и пароль)</li>
-                        </ul>
-                      </div>
-                      
-                      <div className="p-6 rounded-xl border border-border bg-card/50">
-                        <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 2</h4>
-                        <p className="text-muted-foreground">
-                          Получите реквизиты для оплаты от менеджера и проведите платеж. После подтверждения оплаты, наш специалист оформит подписку на ваш аккаунт.
-                        </p>
-                      </div>
-                      
-                      <div className="p-6 rounded-xl border border-border bg-card/50">
-                        <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 3</h4>
-                        <p className="text-muted-foreground">
-                          После успешного оформления подписки вы получите уведомление от менеджера. Теперь вы можете пользоваться всеми преимуществами платной версии сервиса.
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Предупреждение для варианта 2 */}
-                    <div className="p-4 rounded-xl mt-8 border border-border bg-muted">
-                      <h4 className="text-lg font-medium mb-2 flex items-center text-card-foreground">
-                        <svg className="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Важно
-                      </h4>
-                      <p className="text-muted-foreground">
-                        Мы гарантируем полную конфиденциальность ваших данных. Логин и пароль используются только для оформления подписки и не сохраняются в нашей системе.
-                      </p>
-                    </div>
-                  </div>
-                )}
-                
-                {activeTab === 2 && (
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4 text-card-foreground">Оплата через онлайн эквайринг</h3>
-                    <div className="space-y-12">
-                      <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="p-6 rounded-xl flex items-center justify-center md:w-1/2 border border-border bg-card/50">
-                          <Image 
-                            src="/instruction/step10.png" 
-                            alt="Шаг 1" 
-                            width={500} 
-                            height={300}
-                            className="rounded-lg w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 1</h4>
-                          <p className="text-muted-foreground">
-                            Авторизуйтесь в нашей системе. Для оплаты через онлайн эквайринг необходимо иметь активный аккаунт на нашей платформе.
-                          </p>
-                          <div className="mt-4 p-3 rounded-lg border border-border bg-muted">
-                            <p className="text-sm text-muted-foreground">
-                              <span className="font-medium text-card-foreground">Важно:</span> Если у вас еще нет аккаунта, зарегистрируйтесь на нашем сайте перед оплатой.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="p-6 rounded-xl flex items-center justify-center md:w-1/2 border border-border bg-card/50">
-                          <Image 
-                            src="/instruction/step11.png" 
-                            alt="Шаг 2" 
-                            width={500} 
-                            height={300}
-                            className="rounded-lg w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 2</h4>
-                          <p className="text-muted-foreground">
-                            Выберите нужный AI сервис и тариф в каталоге. Нажмите кнопку "Оплатить" на странице выбранного сервиса. После вам необходимо указать следующие данные:
-                          </p>
-                          
-                          <ul className="list-disc pl-5 space-y-2 mt-2 text-muted-foreground">
-                            <li>Ваш профиль телеграмм</li>
-                            <li>Ссылку на оплату сервиса (например, https://chat.openai.com/payments/checkout?plan=plus)</li>
-                            <li>Вашу почту</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="p-6 rounded-xl flex items-center justify-center md:w-1/2 border border-border bg-card/50">
-                          <Image 
-                            src="/instruction/step12.png" 
-                            alt="Шаг 3" 
-                            width={500} 
-                            height={300}
-                            className="rounded-lg w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 3</h4>
-                          <p className="text-muted-foreground">
-                            Выберите один из предложенных вариантов оплаты или заполните форму оплаты, введя следующие данные:
-                          </p>
-                          <ul className="list-disc pl-5 space-y-2 mt-2 text-muted-foreground">
-                            <li>Номер банковской карты</li>
-                            <li>Срок действия карты</li>
-                            <li>CVV/CVC-код</li>
-                            <li>Имя держателя карты</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="p-6 rounded-xl flex items-center justify-center md:w-1/2 border border-border bg-card/50">
-                          <Image 
-                            src="/instruction/step13.png" 
-                            alt="Шаг 4" 
-                            width={500} 
-                            height={300}
-                            className="rounded-lg w-full h-auto"
-                          />
-                        </div>
-                        <div className="md:w-1/2">
-                          <h4 className="text-lg font-medium mb-2 text-card-foreground">Шаг 4</h4>
-                          <p className="text-muted-foreground">
-                            Подтвердите оплату. В зависимости от вашего банка, может потребоваться дополнительное подтверждение через SMS-код или приложение банка.
-                          </p>
-                          <p className="mt-2 text-muted-foreground">
-                            После успешной оплаты вы получите подтверждение на электронную почту, и доступ к выбранному AI сервису будет активирован в течение суток.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Предупреждение для варианта 3 */}
-                    <div className="p-4 rounded-xl mt-8 border border-border bg-muted">
-                      <h4 className="text-lg font-medium mb-2 flex items-center text-card-foreground">
-                        <svg className="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Важно
-                      </h4>
-                      <p className="text-muted-foreground">
-                        Для оплаты через онлайн эквайринг необходимо быть авторизованным в системе. Все платежные данные передаются в зашифрованном виде и обрабатываются на защищенных серверах нашего платежного партнера.
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="max-w-4xl mx-auto rounded-2xl p-8 md:p-12 text-center border border-border bg-card relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-            <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-            <div className="absolute top-0 right-0 w-32 h-32 border border-primary/20 rounded-full -translate-y-1/2 translate-x-1/2 opacity-30"></div>
-            <div className="absolute bottom-0 left-0 w-32 h-32 border border-primary/20 rounded-full translate-y-1/2 -translate-x-1/2 opacity-30"></div>
-            
-            <h2 className="text-3xl font-bold mb-4 relative z-10 text-card-foreground">Готовы оплатить подписку?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto relative z-10 text-muted-foreground">
-              Свяжитесь с нашим менеджером прямо сейчас и получите доступ к премиум возможностям AI сервисов.
-            </p>
-            <Link href="https://t.me/aibazaru" target="_blank" rel="noopener noreferrer">
-              <Button className="text-lg px-8 py-6 h-auto rounded-full relative z-10 bg-primary hover:bg-primary/90 text-primary-foreground">
-                Связаться с менеджером
-              </Button>
+      <main className="flex-1">
+        <section className="border-b border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-zinc-950">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-10">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm font-medium text-black/50 transition hover:text-black dark:text-white/50 dark:hover:text-white"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              На главную
             </Link>
+
+            <div className="mt-8 max-w-3xl">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/40 dark:text-white/40">
+                Инструкция по оплате
+              </span>
+              <h1 className="mt-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+                Как оплатить AI-сервис из России
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400 sm:text-lg">
+                Выберите подходящий вариант и следуйте короткой пошаговой инструкции. Если останутся вопросы, менеджер поможет в Telegram.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-10">
+          <label className="block md:hidden">
+            <span className="mb-2 block text-xs font-semibold text-black/50 dark:text-white/50">Способ оплаты</span>
+            <select
+              value={activeGuide}
+              onChange={(event) => setActiveGuide(Number(event.target.value))}
+              className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 text-sm outline-none dark:border-white/10 dark:bg-zinc-950"
+            >
+              {guides.map((item, index) => (
+                <option key={item.label} value={index}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <div className="mt-7 grid min-w-0 gap-8 md:mt-0 md:grid-cols-[220px_minmax(0,1fr)] lg:gap-12">
+            <aside className="hidden md:block">
+              <div className="sticky top-6">
+                <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-black/40 dark:text-white/40">
+                  Способ оплаты
+                </p>
+                <nav className="space-y-1">
+                  {guides.map((item, index) => (
+                    <button
+                      key={item.label}
+                      type="button"
+                      onClick={() => setActiveGuide(index)}
+                      className={`w-full rounded-xl px-3 py-3 text-left text-sm font-medium transition ${
+                        activeGuide === index
+                          ? "bg-black text-white dark:bg-white dark:text-black"
+                          : "text-black/60 hover:bg-black/5 hover:text-black dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </nav>
+              </div>
+            </aside>
+
+            <article className="min-w-0">
+              <div className="border-b border-black/10 pb-6 dark:border-white/10">
+                <h2 className="break-words text-2xl font-bold tracking-tight sm:text-3xl">{guide.title}</h2>
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-zinc-500 dark:text-zinc-400 sm:text-base">
+                  {guide.description}
+                </p>
+              </div>
+
+              {guide.notice ? (
+                <div className="mt-6 flex gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-950">
+                  <Info className="mt-0.5 h-5 w-5 shrink-0" />
+                  <p className="min-w-0 break-words text-sm leading-6">{guide.notice}</p>
+                </div>
+              ) : null}
+
+              <ol className="mt-2">
+                {guide.steps.map((step, index) => (
+                  <li
+                    key={step.title}
+                    className={`grid min-w-0 gap-5 border-b border-black/10 py-7 dark:border-white/10 ${
+                      step.image ? "md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-center" : ""
+                    }`}
+                  >
+                    {step.image ? (
+                      <div className="order-2 min-w-0 overflow-hidden rounded-2xl border border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-zinc-950 md:order-1">
+                        <Image
+                          src={step.image}
+                          alt={`${step.title}: пример`}
+                          width={760}
+                          height={460}
+                          className="h-auto w-full object-contain"
+                        />
+                      </div>
+                    ) : null}
+
+                    <div className="order-1 flex min-w-0 gap-3 sm:gap-4 md:order-2">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-black text-xs font-bold text-white dark:bg-white dark:text-black">
+                        {index + 1}
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="break-words text-base font-bold sm:text-lg">{step.title}</h3>
+                        <p className="mt-2 break-words text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                          {step.description}
+                        </p>
+                        {step.bullets ? (
+                          <ul className="mt-3 space-y-2">
+                            {step.bullets.map((bullet) => (
+                              <li key={bullet} className="flex min-w-0 items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                                <span className="min-w-0 break-words">{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="mt-8 flex flex-col gap-5 rounded-3xl bg-black p-5 text-white sm:flex-row sm:items-center sm:justify-between sm:p-7 dark:bg-white dark:text-black">
+                <div className="min-w-0">
+                  <h2 className="text-xl font-bold tracking-tight sm:text-2xl">Нужна помощь с оплатой?</h2>
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-white/65 dark:text-black/65">
+                    Напишите менеджеру — поможем выбрать способ оплаты и рассчитаем итоговую стоимость.
+                  </p>
+                </div>
+                <Link
+                  href="https://t.me/aibazaru"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-zinc-100 sm:w-auto dark:bg-black dark:text-white dark:hover:bg-zinc-900"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Написать в Telegram
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </article>
           </div>
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </div>
   );
-} 
+}

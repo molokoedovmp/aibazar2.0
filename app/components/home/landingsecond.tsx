@@ -5,7 +5,6 @@ import { ArrowRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import TransitionButton from '@/app/components/home/TransitionButton';
 import Stars from "@/app/components/home/Stars";
-import PaymentInstructionSection from './payment-instruction';
 import PopularToolsSection from './PopularToolsSection';
 const Spline = dynamic(() => import("@/app/components/home/SplineClient"), { ssr: false });
   // Исправлено: переносим параметры внутрь объекта, передаваемого в dynami
@@ -61,62 +60,31 @@ export function Landingsecond() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center content-center h-full overflow-hidden">
               {/* Левая колонка — текст (контент не менялся) */}
               <div className="flex flex-col justify-center lg:mt-0">
-                <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/10 text-white mb-2 w-fit">
-                  AI-инструменты и сервисы
-                </div>
-
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
+                <h1 className="mb-4 text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
                   Мощь AI <span>под вашим</span> контролем
                 </h1>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl">
                   Всё в одном месте
                 </h2>
-                <p className="text-lg md:text-xl mb-8 text-white/80">
+                <p className="mb-8 text-lg text-white/80 md:text-xl">
                   Здесь собрана большая библиотека из AI инструментов для решения ваших задач. Всё в одном месте.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <div className="flex flex-col gap-4 sm:flex-row">
                   <TransitionButton
                     size="lg"
-                    className="bg-white text-black hover:bg-gray-200 text-lg px-8 py-4 rounded-full flex items-center justify-center shadow-lg w-full sm:w-auto"
+                    className="flex w-full items-center justify-center rounded-full bg-white px-8 py-4 text-lg text-black shadow-lg hover:bg-gray-200 sm:w-auto"
                     path="/catalog"
                   >
                     Смотреть <ArrowRight className="ml-2 h-5 w-5" />
                   </TransitionButton>
                   <TransitionButton
                     size="lg"
-                    className="bg-transparent text-white hover:bg-white/10 border border-white/50 text-lg px-8 py-4 rounded-full flex items-center justify-center w-full sm:w-auto"
+                    className="flex w-full items-center justify-center rounded-full border border-white/50 bg-transparent px-8 py-4 text-lg text-white hover:bg-white/10 sm:w-auto"
                     path="/blog"
                   >
                     Сообщество
                   </TransitionButton>
-                </div>
-
-                <div className="hidden md:flex flex-wrap gap-6">
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
-                      <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium">AI Контент</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
-                      <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium">Безопасность</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
-                      <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium">Быстрый доступ</span>
-                  </div>
                 </div>
               </div>
 
@@ -146,11 +114,6 @@ export function Landingsecond() {
               </div>
             </div>
           </div>
-        </section>
-
-        {/* Остальные секции — без изменений */}
-        <section className="relative">
-          <PaymentInstructionSection />
         </section>
 
         <PopularToolsSection />

@@ -32,6 +32,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
+import FavoriteButton from "@/components/FavoriteButton";
 
 type ResourceType = "tools" | "mcp" | "prompts" | "skills" | "repos";
 
@@ -153,6 +154,45 @@ const FILTER_TRANSLATIONS: Record<string, string> = {
   productivity: "Продуктивность",
   infrastructure: "Инфраструктура",
   performance: "Производительность",
+  "developer-tools": "Инструменты разработчика",
+  "other-tools-and-integrations": "Другие инструменты и интеграции",
+  "finance-fintech": "Финансы и финтех",
+  databases: "Базы данных",
+  "search-data-extraction": "Поиск и извлечение данных",
+  "cloud-platforms": "Облачные платформы",
+  communication: "Коммуникации",
+  "knowledge-memory": "Знания и память",
+  "browser-automation": "Автоматизация браузера",
+  aggregators: "Агрегаторы",
+  "art-culture": "Искусство и культура",
+  "location-services": "Геолокационные сервисы",
+  "coding-agents": "Агенты для программирования",
+  "data-science-tools": "Инструменты Data Science",
+  "command-line": "Командная строка",
+  monitoring: "Мониторинг",
+  "file-systems": "Файловые системы",
+  "biology-medicine-and-bioinformatics": "Биология, медицина и биоинформатика",
+  gaming: "Игры",
+  "data-platforms": "Платформы данных",
+  "travel-transportation": "Путешествия и транспорт",
+  "version-control": "Контроль версий",
+  "workplace-productivity": "Продуктивность на работе",
+  marketing: "Маркетинг",
+  "code-execution": "Выполнение кода",
+  "social-media": "Социальные сети",
+  sports: "Спорт",
+  "customer-data-platforms": "Платформы клиентских данных",
+  "multimedia-process": "Обработка мультимедиа",
+  "support-service-management": "Поддержка и управление сервисами",
+  "embedded-system": "Встраиваемые системы",
+  "text-to-speech": "Синтез речи",
+  "architecture-design": "Архитектура и дизайн",
+  "end-to-end-rag-platforms": "Комплексные RAG-платформы",
+  research: "Исследования",
+  "translation-services": "Сервисы перевода",
+  "aerospace-astrodynamics": "Аэрокосмос и астродинамика",
+  delivery: "Доставка",
+  legal: "Юридические сервисы",
 };
 
 function formatNumber(value?: number | null) {
@@ -213,9 +253,18 @@ function PromptResourceCard({
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-700 sm:h-10 sm:w-10">
           <BookOpenText className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
-        <span className="max-w-[60%] truncate rounded-full border border-violet-200 bg-white px-2 py-1 text-[9px] font-medium text-violet-700 sm:text-[10px]">
-          {source}
-        </span>
+        <div className="flex min-w-0 items-center gap-1.5">
+          <span className="max-w-[100px] truncate rounded-full border border-violet-200 bg-white px-2 py-1 text-[9px] font-medium text-violet-700 sm:text-[10px]">
+            {source}
+          </span>
+          <FavoriteButton
+            toolId={item.id}
+            itemType="prompts"
+            iconOnly
+            callbackUrl="/catalog?type=prompts"
+            className="h-8 w-8"
+          />
+        </div>
       </div>
       <h3 className="mt-3 line-clamp-2 text-sm font-semibold leading-5 sm:text-base">{title}</h3>
       <p className="mt-2 line-clamp-3 text-xs leading-5 text-black/55 sm:text-sm">
@@ -290,12 +339,21 @@ function SkillResourceCard({
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 sm:h-10 sm:w-10">
           <WandSparkles className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
-        {typeof item.stars === "number" && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[9px] font-semibold text-black/60 ring-1 ring-black/5 sm:text-[10px]">
-            <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-            {formatNumber(item.stars)}
-          </span>
-        )}
+        <div className="flex items-center gap-1.5">
+          {typeof item.stars === "number" && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[9px] font-semibold text-black/60 ring-1 ring-black/5 sm:text-[10px]">
+              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+              {formatNumber(item.stars)}
+            </span>
+          )}
+          <FavoriteButton
+            toolId={item.id}
+            itemType="skills"
+            iconOnly
+            callbackUrl="/catalog?type=skills"
+            className="h-8 w-8"
+          />
+        </div>
       </div>
       <div className="mt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-emerald-700/70 sm:text-[10px]">
         {category}
@@ -355,11 +413,20 @@ function RepositoryResourceCard({ item }: { item: LibraryItem }) {
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-white sm:h-10 sm:w-10">
           <Github className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
-        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1.5 text-[10px] font-bold text-amber-800 ring-1 ring-amber-200 sm:text-xs">
-          <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-          {formatNumber(item.stars) || 0}
-          <span className="hidden font-medium text-amber-700/70 sm:inline">звёзд</span>
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1.5 text-[10px] font-bold text-amber-800 ring-1 ring-amber-200 sm:text-xs">
+            <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+            {formatNumber(item.stars) || 0}
+            <span className="hidden font-medium text-amber-700/70 sm:inline">звёзд</span>
+          </span>
+          <FavoriteButton
+            toolId={item.id}
+            itemType="repos"
+            iconOnly
+            callbackUrl="/catalog?type=repos"
+            className="h-8 w-8"
+          />
+        </div>
       </div>
       <div className="mt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-black/35 sm:text-[10px]">
         Репозиторий
@@ -730,16 +797,25 @@ export default function CatalogPage() {
                         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sky-700 sm:h-10 sm:w-10">
                           <BrainCircuit className="h-4 w-4 sm:h-5 sm:w-5" />
                         </div>
-                        {typeof item.stars === "number" ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[9px] font-semibold text-black/60 ring-1 ring-black/5 sm:text-[10px]">
-                            <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-                            {formatNumber(item.stars)}
-                          </span>
-                        ) : item.isOfficial ? (
-                          <span className="rounded-full bg-emerald-100 px-2 py-1 text-[9px] font-semibold text-emerald-700 sm:text-[10px]">
-                            Официальный
-                          </span>
-                        ) : null}
+                        <div className="flex items-center gap-1.5">
+                          {typeof item.stars === "number" ? (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[9px] font-semibold text-black/60 ring-1 ring-black/5 sm:text-[10px]">
+                              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+                              {formatNumber(item.stars)}
+                            </span>
+                          ) : item.isOfficial ? (
+                            <span className="rounded-full bg-emerald-100 px-2 py-1 text-[9px] font-semibold text-emerald-700 sm:text-[10px]">
+                              Официальный
+                            </span>
+                          ) : null}
+                          <FavoriteButton
+                            toolId={item.id}
+                            itemType="mcp"
+                            iconOnly
+                            callbackUrl={item.slug ? `/catalog/mcp/${item.slug}` : "/catalog?type=mcp"}
+                            className="h-8 w-8"
+                          />
+                        </div>
                       </div>
                       <div className="flex flex-1 flex-col">
                         <div className="mt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-sky-700/70 sm:text-[10px]">

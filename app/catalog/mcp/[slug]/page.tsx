@@ -7,6 +7,7 @@ import { ArrowLeft, CalendarDays, ExternalLink, Github, MapPin, ShieldCheck, Sta
 import { Footer } from "@/app/components/footer";
 import { Navbar } from "@/app/components/navbar";
 import { ToolImage } from "@/app/components/ToolImage";
+import FavoriteButton from "@/components/FavoriteButton";
 import { prisma } from "@/lib/db";
 import { McpMarkdownDescription } from "./mcp-markdown-description";
 
@@ -246,17 +247,25 @@ export default async function McpDetailPage({ params }: PageProps) {
                 {mcp.descriptionRu || mcp.description}
               </p>
 
-              {externalUrl && (
-                <a
-                  href={externalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-7 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-black px-5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-black/85 sm:w-fit"
-                >
-                  {mcp.githubUrl ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
-                  {mcp.githubUrl ? "Открыть GitHub" : "Открыть сайт"}
-                </a>
-              )}
+              <div className="mt-7 flex flex-col gap-2 sm:flex-row">
+                {externalUrl && (
+                  <a
+                    href={externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-black px-5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-black/85 sm:w-fit"
+                  >
+                    {mcp.githubUrl ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
+                    {mcp.githubUrl ? "Открыть GitHub" : "Открыть сайт"}
+                  </a>
+                )}
+                <FavoriteButton
+                  toolId={mcp.id}
+                  itemType="mcp"
+                  callbackUrl={`/catalog/mcp/${mcp.slug}`}
+                  className="sm:w-auto"
+                />
+              </div>
             </div>
           </div>
         </section>
