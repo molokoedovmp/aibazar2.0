@@ -570,7 +570,7 @@ export default function CatalogPage() {
         <main className="min-w-0 px-4 py-5 sm:px-6 lg:px-8">
           <section className="relative min-h-[230px] overflow-hidden rounded-3xl border border-black/10 bg-white sm:min-h-[260px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/cathero.png" alt="AI-библиотека" className="absolute inset-0 h-full w-full object-cover" />
+            <img src="/ai-hero.png" alt="AI-библиотека" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-white/35" />
             <div className="relative flex min-h-[230px] max-w-3xl flex-col justify-center px-6 py-10 sm:min-h-[260px] sm:px-10">
               <div className="mb-3 inline-flex w-fit items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1.5 text-xs font-medium backdrop-blur">
