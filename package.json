@@ -21,6 +21,8 @@
     "catalog:translate:ru": "tsx scripts/translate-catalog-descriptions.ts",
     "catalog:sync": "tsx scripts/sync-catalog.ts",
     "resources:sync:collective": "tsx scripts/sync-collective-resources.ts",
+    "resources:sync:prompts": "tsx scripts/sync-all-prompts.ts",
+    "resources:sync:external-prompts": "tsx scripts/sync-external-prompts.ts",
     "resources:translate:ru": "tsx scripts/translate-collective-resources.ts",
     "build:deploy": "npm run catalog:sync && next build",
     "db:local:start": "prisma dev -d -n aibazar-local -p 51213 -P 51214 --shadow-db-port 51215",

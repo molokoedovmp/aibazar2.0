@@ -120,7 +120,8 @@ function itemTitle(item: FeaturedItem) {
   return item.titleRu || item.title || item.name || "Без названия";
 }
 
-function itemDescription(item: FeaturedItem) {
+function itemDescription(item: FeaturedItem, type: ResourceType) {
+  if (type === "mcp") return item.description || "Description is not available yet.";
   return item.descriptionRu || item.description || "Описание скоро появится.";
 }
 
@@ -221,14 +222,21 @@ function FeaturedCard({ item, type }: { item: FeaturedItem; type: ResourceType }
       </div>
 
       <p className="mt-4 line-clamp-3 text-[10px] leading-4 text-zinc-500 dark:text-zinc-400 sm:text-xs sm:leading-5">
-        {itemDescription(item)}
+        {itemDescription(item, type)}
       </p>
 
       <div className="mt-auto flex items-end justify-between gap-2 pt-4">
         <span className="max-w-[78%] truncate rounded-md border border-black/10 bg-black/[0.025] px-2 py-1 text-[9px] text-black/55 dark:border-white/10 dark:bg-white/5 dark:text-white/55 sm:text-[10px]">
           {itemMeta(item, type)}
         </span>
-        <ArrowRight className="h-3.5 w-3.5 shrink-0 text-black/30 transition group-hover:translate-x-1 group-hover:text-black dark:text-white/30 dark:group-hover:text-white" />
+        {type === "mcp" ? (
+          <span className="inline-flex shrink-0 items-center gap-1 text-[9px] font-semibold text-black/45 dark:text-white/45 sm:text-[10px]">
+            Карточка
+            <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
+          </span>
+        ) : (
+          <ArrowRight className="h-3.5 w-3.5 shrink-0 text-black/30 transition group-hover:translate-x-1 group-hover:text-black dark:text-white/30 dark:group-hover:text-white" />
+        )}
       </div>
       </Link>
     </article>

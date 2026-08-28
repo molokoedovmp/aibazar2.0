@@ -9,7 +9,7 @@ export async function GET() {
     const [tools, mcp, prompts, skills, repos, toolCount, mcpCount, promptCount, skillCount, repoCount] =
       await Promise.all([
         prisma.aiTool.findMany({
-          where: { isActive: true },
+          where: { isActive: true, rating: { not: null } },
           select: {
             id: true,
             name: true,
@@ -18,7 +18,7 @@ export async function GET() {
             rating: true,
             category: { select: { name: true } },
           },
-          orderBy: [{ rating: "desc" }, { name: "asc" }],
+          orderBy: [{ rating: { sort: "desc", nulls: "last" } }, { name: "asc" }],
           take: 5,
         }),
         prisma.mcpResource.findMany({
@@ -28,7 +28,6 @@ export async function GET() {
             slug: true,
             name: true,
             description: true,
-            descriptionRu: true,
             rating: true,
             stars: true,
             languageName: true,

@@ -51,7 +51,24 @@ export default async function FavoritesToolsPage() {
   };
 
   const [mcpItems, promptItems, skillItems, repoItems] = await Promise.all([
-    prisma.mcpResource.findMany({ where: { id: { in: idsByType.mcp }, isActive: true } }),
+    prisma.mcpResource.findMany({
+      where: { id: { in: idsByType.mcp }, isActive: true },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        description: true,
+        resourceType: true,
+        languageName: true,
+        rating: true,
+        stars: true,
+        githubUrl: true,
+        websiteUrl: true,
+        tags: true,
+        author: true,
+        createdAt: true,
+      },
+    }),
     prisma.promptResource.findMany({ where: { id: { in: idsByType.prompts }, isActive: true, isPublic: true } }),
     prisma.skillResource.findMany({ where: { id: { in: idsByType.skills }, isActive: true } }),
     prisma.repositoryResource.findMany({ where: { id: { in: idsByType.repos }, isActive: true } }),
@@ -88,7 +105,7 @@ export default async function FavoritesToolsPage() {
       id: item.id,
       itemType: "mcp" as const,
       name: item.name,
-      description: item.descriptionRu || item.description,
+      description: item.description,
       coverImage: null,
       meta: item.languageName || item.resourceType,
       rating: item.rating,

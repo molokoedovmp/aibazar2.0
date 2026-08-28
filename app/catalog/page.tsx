@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
+  ArrowRight,
   BookOpenText,
   Boxes,
   BrainCircuit,
@@ -839,7 +840,7 @@ export default function CatalogPage() {
                         </div>
 
                         <p className="mt-2 line-clamp-3 text-xs leading-5 text-black/55 sm:text-sm">
-                          {item.descriptionRu || item.description || "Описание пока не добавлено."}
+                          {item.description || "Description is not available yet."}
                         </p>
 
                         <div className="mt-3 flex flex-wrap gap-1.5">
@@ -871,8 +872,8 @@ export default function CatalogPage() {
                               href={`/catalog/mcp/${item.slug}`}
                               className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-sky-700 px-2.5 text-[10px] font-semibold text-white transition hover:bg-sky-600 sm:px-3 sm:text-xs"
                             >
-                              Подробнее
-                              <ExternalLink className="h-3.5 w-3.5" />
+                              Открыть карточку
+                              <ArrowRight className="h-3.5 w-3.5" />
                             </Link>
                           )}
                         </div>

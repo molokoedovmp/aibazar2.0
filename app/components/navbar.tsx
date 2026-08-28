@@ -25,7 +25,7 @@ export const Navbar = ({ overlay = false }: Props) => {
             : "border-b border-white/15 bg-black",
         ].join(" ")}
       >
-        <div className="mx-auto grid h-full w-full max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-6 lg:px-10">
+        <div className="grid h-full w-full grid-cols-[1fr_auto_1fr] items-center px-4 lg:px-6">
           {/* Брендинг */}
           <div className="flex items-center gap-3 justify-self-start">
             <Link href="/" className="flex items-center gap-2">

@@ -153,7 +153,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${mcp.name} — MCP — aiBazar`,
-    description: mcp.descriptionRu || mcp.description,
+    description: mcp.description,
   };
 }
 
@@ -173,19 +173,11 @@ export default async function McpDetailPage({ params }: PageProps) {
 
   const githubDetails = await getGitHubDetails(mcp.githubUrl);
   const sourceMarkdown = githubDetails?.readme || mcp.longDescription || mcp.documentation || mcp.description;
-  let initialMarkdown =
-    mcp.longDescription === sourceMarkdown && mcp.longDescriptionRu
-      ? mcp.longDescriptionRu
-      : sourceMarkdown === mcp.description && mcp.descriptionRu
-        ? mcp.descriptionRu
-        : null;
-
   if (sourceMarkdown !== mcp.description && mcp.longDescription !== sourceMarkdown) {
     await prisma.mcpResource.update({
       where: { id: mcp.id },
-      data: { longDescription: sourceMarkdown, longDescriptionRu: null },
+      data: { longDescription: sourceMarkdown },
     });
-    initialMarkdown = null;
   }
   const externalUrl = mcp.githubUrl || mcp.websiteUrl;
   const status = mcp.isOfficial ? "Официальный" : "Сообщество";
@@ -244,7 +236,7 @@ export default async function McpDetailPage({ params }: PageProps) {
                 {mcp.name}
               </h1>
               <p className="mt-5 line-clamp-4 text-sm leading-7 text-black/55 sm:text-base">
-                {mcp.descriptionRu || mcp.description}
+                {mcp.description}
               </p>
 
               <div className="mt-7 flex flex-col gap-2 sm:flex-row">
@@ -298,9 +290,7 @@ export default async function McpDetailPage({ params }: PageProps) {
             <h2 className="text-2xl font-semibold tracking-[-0.03em]">Описание</h2>
             <div className="mt-6">
               <McpMarkdownDescription
-                slug={mcp.slug}
-                initialMarkdown={initialMarkdown}
-                fallbackMarkdown={sourceMarkdown}
+                markdown={sourceMarkdown}
                 readmeBaseUrl={githubDetails?.readmeBaseUrl || null}
               />
             </div>

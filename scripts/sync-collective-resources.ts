@@ -70,22 +70,6 @@ type McpItem = {
   license?: string;
 };
 
-type PromptItem = {
-  _id?: string;
-  title?: string;
-  description?: string;
-  content?: string;
-  tags?: string[];
-  userId?: string | { _id?: string; name?: string };
-  source?: string;
-  rating?: number;
-  votes?: unknown[];
-  isPublic?: boolean;
-  status?: string;
-  createdAt?: string;
-  updatedAt?: string;
-};
-
 type SkillItem = {
   id?: string;
   name?: string;
@@ -117,12 +101,6 @@ type RepositoryItem = {
 type McpResponse = {
   data?: McpItem[];
   pagination?: { total?: number; page?: number; totalPages?: number };
-};
-
-type PromptResponse = {
-  prompts?: PromptItem[];
-  total?: number;
-  totalPages?: number;
 };
 
 type SkillResponse = { data?: SkillItem[]; total?: number };
@@ -181,21 +159,6 @@ async function fetchAllMcp(): Promise<McpItem[]> {
     const response = await fetchJson<McpResponse>(`${API_BASE}/mcp?limit=500&page=${page}`);
     result.push(...(response.data || []));
     totalPages = Math.max(1, response.pagination?.totalPages || 1);
-    page += 1;
-  } while (page <= totalPages);
-
-  return result;
-}
-
-async function fetchAllPrompts(): Promise<PromptItem[]> {
-  const result: PromptItem[] = [];
-  let page = 1;
-  let totalPages = 1;
-
-  do {
-    const response = await fetchJson<PromptResponse>(`${API_BASE}/prompts?limit=500&page=${page}`);
-    result.push(...(response.prompts || []));
-    totalPages = Math.max(1, response.totalPages || 1);
     page += 1;
   } while (page <= totalPages);
 
@@ -280,57 +243,6 @@ async function syncMcp(items: McpItem[], syncedAt: Date) {
 
   await prisma.mcpResource.updateMany({
     where: { source: SOURCE, externalId: { notIn: valid.map((item) => required(item._id, "MCP ID")) } },
-    data: { isActive: false, syncedAt },
-  });
-
-  return valid.length;
-}
-
-async function syncPrompts(items: PromptItem[], syncedAt: Date) {
-  const valid = items.filter((item) => cleanString(item._id) && cleanString(item.title) && cleanString(item.content));
-  const existing = await prisma.promptResource.findMany({
-    where: { externalId: { in: valid.map((item) => required(item._id, "prompt ID")) } },
-    select: { externalId: true, title: true, titleRu: true, description: true, descriptionRu: true },
-  });
-  const existingById = new Map(existing.map((item) => [item.externalId, item]));
-
-  await runBatches(valid, async (item) => {
-    const externalId = required(item._id, "prompt external ID");
-    const author = typeof item.userId === "object" && item.userId !== null ? item.userId : null;
-    const title = required(item.title, "prompt title");
-    const description = cleanString(item.description);
-    const previous = existingById.get(externalId);
-    const data = {
-      title,
-      titleRu: previous?.title === title ? previous.titleRu : null,
-      description,
-      descriptionRu: previous?.description === description ? previous.descriptionRu : null,
-      content: required(item.content, "prompt content"),
-      tags: stringArray(item.tags),
-      authorExternalId: author ? cleanString(author._id) : cleanString(item.userId),
-      authorName: author ? cleanString(author.name) : null,
-      sourceKind: cleanString(item.source) || "unknown",
-      rating: Math.trunc(numberValue(item.rating) || 0),
-      votesCount: Array.isArray(item.votes) ? item.votes.length : 0,
-      isPublic: item.isPublic !== false,
-      status: cleanString(item.status),
-      source: SOURCE,
-      sourceUrl: SOURCE_URL,
-      sourceCreatedAt: dateValue(item.createdAt),
-      sourceUpdatedAt: dateValue(item.updatedAt),
-      syncedAt,
-      isActive: true,
-    };
-
-    await prisma.promptResource.upsert({
-      where: { externalId },
-      create: { externalId, ...data },
-      update: data,
-    });
-  });
-
-  await prisma.promptResource.updateMany({
-    where: { source: SOURCE, externalId: { notIn: valid.map((item) => required(item._id, "prompt ID")) } },
     data: { isActive: false, syncedAt },
   });
 
@@ -438,23 +350,21 @@ async function main() {
   );
   console.log(`Fetching resources from ${API_BASE}...`);
 
-  const [mcpItems, promptItems, skillResponse, repositoryResponse] = await Promise.all([
+  const [mcpItems, skillResponse, repositoryResponse] = await Promise.all([
     fetchAllMcp(),
-    fetchAllPrompts(),
     fetchJson<SkillResponse>(`${API_BASE}/skills`),
     fetchJson<RepositoryResponse>(`${API_BASE}/trending-repos`),
   ]);
   const syncedAt = new Date();
 
-  const [mcp, prompts, skills, repositories] = await Promise.all([
+  const [mcp, skills, repositories] = await Promise.all([
     syncMcp(mcpItems, syncedAt),
-    syncPrompts(promptItems, syncedAt),
     syncSkills(skillResponse.data || [], syncedAt),
     syncRepositories(repositoryResponse.data || [], syncedAt),
   ]);
 
   console.log(
-    `Resources synchronized: ${mcp} MCP, ${prompts} prompts, ${skills} skills, ${repositories} repositories.`,
+    `Resources synchronized: ${mcp} MCP, ${skills} skills, ${repositories} repositories. Curated prompts are synchronized separately.`,
   );
 }
 

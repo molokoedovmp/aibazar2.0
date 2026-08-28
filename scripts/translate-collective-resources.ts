@@ -158,11 +158,7 @@ async function translateWithRetry(text: string) {
 }
 
 async function translationTasks(): Promise<TranslationTask[]> {
-  const [mcpResources, prompts, skills, repositories] = await Promise.all([
-    prisma.mcpResource.findMany({
-      where: { isActive: true, descriptionRu: null },
-      select: { id: true, name: true, description: true },
-    }),
+  const [prompts, skills, repositories] = await Promise.all([
     prisma.promptResource.findMany({
       where: { isActive: true, OR: [{ titleRu: null }, { descriptionRu: null }] },
       select: { id: true, title: true, titleRu: true, description: true, descriptionRu: true },
@@ -177,17 +173,6 @@ async function translationTasks(): Promise<TranslationTask[]> {
     }),
   ]);
   const tasks: TranslationTask[] = [];
-
-  for (const mcp of mcpResources) {
-    if (!mcp.description.trim()) continue;
-    tasks.push({
-      id: mcp.id,
-      label: `MCP description: ${mcp.name}`,
-      text: mcp.description,
-      save: (descriptionRu) =>
-        prisma.mcpResource.update({ where: { id: mcp.id }, data: { descriptionRu } }),
-    });
-  }
 
   for (const prompt of prompts) {
     if (!prompt.titleRu && prompt.title.trim()) {

@@ -22,22 +22,25 @@ fi
 
 docker compose config --quiet
 
-echo "[1/7] Building the production image..."
+echo "[1/8] Building the production image..."
 docker compose build --pull web
 
-echo "[2/7] Applying pending Prisma migrations..."
+echo "[2/8] Applying pending Prisma migrations..."
 docker compose run --rm --no-deps web npm run db:migrate:deploy
 
-echo "[3/7] Synchronizing categories and AI tools..."
+echo "[3/8] Synchronizing categories and AI tools..."
 docker compose run --rm --no-deps web npm run catalog:sync
 
-echo "[4/7] Synchronizing MCP, prompts, skills, and repositories..."
+echo "[4/8] Synchronizing MCP, skills, and repositories..."
 docker compose run --rm --no-deps web npm run resources:sync:collective
 
-echo "[5/7] Translating new prompts, skills, and repositories..."
+echo "[5/8] Synchronizing curated and selected external prompts..."
+docker compose run --rm --no-deps web npm run resources:sync:prompts
+
+echo "[6/8] Translating new skills and repositories..."
 docker compose run --rm --no-deps web npm run resources:translate:ru
 
-echo "[6/7] Starting the updated application..."
+echo "[7/8] Starting the updated application..."
 docker compose up -d --remove-orphans web
 
 container_id="$(docker compose ps -q web)"
@@ -69,7 +72,7 @@ for attempt in {1..40}; do
   sleep 3
 done
 
-echo "[7/7] Removing dangling Docker images..."
+echo "[8/8] Removing dangling Docker images..."
 docker image prune -f
 
 echo "Deployment completed successfully."
