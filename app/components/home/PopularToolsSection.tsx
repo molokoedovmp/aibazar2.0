@@ -333,8 +333,23 @@ export default function PopularToolsSection() {
 
                 <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-5">
                   {loading
-                    ? Array.from({ length: 5 }, (_, index) => <CardSkeleton key={index} />)
-                    : data[type].map((item) => <FeaturedCard key={item.id} item={item} type={type} />)}
+                    ? Array.from({ length: 5 }, (_, index) => (
+                        <div key={index} className={index === 4 ? "hidden lg:contents" : "contents"}>
+                          <CardSkeleton />
+                        </div>
+                      ))
+                    : data[type].map((item, index, items) => {
+                        const isUnpairedMobileCard = items.length % 2 !== 0 && index === items.length - 1;
+
+                        return (
+                          <div
+                            key={item.id}
+                            className={isUnpairedMobileCard ? "hidden lg:contents" : "contents"}
+                          >
+                            <FeaturedCard item={item} type={type} />
+                          </div>
+                        );
+                      })}
                 </div>
               </section>
             );
