@@ -22,25 +22,49 @@ fi
 
 docker compose config --quiet
 
-echo "[1/8] Building the production image..."
+cleanup_docker_space() {
+  # Running containers and Docker volumes are not affected by these commands.
+  docker image prune -af || true
+  docker builder prune -af || true
+}
+
+cleanup_after_failure() {
+  exit_code="$?"
+  trap - EXIT
+
+  if [[ "$exit_code" -ne 0 ]]; then
+    echo "Deployment failed. Removing artifacts left by the interrupted build..."
+    cleanup_docker_space
+  fi
+
+  exit "$exit_code"
+}
+
+trap cleanup_after_failure EXIT
+
+echo "[1/9] Reclaiming Docker space before the build..."
+cleanup_docker_space
+df -h "$APP_DIR" || true
+
+echo "[2/9] Building the production image..."
 docker compose build --pull web
 
-echo "[2/8] Applying pending Prisma migrations..."
+echo "[3/9] Applying pending Prisma migrations..."
 docker compose run --rm --no-deps web npm run db:migrate:deploy
 
-echo "[3/8] Synchronizing categories and AI tools..."
+echo "[4/9] Synchronizing categories and AI tools..."
 docker compose run --rm --no-deps web npm run catalog:sync
 
-echo "[4/8] Synchronizing MCP, skills, and repositories..."
+echo "[5/9] Synchronizing MCP, skills, and repositories..."
 docker compose run --rm --no-deps web npm run resources:sync:collective
 
-echo "[5/8] Synchronizing curated and selected external prompts..."
+echo "[6/9] Synchronizing curated and selected external prompts..."
 docker compose run --rm --no-deps web npm run resources:sync:prompts
 
-echo "[6/8] Translating new skills and repositories..."
+echo "[7/9] Translating new skills and repositories..."
 docker compose run --rm --no-deps web npm run resources:translate:ru
 
-echo "[7/8] Starting the updated application..."
+echo "[8/9] Starting the updated application..."
 docker compose up -d --remove-orphans web
 
 container_id="$(docker compose ps -q web)"
@@ -72,7 +96,10 @@ for attempt in {1..40}; do
   sleep 3
 done
 
-echo "[8/8] Removing dangling Docker images..."
-docker image prune -f
+echo "[9/9] Removing old images and build cache..."
+cleanup_docker_space
+df -h "$APP_DIR" || true
+
+trap - EXIT
 
 echo "Deployment completed successfully."
