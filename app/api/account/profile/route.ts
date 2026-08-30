@@ -74,41 +74,45 @@ export async function PATCH(req: Request) {
       });
     }
 
-    // Upsert settings
-    const updatedSettings = await prisma.userSettings.upsert({
-      where: { userId: session.user.id },
-      update: {
-        ...(settings.bio !== undefined ? { bio: settings.bio } : {}),
-        ...(settings.company !== undefined ? { company: settings.company } : {}),
-        ...(settings.position !== undefined ? { position: settings.position } : {}),
-        ...(settings.website !== undefined ? { website: settings.website } : {}),
-        ...(settings.location !== undefined ? { location: settings.location } : {}),
-        ...(settings.timezone !== undefined ? { timezone: settings.timezone } : {}),
-        ...(settings.language !== undefined ? { language: settings.language } : {}),
-        ...(settings.theme !== undefined ? { theme: settings.theme } : {}),
-        ...(settings.analyticsEnabled !== undefined ? { analyticsEnabled: !!settings.analyticsEnabled } : {}),
-        ...(settings.publicProfile !== undefined ? { publicProfile: !!settings.publicProfile } : {}),
-        ...(settings.newsEmails !== undefined ? { newsEmails: !!settings.newsEmails } : {}),
-        ...(settings.productEmails !== undefined ? { productEmails: !!settings.productEmails } : {}),
-        ...(settings.securityEmails !== undefined ? { securityEmails: !!settings.securityEmails } : {}),
-      },
-      create: {
-        userId: session.user.id,
-        bio: settings.bio ?? null,
-        company: settings.company ?? null,
-        position: settings.position ?? null,
-        website: settings.website ?? null,
-        location: settings.location ?? null,
-        timezone: settings.timezone ?? undefined,
-        language: settings.language ?? undefined,
-        theme: settings.theme ?? undefined,
-        analyticsEnabled: settings.analyticsEnabled ?? undefined,
-        publicProfile: settings.publicProfile ?? undefined,
-        newsEmails: settings.newsEmails ?? undefined,
-        productEmails: settings.productEmails ?? undefined,
-        securityEmails: settings.securityEmails ?? undefined,
-      },
-    });
+    const hasSettingsUpdates = Object.values(settings).some(
+      (value) => value !== undefined,
+    );
+    const updatedSettings = hasSettingsUpdates
+      ? await prisma.userSettings.upsert({
+          where: { userId: session.user.id },
+          update: {
+            ...(settings.bio !== undefined ? { bio: settings.bio } : {}),
+            ...(settings.company !== undefined ? { company: settings.company } : {}),
+            ...(settings.position !== undefined ? { position: settings.position } : {}),
+            ...(settings.website !== undefined ? { website: settings.website } : {}),
+            ...(settings.location !== undefined ? { location: settings.location } : {}),
+            ...(settings.timezone !== undefined ? { timezone: settings.timezone } : {}),
+            ...(settings.language !== undefined ? { language: settings.language } : {}),
+            ...(settings.theme !== undefined ? { theme: settings.theme } : {}),
+            ...(settings.analyticsEnabled !== undefined ? { analyticsEnabled: !!settings.analyticsEnabled } : {}),
+            ...(settings.publicProfile !== undefined ? { publicProfile: !!settings.publicProfile } : {}),
+            ...(settings.newsEmails !== undefined ? { newsEmails: !!settings.newsEmails } : {}),
+            ...(settings.productEmails !== undefined ? { productEmails: !!settings.productEmails } : {}),
+            ...(settings.securityEmails !== undefined ? { securityEmails: !!settings.securityEmails } : {}),
+          },
+          create: {
+            userId: session.user.id,
+            bio: settings.bio ?? null,
+            company: settings.company ?? null,
+            position: settings.position ?? null,
+            website: settings.website ?? null,
+            location: settings.location ?? null,
+            timezone: settings.timezone ?? undefined,
+            language: settings.language ?? undefined,
+            theme: settings.theme ?? undefined,
+            analyticsEnabled: settings.analyticsEnabled ?? undefined,
+            publicProfile: settings.publicProfile ?? undefined,
+            newsEmails: settings.newsEmails ?? undefined,
+            productEmails: settings.productEmails ?? undefined,
+            securityEmails: settings.securityEmails ?? undefined,
+          },
+        })
+      : null;
 
     return NextResponse.json({ ok: true, settings: updatedSettings });
   } catch (e) {
