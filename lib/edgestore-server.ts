@@ -3,6 +3,7 @@ import {
   createEdgeStoreNextHandler,
 } from "@edgestore/server/adapters/next/app";
 import { getServerSession } from "next-auth";
+import type { NextRequest } from "next/server";
 import { authOptions } from "@/app/api/auth/auth-options";
 
 type EdgeStoreContext = {
@@ -46,9 +47,15 @@ export const edgeStoreRouter = es.router({
     .beforeDelete(({ ctx, fileInfo }) => isOwner(ctx, fileInfo.metadata)),
 });
 
-export const edgeStoreHandler = createEdgeStoreNextHandler({
-  router: edgeStoreRouter,
-  createContext,
-});
+let edgeStoreHandler: ReturnType<typeof createEdgeStoreNextHandler> | undefined;
+
+export function handleEdgeStoreRequest(req: NextRequest) {
+  edgeStoreHandler ??= createEdgeStoreNextHandler({
+    router: edgeStoreRouter,
+    createContext,
+  });
+
+  return edgeStoreHandler(req);
+}
 
 export type EdgeStoreRouter = typeof edgeStoreRouter;

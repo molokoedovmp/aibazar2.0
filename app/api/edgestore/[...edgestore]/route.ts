@@ -1,3 +1,3 @@
-import { edgeStoreHandler } from "@/lib/edgestore-server";
+import { handleEdgeStoreRequest } from "@/lib/edgestore-server";
 
-export { edgeStoreHandler as GET, edgeStoreHandler as POST };
+export { handleEdgeStoreRequest as GET, handleEdgeStoreRequest as POST };
