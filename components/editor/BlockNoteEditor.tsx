@@ -9,6 +9,7 @@ import "@blocknote/core/style.css";
 import "@blocknote/mantine/style.css";
 import { Input } from "@/components/ui/input";
 import AICompose from "@/components/editor/AICompose";
+import { useEdgeStore } from "@/lib/edgestore";
 
 type Props = {
   id: string;
@@ -19,6 +20,7 @@ type Props = {
 };
 
 export default function BlockNoteEditor({ id, initialTitle, initialContent, dockRightOnDesktop, disableInlineAI }: Props) {
+  const { edgestore } = useEdgeStore();
   const [title, setTitle] = useState(initialTitle);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
@@ -83,8 +85,13 @@ export default function BlockNoteEditor({ id, initialTitle, initialContent, dock
     // Полная локализация интерфейса редактора на русский язык
     dictionary: ru,
     uploadFile: async (file: File) => {
-      return URL.createObjectURL(file);
-    }
+      if (!file.type.startsWith("image/")) {
+        throw new Error("В редактор можно загружать только изображения");
+      }
+
+      const uploaded = await edgestore.documentImages.upload({ file });
+      return uploaded.url;
+    },
   });
 
   // Сделаем редактор доступным правой панели через window (для изолированного Sidebar справа)
