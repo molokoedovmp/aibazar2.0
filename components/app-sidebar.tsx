@@ -34,11 +34,36 @@ import SettingsForm from "@/components/account/SettingsForm";
 // Данные для навигации
 const data = {
   navMain: [
-    { title: "Избранное", url: "/account/favorites", icon: Star },
-    { title: "Документы", url: "/account/documents", icon: File },
-    { title: "Мои покупки", url: "/account/purchases", icon: ShoppingCart },
-    { title: "Сообщество", url: "/blog", icon: Compass},
-    { title: "ai инструменты", url: "/catalog", icon: Bot},
+    {
+      title: "Избранное",
+      url: "/account/favorites",
+      icon: Star,
+      iconClassName: "from-rose-300 via-pink-500 to-rose-700 shadow-rose-500/25",
+    },
+    {
+      title: "Документы",
+      url: "/account/documents",
+      icon: File,
+      iconClassName: "from-violet-300 via-violet-500 to-indigo-700 shadow-violet-500/25",
+    },
+    {
+      title: "Мои покупки",
+      url: "/account/purchases",
+      icon: ShoppingCart,
+      iconClassName: "from-cyan-300 via-sky-500 to-blue-700 shadow-sky-500/25",
+    },
+    {
+      title: "Сообщество",
+      url: "/blog",
+      icon: Compass,
+      iconClassName: "from-emerald-300 via-teal-500 to-cyan-700 shadow-teal-500/25",
+    },
+    {
+      title: "AI-инструменты",
+      url: "/catalog",
+      icon: Bot,
+      iconClassName: "from-amber-300 via-orange-400 to-orange-600 shadow-orange-500/25",
+    },
 
   ],
   documents: [] as { id: string; title: string }[],

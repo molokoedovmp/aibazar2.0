@@ -16,6 +16,7 @@ export function NavMain({
     title: string
     url: string
     icon: LucideIcon
+    iconClassName?: string
     isActive?: boolean
   }[]
 }) {
@@ -26,10 +27,15 @@ export function NavMain({
           <SidebarMenuButton
             asChild
             isActive={item.isActive}
-            className="rounded-lg transition-all hover:shadow-sm hover:bg-white hover:border hover:border-gray-200"
+            className="h-auto min-h-11 rounded-xl py-1.5 transition-all hover:border hover:border-gray-200 hover:bg-white hover:shadow-sm"
           >
             <Link href={item.url}>
-              <item.icon />
+              <span
+                className={`relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-[10px] bg-gradient-to-br text-white shadow-md ring-1 ring-black/5 ${item.iconClassName || "from-zinc-600 via-zinc-900 to-black"}`}
+              >
+                <span className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-black/10" />
+                <item.icon className="relative z-10 h-4 w-4" strokeWidth={2.2} />
+              </span>
               <span>{item.title}</span>
             </Link>
           </SidebarMenuButton>

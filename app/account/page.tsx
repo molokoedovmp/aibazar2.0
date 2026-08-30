@@ -6,8 +6,6 @@ import {
   CreditCard,
   FileText,
   Heart,
-  Library,
-  Send,
 } from "lucide-react";
 
 import { authOptions } from "@/app/api/auth/auth-options";
@@ -84,33 +82,19 @@ export default async function AccountHomePage() {
   if (!session?.user?.id) redirect("/auth/login");
 
   const userId = session.user.id;
-  const [
-    totalDocuments,
-    publishedDocuments,
-    favoriteDocuments,
-    favoriteTools,
-    favoriteLibrary,
-    recentDocumentsRaw,
-  ] = await Promise.all([
-    prisma.document.count({ where: { userId, isArchived: false } }),
-    prisma.document.count({ where: { userId, isArchived: false, isPublished: true } }),
-    prisma.document.count({ where: { userId, isArchived: false, isFavorite: true } }),
-    prisma.favorite.count({ where: { userId, itemType: "aiTools" } }),
-    prisma.libraryFavorite.count({ where: { userId } }),
-    prisma.document.findMany({
-      where: { userId, isArchived: false },
-      orderBy: { updatedAt: "desc" },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        previewText: true,
-        updatedAt: true,
-        isPublished: true,
-      },
-      take: 4,
-    }),
-  ]);
+  const recentDocumentsRaw = await prisma.document.findMany({
+    where: { userId, isArchived: false },
+    orderBy: { updatedAt: "desc" },
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      previewText: true,
+      updatedAt: true,
+      isPublished: true,
+    },
+    take: 4,
+  });
 
   const recentDocuments: RecentDocument[] = recentDocumentsRaw.map((document) => ({
     id: document.id,
@@ -120,31 +104,27 @@ export default async function AccountHomePage() {
     isPublished: document.isPublished,
   }));
 
-  const stats = [
-    { label: "Документы", value: totalDocuments, icon: FileText },
-    { label: "Опубликовано", value: publishedDocuments, icon: Send },
-    { label: "Избранные документы", value: favoriteDocuments, icon: Heart },
-    { label: "Ресурсы в избранном", value: favoriteTools + favoriteLibrary, icon: Library },
-  ];
-
   const actions = [
     {
       title: "Документы",
       description: "Создавайте тексты и продолжайте работу с черновиками.",
       href: "/account/documents",
       icon: FileText,
+      iconClassName: "from-violet-300 via-violet-500 to-indigo-700 shadow-violet-500/25",
     },
     {
       title: "Избранное",
       description: "AI-инструменты, MCP, промпты, навыки и репозитории.",
       href: "/account/favorites",
       icon: Heart,
+      iconClassName: "from-rose-300 via-pink-500 to-rose-700 shadow-rose-500/25",
     },
     {
       title: "Покупки и оплата",
       description: "История заказов и продолжение незавершённых оплат.",
       href: "/account/purchases",
       icon: CreditCard,
+      iconClassName: "from-cyan-300 via-sky-500 to-blue-700 shadow-sky-500/25",
     },
   ];
 
@@ -191,29 +171,20 @@ export default async function AccountHomePage() {
             </div>
           </section>
 
-          <section className="mt-7 grid grid-cols-2 gap-3 lg:grid-cols-4">
-            {stats.map(({ label, value, icon: Icon }) => (
-              <div key={label} className="rounded-2xl border border-black/10 bg-white p-4 shadow-sm sm:p-5">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-xs font-medium text-black/45 sm:text-sm">{label}</span>
-                  <Icon className="h-4 w-4 shrink-0 text-black/25" />
-                </div>
-                <div className="mt-3 text-2xl font-bold tracking-tight text-black sm:text-3xl">{value}</div>
-              </div>
-            ))}
-          </section>
-
           <section className="mt-9">
             <h2 className="text-base font-bold text-black sm:text-lg">Основные разделы</h2>
             <div className="mt-3 grid gap-3 md:grid-cols-3">
-              {actions.map(({ title, description, href, icon: Icon }) => (
+              {actions.map(({ title, description, href, icon: Icon, iconClassName }) => (
                 <Link
                   key={title}
                   href={href}
                   className="group flex min-h-36 flex-col rounded-2xl border border-black/10 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:p-5"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-black text-white">
-                    <Icon className="h-4 w-4" />
+                  <div
+                    className={`relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br text-white shadow-md ring-1 ring-black/5 ${iconClassName}`}
+                  >
+                    <span className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-black/10" />
+                    <Icon className="relative z-10 h-4 w-4" strokeWidth={2.2} />
                   </div>
                   <h3 className="mt-4 text-sm font-bold text-black sm:text-base">{title}</h3>
                   <p className="mt-1 text-xs leading-5 text-black/45 sm:text-sm">{description}</p>

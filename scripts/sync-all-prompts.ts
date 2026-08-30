@@ -29,7 +29,32 @@ function loadEnv() {
 loadEnv();
 const prisma = new PrismaClient();
 
+async function removeLegacyCollectivePrompts() {
+  const legacyPrompts = await prisma.promptResource.findMany({
+    where: { source: "collective-ai-tools" },
+    select: { id: true },
+  });
+  const legacyPromptIds = legacyPrompts.map((prompt) => prompt.id);
+
+  if (legacyPromptIds.length === 0) {
+    console.log("Legacy collective-ai-tools prompts removed: 0.");
+    return;
+  }
+
+  await prisma.$transaction([
+    prisma.libraryFavorite.deleteMany({
+      where: { itemType: "prompts", itemId: { in: legacyPromptIds } },
+    }),
+    prisma.promptResource.deleteMany({
+      where: { source: "collective-ai-tools" },
+    }),
+  ]);
+
+  console.log(`Legacy collective-ai-tools prompts removed: ${legacyPromptIds.length}.`);
+}
+
 async function main() {
+  await removeLegacyCollectivePrompts();
   await syncCuratedPrompts(prisma);
   await syncExternalPrompts(prisma);
 }
