@@ -7,6 +7,7 @@ import { ru } from "@blocknote/core/locales";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/core/style.css";
 import "@blocknote/mantine/style.css";
+import { useTheme } from "next-themes";
 
 type Props = {
   content?: string | null;
@@ -15,6 +16,7 @@ type Props = {
 
 export default function BlockNoteViewer({ content, className }: Props) {
   const [isMounted, setIsMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => setIsMounted(true), []);
 
@@ -43,7 +45,7 @@ export default function BlockNoteViewer({ content, className }: Props) {
         <BlockNoteView
           editor={editor}
           editable={false}
-          theme="light"
+          theme={resolvedTheme === "dark" ? "dark" : "light"}
           className="bg-transparent !border-0 !shadow-none !ring-0 !outline-none"
         />
       ) : null}

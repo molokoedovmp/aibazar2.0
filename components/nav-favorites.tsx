@@ -159,7 +159,7 @@ export function NavFavorites({
           <SidebarMenu>
             {visibleFavorites.map((item) => (
               <SidebarMenuItem key={item.id}>
-                <SidebarMenuButton asChild className="rounded-lg transition hover:bg-white hover:shadow-sm">
+                <SidebarMenuButton asChild className="rounded-lg transition hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm">
                   <Link href={`/account/documents?doc=${item.id}`} title={item.title}>
                     <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
                     <span className="max-w-[180px] truncate">{item.title}</span>
@@ -170,7 +170,7 @@ export function NavFavorites({
             {favorites.length > maxVisible && (
               <SidebarMenuItem>
                 <SidebarMenuButton
-                  className="rounded-lg text-sidebar-foreground/70 transition hover:bg-white hover:shadow-sm"
+                  className="rounded-lg text-sidebar-foreground/70 transition hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm"
                   onClick={() => setShowAllFavorites((current) => !current)}
                 >
                   <MoreHorizontal />
@@ -191,7 +191,7 @@ export function NavFavorites({
 
             return (
               <SidebarMenuItem key={item.id}>
-                <SidebarMenuButton asChild className="rounded-lg transition hover:bg-white hover:shadow-sm">
+                <SidebarMenuButton asChild className="rounded-lg transition hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm">
                   <Link href={`/account/documents?doc=${item.id}`} title={item.title}>
                     <FileText className="h-4 w-4" />
                     <span className="max-w-[180px] truncate">{item.title}</span>
@@ -244,7 +244,7 @@ export function NavFavorites({
           {documents.length > maxVisible && (
             <SidebarMenuItem>
               <SidebarMenuButton
-                className="rounded-lg text-sidebar-foreground/70 transition hover:bg-white hover:shadow-sm"
+                className="rounded-lg text-sidebar-foreground/70 transition hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm"
                 onClick={() => setShowAllDocuments((current) => !current)}
               >
                 <MoreHorizontal />

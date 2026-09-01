@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import type { Prisma } from "@prisma/client";
 
 import { prisma } from "@/lib/db";
 
@@ -6,6 +7,8 @@ export const dynamic = "force-dynamic";
 
 const RESOURCE_TYPES = ["tools", "mcp", "prompts", "skills", "repos"] as const;
 type ResourceType = (typeof RESOURCE_TYPES)[number];
+const SORT_OPTIONS = ["rating", "stars", "newest"] as const;
+type SortOption = (typeof SORT_OPTIONS)[number];
 
 type FilterOption = {
   value: string;
@@ -15,6 +18,20 @@ type FilterOption = {
 
 function isResourceType(value: string | null): value is ResourceType {
   return RESOURCE_TYPES.includes(value as ResourceType);
+}
+
+function isSortOption(value: string | null): value is SortOption {
+  return SORT_OPTIONS.includes(value as SortOption);
+}
+
+function defaultSort(type: ResourceType): SortOption {
+  return type === "tools" || type === "prompts" ? "rating" : "stars";
+}
+
+function supportsSort(type: ResourceType, sort: SortOption) {
+  if (sort === "newest") return true;
+  if (sort === "rating") return type === "tools" || type === "mcp" || type === "prompts";
+  return type === "mcp" || type === "skills" || type === "repos";
 }
 
 function pagination(request: NextRequest) {
@@ -54,12 +71,19 @@ export async function GET(request: NextRequest) {
   try {
     const requestedType = request.nextUrl.searchParams.get("type");
     const type: ResourceType = isResourceType(requestedType) ? requestedType : "tools";
+    const requestedSort = request.nextUrl.searchParams.get("sort");
+    const sort = isSortOption(requestedSort) && supportsSort(type, requestedSort)
+      ? requestedSort
+      : defaultSort(type);
     const query = request.nextUrl.searchParams.get("q")?.trim() || "";
     const filter = request.nextUrl.searchParams.get("filter")?.trim() || "";
     const { page, limit, skip } = pagination(request);
     const countsPromise = resourceCounts();
 
     if (type === "tools") {
+      const orderBy: Prisma.AiToolOrderByWithRelationInput[] = sort === "newest"
+        ? [{ createdAt: "desc" }, { rating: { sort: "desc", nulls: "last" } }, { name: "asc" }]
+        : [{ rating: { sort: "desc", nulls: "last" } }, { name: "asc" }];
       const where = {
         isActive: true,
         ...(filter ? { categoryId: filter } : {}),
@@ -78,7 +102,7 @@ export async function GET(request: NextRequest) {
         prisma.aiTool.findMany({
           where,
           include: { category: { select: { id: true, name: true, icon: true } } },
-          orderBy: [{ rating: "desc" }, { name: "asc" }],
+          orderBy,
           skip,
           take: limit,
         }),
@@ -112,6 +136,11 @@ export async function GET(request: NextRequest) {
     }
 
     if (type === "mcp") {
+      const orderBy: Prisma.McpResourceOrderByWithRelationInput[] = sort === "newest"
+        ? [{ createdAt: "desc" }, { stars: { sort: "desc", nulls: "last" } }, { name: "asc" }]
+        : sort === "rating"
+          ? [{ rating: { sort: "desc", nulls: "last" } }, { stars: { sort: "desc", nulls: "last" } }, { name: "asc" }]
+          : [{ stars: { sort: "desc", nulls: "last" } }, { rating: { sort: "desc", nulls: "last" } }, { name: "asc" }];
       const where = {
         isActive: true,
         ...(filter ? { categorySlugs: { has: filter } } : {}),
@@ -129,7 +158,7 @@ export async function GET(request: NextRequest) {
       const [data, total, facets, counts] = await Promise.all([
         prisma.mcpResource.findMany({
           where,
-          orderBy: [{ rating: "desc" }, { stars: "desc" }, { views: "desc" }, { name: "asc" }],
+          orderBy,
           skip,
           take: limit,
           select: {
@@ -185,6 +214,9 @@ export async function GET(request: NextRequest) {
     }
 
     if (type === "prompts") {
+      const orderBy: Prisma.PromptResourceOrderByWithRelationInput[] = sort === "newest"
+        ? [{ createdAt: "desc" }, { rating: "desc" }, { title: "asc" }]
+        : [{ rating: "desc" }, { sourceCreatedAt: { sort: "desc", nulls: "last" } }, { title: "asc" }];
       const where = {
         isActive: true,
         isPublic: true,
@@ -205,7 +237,7 @@ export async function GET(request: NextRequest) {
       const [data, total, facets, counts] = await Promise.all([
         prisma.promptResource.findMany({
           where,
-          orderBy: [{ rating: "desc" }, { sourceCreatedAt: "desc" }, { title: "asc" }],
+          orderBy,
           skip,
           take: limit,
         }),
@@ -229,6 +261,9 @@ export async function GET(request: NextRequest) {
     }
 
     if (type === "skills") {
+      const orderBy: Prisma.SkillResourceOrderByWithRelationInput[] = sort === "newest"
+        ? [{ createdAt: "desc" }, { stars: { sort: "desc", nulls: "last" } }, { name: "asc" }]
+        : [{ stars: { sort: "desc", nulls: "last" } }, { name: "asc" }];
       const where = {
         isActive: true,
         ...(filter ? { category: filter } : {}),
@@ -247,7 +282,7 @@ export async function GET(request: NextRequest) {
       const [data, total, facets, counts] = await Promise.all([
         prisma.skillResource.findMany({
           where,
-          orderBy: [{ stars: "desc" }, { name: "asc" }],
+          orderBy,
           skip,
           take: limit,
         }),
@@ -267,6 +302,9 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    const orderBy: Prisma.RepositoryResourceOrderByWithRelationInput[] = sort === "newest"
+      ? [{ createdAt: "desc" }, { stars: { sort: "desc", nulls: "last" } }, { name: "asc" }]
+      : [{ stars: { sort: "desc", nulls: "last" } }, { name: "asc" }];
     const where = {
       isActive: true,
       ...(filter ? { language: filter } : {}),
@@ -285,7 +323,7 @@ export async function GET(request: NextRequest) {
     const [data, total, facets, counts] = await Promise.all([
       prisma.repositoryResource.findMany({
         where,
-        orderBy: [{ stars: "desc" }, { name: "asc" }],
+        orderBy,
         skip,
         take: limit,
       }),

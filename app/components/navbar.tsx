@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { BrainCircuit, Calculator, Home, Users, User as UserIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type Props = { overlay?: boolean };
 
@@ -21,7 +22,7 @@ export const Navbar = ({ overlay = false }: Props) => {
         className={[
           "hidden md:block h-16 text-white relative",
           overlay
-            ? "absolute inset-x-0 top-0 z-50 bg-transparent"
+            ? "absolute inset-x-0 top-0 z-50 border-b border-white/15 bg-black"
             : "border-b border-white/15 bg-black",
         ].join(" ")}
       >
@@ -52,15 +53,16 @@ export const Navbar = ({ overlay = false }: Props) => {
 
           {/* Правый блок */}
           <div className="flex items-center gap-4 justify-self-end">
+            <ThemeToggle />
             {!session ? (
               <>
                 <Link href="/auth/login">
-                  <Button variant="outline" className="border-white/30 text-black hover:bg-white/10 hover:text-white">
+                  <Button variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white">
                     Вход
                   </Button>
                 </Link>
                 <Link href="/auth/signup">
-                  <Button className="bg-white text-black hover:bg-white/90">
+                  <Button className="navbar-light-button bg-white text-black hover:bg-white/90">
                     Регистрация
                   </Button>
                 </Link>

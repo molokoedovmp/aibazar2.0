@@ -173,10 +173,18 @@ export default async function McpDetailPage({ params }: PageProps) {
 
   const githubDetails = await getGitHubDetails(mcp.githubUrl);
   const sourceMarkdown = githubDetails?.readme || mcp.longDescription || mcp.documentation || mcp.description;
+  const refreshedStars = githubDetails?.stars ?? null;
+  const updateData: { longDescription?: string; stars?: number } = {};
   if (sourceMarkdown !== mcp.description && mcp.longDescription !== sourceMarkdown) {
+    updateData.longDescription = sourceMarkdown;
+  }
+  if (typeof refreshedStars === "number" && refreshedStars !== mcp.stars) {
+    updateData.stars = refreshedStars;
+  }
+  if (Object.keys(updateData).length > 0) {
     await prisma.mcpResource.update({
       where: { id: mcp.id },
-      data: { longDescription: sourceMarkdown },
+      data: updateData,
     });
   }
   const externalUrl = mcp.githubUrl || mcp.websiteUrl;

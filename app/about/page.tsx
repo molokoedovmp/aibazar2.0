@@ -65,7 +65,7 @@ const faqItems = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen bg-white text-black dark:bg-zinc-950 dark:text-zinc-100">
       <Navbar />
 
       <Script id="model-viewer-meshopt" strategy="afterInteractive">
@@ -137,7 +137,7 @@ self.ModelViewerElement.meshoptDecoderLocation = "https://cdn.jsdelivr.net/npm/m
           </div>
         </section>
 
-        <section className="bg-[#f4f4f0] px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+        <section id="channels" className="bg-[#f4f4f0] px-5 py-16 dark:bg-zinc-950 sm:px-8 sm:py-24 lg:px-10">
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
               <div>
@@ -145,13 +145,13 @@ self.ModelViewerElement.meshoptDecoderLocation = "https://cdn.jsdelivr.net/npm/m
                   Наши каналы
                 </h2>
               </div>
-              <p className="max-w-2xl text-base leading-7 text-black/60 lg:justify-self-end">
+              <p className="max-w-2xl text-base leading-7 text-black/60 dark:text-zinc-400 lg:justify-self-end">
                 Публикуем обзоры нейросетей, инструкции и подборки, которые можно
                 сразу применять в работе, творчестве и бизнесе.
               </p>
             </div>
 
-            <article className="relative mt-10 overflow-hidden rounded-[2rem] border border-black/10 bg-white p-6 shadow-[0_24px_80px_rgba(0,0,0,0.08)] sm:p-9">
+            <article className="relative mt-10 overflow-hidden rounded-[2rem] border border-black/10 bg-white p-6 shadow-[0_24px_80px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-zinc-900 sm:p-9">
               <div className="pointer-events-none absolute -right-20 -top-32 h-80 w-80 rounded-full bg-black/[0.06] blur-3xl" />
               <div className="relative grid gap-10 md:grid-cols-[1fr_0.8fr] md:items-center">
                 <div>
@@ -167,7 +167,7 @@ self.ModelViewerElement.meshoptDecoderLocation = "https://cdn.jsdelivr.net/npm/m
                       <p className="mt-1 text-sm text-black/50">dzen.ru/aibazar</p>
                     </div>
                   </div>
-                  <p className="mt-6 max-w-xl text-base leading-7 text-black/65">
+                  <p className="mt-6 max-w-xl text-base leading-7 text-black/65 dark:text-zinc-300">
                     Подробно разбираем новые AI-сервисы, сравниваем возможности и
                     собираем практические сценарии использования.
                   </p>
@@ -175,7 +175,7 @@ self.ModelViewerElement.meshoptDecoderLocation = "https://cdn.jsdelivr.net/npm/m
                     href={DZEN_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="group mt-6 inline-flex items-center gap-3 rounded-full bg-black px-6 py-3.5 font-medium text-white transition-transform hover:-translate-y-0.5"
+                    className="theme-light-button group mt-6 inline-flex items-center gap-3 rounded-full bg-black px-6 py-3.5 font-medium text-white transition-transform hover:-translate-y-0.5"
                   >
                     Открыть канал
                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -206,7 +206,7 @@ self.ModelViewerElement.meshoptDecoderLocation = "https://cdn.jsdelivr.net/npm/m
                 href={TELEGRAM_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-black/10 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="group flex items-center gap-4 rounded-2xl border border-black/10 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/10 dark:bg-zinc-900"
               >
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black text-white">
                   <Send className="h-6 w-6" />
@@ -221,7 +221,7 @@ self.ModelViewerElement.meshoptDecoderLocation = "https://cdn.jsdelivr.net/npm/m
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-black/10 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="group flex items-center gap-4 rounded-2xl border border-black/10 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/10 dark:bg-zinc-900"
               >
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black text-white">
                   <Instagram className="h-6 w-6" />
@@ -236,7 +236,7 @@ self.ModelViewerElement.meshoptDecoderLocation = "https://cdn.jsdelivr.net/npm/m
           </div>
         </section>
 
-        <section className="bg-white px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+        <section className="bg-white px-5 py-16 dark:bg-zinc-950 sm:px-8 sm:py-24 lg:px-10">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.65fr_1fr] lg:gap-20">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.22em] text-black/45">FAQ</p>

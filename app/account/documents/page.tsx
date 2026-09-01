@@ -17,7 +17,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Star } from "lucide-react";
+import { FileText, Star } from "lucide-react";
 
 interface SearchParams {
   doc?: string;
@@ -36,6 +36,21 @@ type DocumentPreview = {
   dayLabel: string;
 };
 
+type PreviewBlock = {
+  type?: unknown;
+  props?: { text?: unknown };
+  content?: Array<{ text?: unknown }>;
+};
+
+type OpenDocument = {
+  id: string;
+  title: string;
+  content: string | null;
+  isFavorite: boolean;
+  isPublished: boolean;
+  updatedAt: Date;
+};
+
 function normalizeWhitespace(text: string) {
   return text.replace(/\s+/g, " ").trim();
 }
@@ -43,13 +58,18 @@ function normalizeWhitespace(text: string) {
 function extractPreviewText(content?: string | null, fallback?: string | null) {
   if (content) {
     try {
-      const parsed = JSON.parse(content);
+      const parsed: unknown = JSON.parse(content);
       if (Array.isArray(parsed)) {
         const paragraphs = parsed
-          .filter((block: any) => block?.type === "paragraph")
-          .map((block: any) => {
+          .filter((block): block is PreviewBlock => {
+            return typeof block === "object" && block !== null && (block as PreviewBlock).type === "paragraph";
+          })
+          .map((block) => {
             if (typeof block?.props?.text === "string") return block.props.text;
-            const richText = block?.content?.map((n: any) => n?.text).filter(Boolean).join(" ");
+            const richText = block.content
+              ?.map((node) => typeof node.text === "string" ? node.text : "")
+              .filter(Boolean)
+              .join(" ");
             return typeof richText === "string" ? richText : "";
           })
           .filter((text: string) => text.trim().length > 0);
@@ -112,6 +132,36 @@ function buildPreviews(docs: Array<{ id: string; title: string; previewText: str
   });
 }
 
+function DocumentCard({ item }: { item: DocumentPreview }) {
+  return (
+    <Link
+      href={`/account/documents?doc=${item.id}`}
+      className="group min-w-0 rounded-2xl border border-black/10 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-zinc-900"
+    >
+      <article className="flex min-h-44 h-full min-w-0 flex-col">
+        <div className="flex items-center justify-between gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-black text-white dark:bg-white dark:text-black">
+            <FileText className="h-4 w-4" />
+          </span>
+          {item.isFavorite ? (
+            <Star className="h-4 w-4 text-amber-400" fill="currentColor" />
+          ) : null}
+        </div>
+        <h3 className="mt-4 line-clamp-2 text-base font-bold text-black dark:text-zinc-100">
+          {item.title}
+        </h3>
+        <p className="mt-2 line-clamp-3 text-xs leading-5 text-black/45 dark:text-zinc-400">
+          {item.preview || "Предпросмотр появится после заполнения документа."}
+        </p>
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-black/10 pt-4 text-[11px] text-black/35 dark:border-white/10 dark:text-zinc-500">
+          <span>{item.dateLabel}</span>
+          <span>{item.isPublished ? "Опубликован" : "Черновик"}</span>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
 function isWithinDays(date: Date, days: number) {
   const diff = Date.now() - date.getTime();
   return diff <= days * 24 * 60 * 60 * 1000;
@@ -126,7 +176,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
     redirect("/auth/login");
   }
 
-  let doc: any = null;
+  let doc: OpenDocument | null = null;
   try {
     if (docId) {
       doc = await prisma.document.findFirst({
@@ -185,11 +235,11 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className="bg-gradient-to-b from-white to-gray-100">
-        <header className="flex shrink-0 items-center justify-between border-b border-gray-200 bg-white/80 px-4 py-2 backdrop-blur">
+      <SidebarInset className="bg-[#f6f6f3] dark:bg-zinc-950">
+        <header className="flex h-16 shrink-0 items-center justify-between border-b border-black/10 bg-white px-4 dark:border-white/10 dark:bg-zinc-950 sm:px-6">
           <div className="flex flex-1 items-center gap-1.5">
-            <SidebarTrigger className="text-gray-700 hover:bg-gray-100" />
-            <Separator orientation="vertical" className="h-8 border-gray-200" />
+            <SidebarTrigger className="text-black/60 hover:bg-black/5 dark:text-zinc-300 dark:hover:bg-white/10" />
+            <Separator orientation="vertical" className="h-7" />
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -217,10 +267,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
             )}
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 px-3 py-4 md:px-4 md:py-5">
+        <div className="flex flex-1 flex-col gap-4 px-4 py-5 sm:px-6 lg:px-8">
           <div className="md:hidden flex flex-col gap-2">
             {!doc && <DocumentSearchInput placeholder="Поиск по документам" />}
-            <CreateDocumentButton className="w-full bg-gray-900 text-white hover:bg-black" />
+            {!doc && <CreateDocumentButton className="w-full bg-gray-900 text-white hover:bg-black" />}
             {doc && (
               <DocumentActionsBar
                 docId={doc.id}
@@ -231,7 +281,18 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
             )}
           </div>
           {!doc ? (
-            <div className="space-y-10">
+            <div className="space-y-8">
+              <section className="border-b border-black/10 pb-6 dark:border-white/10">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black/35 dark:text-zinc-500">
+                  Рабочее пространство
+                </p>
+                <h1 className="mt-2 text-2xl font-bold tracking-tight text-black dark:text-zinc-100 sm:text-3xl">
+                  Мои документы
+                </h1>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-black/50 dark:text-zinc-400">
+                  Создавайте материалы, продолжайте редактирование и сохраняйте важные документы в избранном.
+                </p>
+              </section>
               {isSearching && filteredPreviews.length === 0 ? (
                 <div className="flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-gray-300 bg-white px-8 py-12 text-center text-gray-600">
                   <p className="text-lg font-medium">По запросу «{searchTerm}» ничего не найдено.</p>
@@ -245,33 +306,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
                         <h2 className="text-xs uppercase tracking-[0.35em] text-gray-500">Избранные</h2>
                         <span className="text-xs text-gray-400">{favorites.length} шт.</span>
                       </div>
-                      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                        {favorites.map((item) => (
-                          <Link key={item.id} href={`/account/documents?doc=${item.id}`} className="group relative rounded-3xl border border-gray-200 bg-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg">
-                            <article className="flex h-full flex-col justify-between gap-6">
-                              <div className="space-y-3 text-sm text-gray-600">
-                                {item.preview ? (
-                                  <p className="leading-relaxed">
-                                    {item.preview}
-                                  </p>
-                                ) : (
-                                  <p className="text-gray-400">Предпросмотр появится после заполнения документа.</p>
-                                )}
-                              </div>
-                              <div className="flex items-end justify-between gap-3">
-                                <div className="max-w-[70%]">
-                                  <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
-                                  <div className="mt-2 text-xs uppercase tracking-[0.3em] text-gray-400">{item.dateLabel}</div>
-                                </div>
-                                <div className="flex flex-col items-end text-xs text-gray-500">
-                                  <span className="text-sm font-semibold text-gray-600">{item.dayLabel}</span>
-                                  <span className="mt-1 text-[11px]">Заметки</span>
-                                </div>
-                              </div>
-                              <Star className="absolute right-6 top-6 h-4 w-4 text-yellow-400" fill="currentColor" />
-                            </article>
-                          </Link>
-                        ))}
+                      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                        {favorites.map((item) => <DocumentCard key={item.id} item={item} />)}
                       </div>
                     </section>
                   )}
@@ -284,35 +320,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
                         </h2>
                         <span className="text-xs text-gray-400">{primarySectionItems.length} шт.</span>
                       </div>
-                      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                        {primarySectionItems.map((item) => (
-                          <Link key={item.id} href={`/account/documents?doc=${item.id}`} className="group relative rounded-3xl border border-gray-200 bg-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg">
-                            <article className="flex h-full flex-col justify-between gap-6">
-                              <div className="space-y-3 text-sm text-gray-600">
-                                {item.preview ? (
-                                  <p className="leading-relaxed">
-                                    {item.preview}
-                                  </p>
-                                ) : (
-                                  <p className="text-gray-400">Предпросмотр появится после заполнения документа.</p>
-                                )}
-                              </div>
-                              <div className="flex items-end justify-between gap-3">
-                                <div className="max-w-[70%]">
-                                  <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
-                                  <div className="mt-2 text-xs uppercase tracking-[0.3em] text-gray-400">{item.dateLabel}</div>
-                                </div>
-                                <div className="flex flex-col items-end text-xs text-gray-500">
-                                  <span className="text-sm font-semibold text-gray-600">{item.dayLabel}</span>
-                                  <span className="mt-1 text-[11px]">Заметки</span>
-                                </div>
-                              </div>
-                              {item.isFavorite && (
-                                <Star className="absolute right-6 top-6 h-4 w-4 text-yellow-400" fill="currentColor" />
-                              )}
-                            </article>
-                          </Link>
-                        ))}
+                      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                        {primarySectionItems.map((item) => <DocumentCard key={item.id} item={item} />)}
                       </div>
                     </section>
                   )}
@@ -323,35 +332,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
                         <h2 className="text-xs uppercase tracking-[0.35em] text-gray-500">Старые документы</h2>
                         <span className="text-xs text-gray-400">{older.length} шт.</span>
                       </div>
-                      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                        {older.map((item) => (
-                          <Link key={item.id} href={`/account/documents?doc=${item.id}`} className="group relative rounded-3xl border border-gray-200 bg-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg">
-                            <article className="flex h-full flex-col justify-between gap-6">
-                              <div className="space-y-3 text-sm text-gray-600">
-                                {item.preview ? (
-                                  <p className="leading-relaxed">
-                                    {item.preview}
-                                  </p>
-                                ) : (
-                                  <p className="text-gray-400">Предпросмотр появится после заполнения документа.</p>
-                                )}
-                              </div>
-                              <div className="flex items-end justify-between gap-3">
-                                <div className="max-w-[70%]">
-                                  <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
-                                  <div className="mt-2 text-xs uppercase tracking-[0.3em] text-gray-400">{item.dateLabel}</div>
-                                </div>
-                                <div className="flex flex-col items-end text-xs text-gray-500">
-                                  <span className="text-sm font-semibold text-gray-600">{item.dayLabel}</span>
-                                  <span className="mt-1 text-[11px]">Заметки</span>
-                                </div>
-                              </div>
-                              {item.isFavorite && (
-                                <Star className="absolute right-6 top-6 h-4 w-4 text-yellow-400" fill="currentColor" />
-                              )}
-                            </article>
-                          </Link>
-                        ))}
+                      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                        {older.map((item) => <DocumentCard key={item.id} item={item} />)}
                       </div>
                     </section>
                   )}
@@ -367,10 +349,11 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
               )}
             </div>
           ) : (
-            <div className="flex flex-1 min-h-0 flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-4">
+            <div className="flex min-h-0 flex-1 flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-3">
+              <AISidebar width="24rem" documentTitle={doc.title ?? "Документ"} />
               <div
-                className="flex-1 min-h-0 min-w-0 overflow-hidden rounded-3xl border border-gray-200 bg-white p-3 shadow-sm"
-                style={{ height: "calc(100dvh - 5.5rem)", minHeight: 0 }}
+                className="min-h-0 min-w-0 flex-1 overflow-hidden rounded-2xl border border-black/10 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-zinc-900 lg:order-1"
+                style={{ height: "calc(100dvh - 7rem)", minHeight: 0 }}
               >
                 <BlockNoteClient
                   key={doc.id}
@@ -380,7 +363,6 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
                   disableInlineAI
                 />
               </div>
-              <AISidebar width="24rem" documentTitle={doc.title ?? "Документ"} />
             </div>
           )}
         </div>

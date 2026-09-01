@@ -42,29 +42,36 @@ cleanup_after_failure() {
 
 trap cleanup_after_failure EXIT
 
-echo "[1/9] Reclaiming Docker space before the build..."
+echo "[1/10] Reclaiming Docker space before the build..."
 cleanup_docker_space
 df -h "$APP_DIR" || true
 
-echo "[2/9] Building the production image..."
+echo "[2/10] Building the production image..."
 docker compose build --pull web
 
-echo "[3/9] Applying pending Prisma migrations..."
+echo "[3/10] Applying pending Prisma migrations..."
 docker compose run --rm --no-deps web npm run db:migrate:deploy
 
-echo "[4/9] Synchronizing categories and AI tools..."
+echo "[4/10] Synchronizing categories and AI tools..."
 docker compose run --rm --no-deps web npm run catalog:sync
 
-echo "[5/9] Synchronizing MCP, skills, and repositories..."
+echo "[5/10] Synchronizing MCP, skills, and repositories..."
 docker compose run --rm --no-deps web npm run resources:sync:collective
 
-echo "[6/9] Synchronizing curated and selected external prompts..."
+echo "[6/10] Refreshing GitHub stars..."
+if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+  docker compose run --rm --no-deps -e GITHUB_TOKEN web npm run resources:sync:github-stars
+else
+  echo "GITHUB_TOKEN is not available; keeping the last synchronized star counts."
+fi
+
+echo "[7/10] Synchronizing curated and selected external prompts..."
 docker compose run --rm --no-deps web npm run resources:sync:prompts
 
-echo "[7/9] Translating new skills and repositories..."
+echo "[8/10] Translating new skills and repositories..."
 docker compose run --rm --no-deps web npm run resources:translate:ru
 
-echo "[8/9] Starting the updated application..."
+echo "[9/10] Starting the updated application..."
 docker compose up -d --remove-orphans web
 
 container_id="$(docker compose ps -q web)"
@@ -96,7 +103,7 @@ for attempt in {1..40}; do
   sleep 3
 done
 
-echo "[9/9] Removing old images and build cache..."
+echo "[10/10] Removing old images and build cache..."
 cleanup_docker_space
 df -h "$APP_DIR" || true
 

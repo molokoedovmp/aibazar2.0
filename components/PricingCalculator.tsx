@@ -29,7 +29,7 @@ export default function PricingCalculator({
   }, [numericUsd, fx]);
 
   return (
-    <div className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_30px_100px_rgba(0,0,0,0.12)]">
+    <div className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_30px_100px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-zinc-900 dark:shadow-[0_30px_100px_rgba(0,0,0,0.4)]">
       <div className="bg-black p-6 text-white sm:p-8">
         <div className="flex items-start justify-between gap-5">
           <div>
@@ -40,7 +40,7 @@ export default function PricingCalculator({
               Подписка на AI-инструмент
             </h2>
           </div>
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-black">
+          <span className="theme-light-button flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-black">
             <Calculator className="h-6 w-6" />
           </span>
         </div>
@@ -61,10 +61,10 @@ export default function PricingCalculator({
       </div>
 
       <div className="p-6 sm:p-8">
-        <label htmlFor="calculator-usd" className="text-sm font-medium text-black">
+        <label htmlFor="calculator-usd" className="text-sm font-medium text-black dark:text-zinc-100">
           Стоимость подписки в долларах
         </label>
-        <div className="mt-3 flex items-center gap-3 rounded-2xl border border-black/10 px-4 focus-within:border-black/40">
+        <div className="mt-3 flex items-center gap-3 rounded-2xl border border-black/10 px-4 focus-within:border-black/40 dark:border-white/10 dark:bg-zinc-950/60 dark:focus-within:border-white/35">
           <DollarSign className="h-5 w-5 shrink-0 text-black/40" />
           <Input
             id="calculator-usd"
@@ -86,7 +86,7 @@ export default function PricingCalculator({
               key={value}
               type="button"
               onClick={() => setUsd(String(value))}
-              className="rounded-xl border border-black/10 px-3 py-2.5 text-sm font-medium transition hover:border-black hover:bg-black hover:text-white"
+              className="rounded-xl border border-black/10 px-3 py-2.5 text-sm font-medium transition hover:border-black hover:bg-black hover:text-white dark:border-white/10 dark:hover:border-white/40 dark:hover:bg-white dark:hover:text-black"
             >
               ${value}
             </button>
@@ -110,7 +110,7 @@ export default function PricingCalculator({
 
         <Link
           href="/payment-instructions"
-          className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-black/15 bg-white px-5 text-sm font-semibold text-black transition hover:border-black hover:bg-black hover:text-white"
+          className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-black/15 bg-white px-5 text-sm font-semibold text-black transition hover:border-black hover:bg-black hover:text-white dark:border-white/15 dark:bg-zinc-900 dark:text-white dark:hover:bg-white dark:hover:text-black"
         >
           <BookOpenText className="h-4 w-4" />
           Открыть инструкцию по оплате

@@ -10,27 +10,28 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { Bot } from "lucide-react";
 
 type Props = {
-  editor?: any;
+  editor?: unknown;
   documentTitle?: string;
   width?: string | number;
 };
 
 const MIN_WIDTH = 300;
 const MAX_WIDTH = 560;
-const PANEL_HEIGHT = "calc(100dvh - 5.5rem)";
+const PANEL_HEIGHT = "calc(100dvh - 7rem)";
 
 function clampWidth(value: number) {
   return Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, value));
 }
 
 export default function AISidebar({ editor, documentTitle, width }: Props) {
-  const [resolvedEditor, setResolvedEditor] = useState<any>(editor ?? null);
+  const [resolvedEditor, setResolvedEditor] = useState<unknown>(editor ?? null);
 
   const readGlobalEditor = () => {
     if (typeof window === "undefined") return null;
-    return (window as any).__activeEditor ?? null;
+    return (window as Window & { __activeEditor?: unknown }).__activeEditor ?? null;
   };
 
   useEffect(() => {
@@ -110,13 +111,10 @@ export default function AISidebar({ editor, documentTitle, width }: Props) {
   };
 
   return (
-    <div
-      className="relative flex h-full min-h-0 w-full flex-col lg:h-[calc(100dvh-5.5rem)] lg:max-h-[calc(100dvh-5.5rem)] lg:w-auto lg:flex-none"
-      style={{ height: PANEL_HEIGHT, maxHeight: PANEL_HEIGHT }}
-    >
+    <div className="relative order-first flex min-h-0 w-full flex-col lg:order-2 lg:h-[calc(100dvh-7rem)] lg:max-h-[calc(100dvh-7rem)] lg:w-auto lg:flex-none">
       <aside
         className={cn(
-          "relative hidden h-full overflow-hidden rounded-3xl border border-gray-200 bg-white text-gray-900 shadow-sm transition-[width,opacity] duration-300 ease-in-out lg:flex lg:flex-col lg:min-h-0",
+          "relative hidden h-full overflow-hidden rounded-2xl border border-black/10 bg-white text-gray-900 shadow-sm transition-[width,opacity] duration-300 ease-in-out dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-100 lg:flex lg:min-h-0 lg:flex-col",
           "opacity-100"
         )}
         style={{
@@ -141,10 +139,11 @@ export default function AISidebar({ editor, documentTitle, width }: Props) {
       <div className="flex flex-col gap-2 lg:hidden">
         <Button
           variant="outline"
-          className="w-full justify-center text-sm font-semibold"
+          className="w-full justify-center gap-2 text-sm font-semibold"
           onClick={() => setMobileOpen(true)}
         >
-          <span></span>
+          <Bot className="h-4 w-4" />
+          <span>Открыть AI-помощника</span>
         </Button>
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetContent
@@ -152,7 +151,7 @@ export default function AISidebar({ editor, documentTitle, width }: Props) {
             className="flex w-full max-w-sm flex-col gap-0 p-0"
           >
             <SheetHeader className="border-b px-4 py-3">
-              <SheetTitle></SheetTitle>
+              <SheetTitle>AI-помощник</SheetTitle>
             </SheetHeader>
             <div className="flex flex-1 flex-col overflow-hidden p-4">
               <AICompose editor={resolvedEditor} documentTitle={documentTitle} mode="sidebar" />

@@ -27,7 +27,7 @@ export function NavMain({
           <SidebarMenuButton
             asChild
             isActive={item.isActive}
-            className="h-auto min-h-11 rounded-xl py-1.5 transition-all hover:border hover:border-gray-200 hover:bg-white hover:shadow-sm"
+            className="h-auto min-h-11 rounded-xl border border-transparent py-1.5 transition-all hover:border-sidebar-border hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-sm"
           >
             <Link href={item.url}>
               <span

@@ -95,7 +95,7 @@ export default function DocumentActionsBar({
           "inline-flex h-9 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition",
           isPublished
             ? "border-emerald-500 bg-emerald-500/10 text-emerald-700"
-            : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100",
+            : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800",
           pendingAction && "opacity-70"
         )}
       >
@@ -116,7 +116,7 @@ export default function DocumentActionsBar({
           "inline-flex h-9 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition",
           isFavorite
             ? "border-yellow-400 bg-yellow-300/20 text-yellow-700"
-            : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100",
+            : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800",
           pendingAction && "opacity-70"
         )}
       >

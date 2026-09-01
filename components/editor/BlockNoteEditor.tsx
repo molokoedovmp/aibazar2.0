@@ -10,6 +10,7 @@ import "@blocknote/mantine/style.css";
 import { Input } from "@/components/ui/input";
 import AICompose from "@/components/editor/AICompose";
 import { useEdgeStore } from "@/lib/edgestore";
+import { useTheme } from "next-themes";
 
 type Props = {
   id: string;
@@ -21,6 +22,7 @@ type Props = {
 
 export default function BlockNoteEditor({ id, initialTitle, initialContent, dockRightOnDesktop, disableInlineAI }: Props) {
   const { edgestore } = useEdgeStore();
+  const { resolvedTheme } = useTheme();
   const [title, setTitle] = useState(initialTitle);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
@@ -249,19 +251,20 @@ export default function BlockNoteEditor({ id, initialTitle, initialContent, dock
   }, [title]);
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-4">
+    <div className="flex h-full min-h-0 w-full flex-col gap-3">
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Название документа"
+        className="h-auto border-0 bg-transparent px-2 py-2 text-2xl font-bold tracking-tight shadow-none focus-visible:ring-0 dark:bg-transparent sm:text-3xl"
       />
-      <div className="flex-1 min-h-0 overflow-auto rounded-2xl border border-gray-100">
+      <div className="min-h-0 flex-1 overflow-auto rounded-xl border border-black/10 bg-white dark:border-white/10 dark:bg-zinc-950">
         {isMounted ? (
           <BlockNoteView
             editor={editor}
-            theme="light"
+            theme={resolvedTheme === "dark" ? "dark" : "light"}
             onChange={() => scheduleSave()}
-            className="h-full min-w-0 bg-white !border-0 !shadow-none !ring-0 !outline-none"
+            className="h-full min-w-0 bg-white !border-0 !shadow-none !ring-0 !outline-none dark:bg-zinc-950"
             data-testid="blocknote-editor"
           />
         ) : (

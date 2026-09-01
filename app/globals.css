@@ -44,6 +44,7 @@
 }
 
 :root {
+  color-scheme: light;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -79,6 +80,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -110,6 +112,116 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/*
+ * Совместимость тёмной темы со старыми страницами. Часть интерфейса была
+ * собрана до появления цветовых токенов и использует фиксированные белые
+ * поверхности и серый текст. Эти правила позволяют таким страницам менять
+ * тему вместе с остальным приложением без визуальных светлых островков.
+ */
+.dark body {
+  background-color: #09090b;
+  color: #f4f4f5;
+}
+
+.dark .bg-white,
+.dark .bg-gray-50,
+.dark .bg-slate-50,
+.dark .bg-zinc-50,
+.dark .bg-\[\#fafafa\],
+.dark .bg-\[\#f4f4f0\],
+.dark .bg-\[\#f6f6f3\],
+.dark .bg-\[\#f7f7f5\] {
+  background-color: #111113;
+}
+
+.dark .bg-gray-100,
+.dark .bg-slate-100,
+.dark .bg-zinc-100 {
+  background-color: #1c1c1f;
+}
+
+.dark .text-black,
+.dark .text-gray-950,
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-slate-950,
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: #f4f4f5;
+}
+
+.dark .text-gray-700,
+.dark .text-gray-600,
+.dark .text-gray-500,
+.dark .text-gray-400,
+.dark .text-slate-600,
+.dark .text-slate-500 {
+  color: #a1a1aa;
+}
+
+.dark .text-black\/80,
+.dark .text-black\/75,
+.dark .text-black\/70,
+.dark .text-black\/65,
+.dark .text-black\/60,
+.dark .text-black\/55,
+.dark .text-black\/50,
+.dark .text-black\/45,
+.dark .text-black\/40,
+.dark .text-black\/35,
+.dark .text-black\/30 {
+  color: #a1a1aa;
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-300,
+.dark .border-slate-200,
+.dark .border-black\/5,
+.dark .border-black\/10,
+.dark .border-black\/15,
+.dark .border-black\/20 {
+  border-color: rgb(255 255 255 / 0.12);
+}
+
+.dark input,
+.dark textarea,
+.dark select {
+  color-scheme: dark;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #71717a;
+}
+
+.dark .shadow-sm,
+.dark .shadow-md,
+.dark .shadow-lg,
+.dark .shadow-xl {
+  --tw-shadow-color: rgb(0 0 0 / 0.45);
+}
+
+/* Светлая CTA-кнопка на чёрном navbar должна оставаться светлой. */
+.dark .navbar-light-button {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.dark .theme-light-button {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+@media (hover: hover) {
+  .dark .hover\:bg-gray-50:hover,
+  .dark .hover\:bg-slate-50:hover,
+  .dark .hover\:bg-black\/5:hover {
+    background-color: #27272a;
+  }
 }
 
 @layer base {

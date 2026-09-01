@@ -114,9 +114,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon-ptsr.png" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
+        <meta name="color-scheme" content="light dark" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}
       >
         <SessionProvider>{children}</SessionProvider>
       </body>

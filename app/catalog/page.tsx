@@ -35,6 +35,7 @@ import { Input } from "@/components/ui/input";
 import FavoriteButton from "@/components/FavoriteButton";
 
 type ResourceType = "tools" | "mcp" | "prompts" | "skills" | "repos";
+type SortOption = "rating" | "stars" | "newest";
 
 type ResourceCounts = Record<ResourceType, number>;
 
@@ -153,6 +154,16 @@ const RESOURCE_CONFIG: Record<ResourceType, ResourceConfig> = {
 };
 
 const RESOURCE_TYPES = Object.keys(RESOURCE_CONFIG) as ResourceType[];
+
+function defaultSort(type: ResourceType): SortOption {
+  return type === "tools" || type === "prompts" ? "rating" : "stars";
+}
+
+function sortOptions(type: ResourceType): SortOption[] {
+  if (type === "tools" || type === "prompts") return ["rating", "newest"];
+  if (type === "mcp") return ["stars", "rating", "newest"];
+  return ["stars", "newest"];
+}
 
 function ResourceIcon({ type, className = "h-8 w-8" }: { type: ResourceType; className?: string }) {
   const config = RESOURCE_CONFIG[type];
@@ -483,6 +494,7 @@ export default function CatalogPage() {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("");
+  const [sort, setSort] = useState<SortOption>("rating");
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<LibraryItem[]>([]);
   const [filters, setFilters] = useState<FilterOption[]>([]);
@@ -500,10 +512,14 @@ export default function CatalogPage() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   useEffect(() => {
-    const type = new URLSearchParams(window.location.search).get("type");
-    if (type && RESOURCE_TYPES.includes(type as ResourceType)) {
-      setActiveType(type as ResourceType);
-    }
+    const params = new URLSearchParams(window.location.search);
+    const requestedType = params.get("type");
+    const type = requestedType && RESOURCE_TYPES.includes(requestedType as ResourceType)
+      ? requestedType as ResourceType
+      : "tools";
+    const requestedSort = params.get("sort") as SortOption | null;
+    setActiveType(type);
+    setSort(requestedSort && sortOptions(type).includes(requestedSort) ? requestedSort : defaultSort(type));
   }, []);
 
   useEffect(() => {
@@ -519,10 +535,11 @@ export default function CatalogPage() {
     const params = new URLSearchParams({
       type: activeType,
       page: String(page),
-      limit: "24",
+      limit: "30",
     });
     if (debouncedQuery) params.set("q", debouncedQuery);
     if (activeFilter) params.set("filter", activeFilter);
+    params.set("sort", sort);
 
     setLoading(true);
     setError("");
@@ -550,7 +567,7 @@ export default function CatalogPage() {
       });
 
     return () => controller.abort();
-  }, [activeType, activeFilter, debouncedQuery, page]);
+  }, [activeType, activeFilter, debouncedQuery, page, sort]);
 
   const currentConfig = RESOURCE_CONFIG[activeType];
   const visiblePages = useMemo(() => {
@@ -564,13 +581,16 @@ export default function CatalogPage() {
   }, [activeFilter, filters]);
 
   function selectType(type: ResourceType) {
+    const nextSort = defaultSort(type);
     setActiveType(type);
     setActiveFilter("");
+    setSort(nextSort);
     setPage(1);
     const url = new URL(window.location.href);
     url.searchParams.set("type", type);
     url.searchParams.delete("filter");
     url.searchParams.delete("page");
+    url.searchParams.set("sort", nextSort);
     window.history.replaceState({}, "", url);
   }
 
@@ -581,11 +601,11 @@ export default function CatalogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f6f6f3] text-black">
+    <div className="min-h-screen bg-[#f6f6f3] text-black dark:bg-zinc-950 dark:text-zinc-100">
       <Navbar />
 
       <div className="grid w-full grid-cols-1 md:grid-cols-[240px_1px_minmax(0,1fr)]">
-        <aside className="sticky top-0 hidden h-screen overflow-y-auto bg-white md:block">
+        <aside className="sticky top-0 hidden h-screen overflow-y-auto bg-white dark:bg-zinc-950 md:block">
           <nav className="space-y-1 px-2 pb-2 pt-5">
             {RESOURCE_TYPES.map((type) => {
               const config = RESOURCE_CONFIG[type];
@@ -612,7 +632,7 @@ export default function CatalogPage() {
           {filters.length > 0 && (
             <div className="mt-3 border-t border-black/10 px-2 pb-8 pt-4">
               <div className="mb-2 px-3 text-[10px] font-medium uppercase tracking-[0.2em] text-black/40">
-                Фильтры
+                Категории и направления
               </div>
               <button
                 type="button"
@@ -651,7 +671,7 @@ export default function CatalogPage() {
         <div className="sticky top-0 hidden h-screen bg-black/10 md:block" />
 
         <main className="min-w-0 px-4 py-5 sm:px-6 lg:px-8">
-          <section className="relative min-h-[280px] overflow-hidden rounded-3xl border border-black/10 bg-white sm:min-h-[320px]">
+          <section className="relative min-h-[280px] overflow-hidden rounded-3xl border border-black/10 bg-white dark:border-white/10 dark:bg-zinc-900 sm:min-h-[320px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/ai-hero.png" alt="AI-библиотека" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent" />
@@ -697,7 +717,7 @@ export default function CatalogPage() {
             </div>
           </div>
 
-          <section className="mt-4 rounded-2xl border border-black/10 bg-white p-3 shadow-sm">
+          <section className="mt-4 rounded-2xl border border-black/10 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-zinc-900">
             <div className="flex items-center gap-2">
               <div className="relative min-w-0 flex-1">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40" />
@@ -727,7 +747,7 @@ export default function CatalogPage() {
             </div>
           </section>
 
-          <section className="mt-5 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:p-6">
+          <section className="mt-5 rounded-3xl border border-black/10 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900 sm:p-6">
             <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
               {activeFilterTitle ? (
                 <h2 className="text-lg font-semibold tracking-[-0.02em] sm:text-xl">{activeFilterTitle}</h2>
@@ -939,7 +959,7 @@ export default function CatalogPage() {
         </main>
       </div>
 
-      <div className="border-t border-black/10 bg-white">
+      <div className="border-t border-black/10 bg-white dark:border-white/10 dark:bg-zinc-950">
         <Footer />
       </div>
     </div>

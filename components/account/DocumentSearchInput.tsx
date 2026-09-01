@@ -64,7 +64,7 @@ export default function DocumentSearchInput({ className, placeholder }: Document
             router.replace(`${pathname}${query}`);
           }
         }}
-        className="h-9 rounded-full border-gray-200 bg-white pl-9 text-xs shadow-sm focus-visible:ring-2 focus-visible:ring-gray-200"
+        className="h-9 rounded-full border-gray-200 bg-white pl-9 text-xs shadow-sm focus-visible:ring-2 focus-visible:ring-gray-200 dark:border-white/10 dark:bg-zinc-900 dark:focus-visible:ring-white/15"
       />
     </div>
   );

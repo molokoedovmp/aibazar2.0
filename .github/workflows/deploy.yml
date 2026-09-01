@@ -51,6 +51,7 @@ jobs:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
       SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
       APP_DIR: ${{ secrets.APP_DIR }}
+      GH_SYNC_TOKEN: ${{ github.token }}
 
     steps:
       - name: Checkout repository
@@ -101,12 +102,13 @@ jobs:
           set -Eeuo pipefail
           key_path="$RUNNER_TEMP/aibazar_deploy_key"
           known_hosts_path="$RUNNER_TEMP/aibazar_known_hosts"
+          remote_command="read -r GITHUB_TOKEN; export GITHUB_TOKEN; cd '$APP_DIR' && chmod +x scripts/deploy-server.sh && ./scripts/deploy-server.sh"
 
-          ssh \
+          printf '%s\n' "$GH_SYNC_TOKEN" | ssh \
             -i "$key_path" \
             -p "$SSH_PORT" \
             -o BatchMode=yes \
             -o UserKnownHostsFile="$known_hosts_path" \
             -o StrictHostKeyChecking=yes \
             "$SSH_USER@$SSH_HOST" \
-            "cd '$APP_DIR' && chmod +x scripts/deploy-server.sh && ./scripts/deploy-server.sh"
+            "$remote_command"

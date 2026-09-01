@@ -28,6 +28,7 @@ import { Settings2, Star, ChevronsDownUp, LogOut, ShoppingCart, Compass, Bot, Fi
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import SettingsForm from "@/components/account/SettingsForm";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 // Данные для навигации
 const data = {
@@ -150,18 +151,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar className="border-r-0" {...props}>
-      <SidebarHeader className="flex items-center justify-between p-3">
+      <SidebarHeader className="p-3">
         <DropdownMenu>
-          <DropdownMenuTrigger className="group flex items-center gap-3 rounded-xl px-3 py-2 bg-white border border-gray-200 shadow-sm hover:shadow-md transition outline-none text-gray-900">
+          <DropdownMenuTrigger className="group flex w-full min-w-0 items-center gap-3 rounded-xl border border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm outline-none transition hover:bg-sidebar-accent hover:shadow-md dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-100">
             <Avatar className="h-9 w-9 ring-1 ring-gray-200">
               <AvatarImage src={userImage} alt={userName} />
               <AvatarFallback>{userName[0]}</AvatarFallback>
             </Avatar>
-            <div className="flex flex-col text-left">
-              <span className="text-sm font-medium leading-4">{userName}</span>
-              <span className="text-xs text-gray-500 leading-3">{userEmail}</span>
+            <div className="flex min-w-0 flex-1 flex-col text-left">
+              <span className="truncate text-sm font-medium leading-4">{userName}</span>
+              <span className="truncate text-xs leading-3 text-gray-500">{userEmail}</span>
             </div>
-            <ChevronsDownUp className="ml-auto h-4 w-4 text-gray-400 group-hover:text-gray-600" />
+            <ChevronsDownUp className="ml-auto h-4 w-4 shrink-0 text-gray-400 group-hover:text-gray-600" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-72 bg-white border border-gray-200 shadow-xl rounded-2xl p-2">
             <DropdownMenuLabel className="px-2 pt-1 pb-2 text-xs font-medium text-gray-500">Мой аккаунт</DropdownMenuLabel>
@@ -232,6 +233,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       initialName={session?.user?.name || ""}
                       initialImage={session?.user?.image || ""}
                       email={session?.user?.email || ""}
+                    />
+                  </div>
+                  <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-white/10 dark:bg-zinc-900">
+                    <div className="text-lg font-medium">Оформление</div>
+                    <p className="mt-1 text-sm text-gray-500 dark:text-zinc-400">
+                      Выберите светлую или тёмную тему интерфейса.
+                    </p>
+                    <ThemeToggle
+                      variant="menu"
+                      className="mt-3 border border-gray-200 bg-gray-50 dark:border-white/10 dark:bg-zinc-950"
                     />
                   </div>
                 </div>
