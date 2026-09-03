@@ -24,7 +24,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { Settings2, Star, ChevronsDownUp, LogOut, ShoppingCart, Compass, Bot, File } from "lucide-react";
+import { Settings2, Star, ChevronsDownUp, LogOut, ShoppingCart, Compass, Bot, File, ShieldCheck } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import SettingsForm from "@/components/account/SettingsForm";
@@ -66,6 +66,13 @@ const data = {
 
   ],
   documents: [] as { id: string; title: string }[],
+};
+
+const adminNavItem = {
+  title: "Администрирование",
+  url: "/account/admin",
+  icon: ShieldCheck,
+  iconClassName: "from-slate-400 via-zinc-700 to-black shadow-zinc-500/25",
 };
 
 
@@ -254,7 +261,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </Sheet>
 
       <SidebarHeader>
-        <NavMain items={data.navMain} />
+        <NavMain items={session?.user?.role === "ADMIN" ? [...data.navMain, adminNavItem] : data.navMain} />
       </SidebarHeader>
       <SidebarContent>
         <NavFavorites favorites={favDocs} documents={docs} />

@@ -25,6 +25,7 @@
     "resources:sync:prompts": "tsx scripts/sync-all-prompts.ts",
     "resources:sync:external-prompts": "tsx scripts/sync-external-prompts.ts",
     "resources:translate:ru": "tsx scripts/translate-collective-resources.ts",
+    "admin:grant": "tsx scripts/grant-admin.ts",
     "build:deploy": "npm run catalog:sync && next build",
     "db:local:start": "prisma dev -d -n aibazar-local -p 51213 -P 51214 --shadow-db-port 51215",
     "db:local:stop": "prisma dev stop aibazar-local",

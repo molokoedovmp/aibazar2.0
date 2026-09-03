@@ -6,11 +6,12 @@ import YandexProvider from "next-auth/providers/yandex";
 import { verifyPassword } from "@/lib/password";
 
 const prisma = new PrismaClient();
+const useSecureCookies = (process.env.NEXTAUTH_URL || "").startsWith("https://");
+const secureCookiePrefix = useSecureCookies ? "__Secure-" : "";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
-  // Форсируем secure-cookies, т.к. внешний трафик всегда HTTPS.
-  useSecureCookies: true,
+  useSecureCookies,
   providers: [
     YandexProvider({
       clientId: process.env.YANDEX_CLIENT_ID!,
@@ -35,7 +36,13 @@ export const authOptions: AuthOptions = {
           }
           const ok = await verifyPassword(password, user.passwordHash);
           if (!ok) return null;
-          return { id: user.id, name: user.name || null, email: user.email || null, image: user.image || null } as any;
+          return {
+            id: user.id,
+            name: user.name || null,
+            email: user.email || null,
+            image: user.image || null,
+            role: user.role,
+          };
         } catch {
           return null;
         }
@@ -51,7 +58,16 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async jwt({ token, user, trigger, session }) {
-      if (user) token.id = user.id;
+      if (user) {
+        token.id = user.id;
+      }
+      if (token.id && !token.role) {
+        const persistedUser = await prisma.user.findUnique({
+          where: { id: token.id },
+          select: { role: true },
+        });
+        if (persistedUser) token.role = persistedUser.role;
+      }
       if (trigger === "update" && session) {
         if (typeof session.name === "string") token.name = session.name;
         if (typeof session.image === "string" || session.image === null) {
@@ -63,6 +79,7 @@ export const authOptions: AuthOptions = {
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
+        session.user.role = token.role;
         session.user.name = token.name ?? session.user.name;
         session.user.image = token.picture ?? session.user.image;
       }
@@ -72,21 +89,21 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   cookies: {
     state: {
-      name: "__Secure-next-auth.state",
+      name: `${secureCookiePrefix}next-auth.state`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
-        secure: true,
+        secure: useSecureCookies,
       },
     },
     pkceCodeVerifier: {
-      name: "__Secure-next-auth.pkce.code_verifier",
+      name: `${secureCookiePrefix}next-auth.pkce.code_verifier`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
-        secure: true,
+        secure: useSecureCookies,
       },
     },
   },

@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { calcRubPrice, getUsdFx } from "@/lib/pricing";
+import { getAdminSession } from "@/lib/admin";
 
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }> }) {
+  if (!(await getAdminSession())) {
+    return NextResponse.json({ error: "Доступ запрещён" }, { status: 403 });
+  }
   const { id } = await ctx.params;
   const body = await req.json().catch(() => ({}));
   const startPriceUsd = Number(body?.startPriceUsd);

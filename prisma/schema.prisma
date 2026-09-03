@@ -13,6 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  USER
+  ADMIN
+}
+
 model User {
   id            String    @id @default(cuid())
   email         String?   @unique
@@ -20,11 +25,14 @@ model User {
   image         String?
   passwordHash  String?
   emailVerified DateTime?
+  role          UserRole  @default(USER)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
   settings      UserSettings?
+
+  @@index([role])
 }
 
 model Account {
