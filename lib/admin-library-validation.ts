@@ -3,6 +3,7 @@ import { z } from "zod";
 const optionalUrl = z.union([z.string().url("Укажите корректную ссылку"), z.literal("")]).optional();
 const optionalStars = z.union([z.number().int().min(0), z.null()]).optional();
 const stringList = z.array(z.string().trim().min(1)).default([]);
+const coverImages = z.array(z.string().url("Некорректная ссылка на изображение")).max(8, "Можно добавить не больше 8 обложек").default([]);
 
 export const libraryTypes = ["mcp", "prompts", "skills", "repos"] as const;
 export type AdminLibraryType = (typeof libraryTypes)[number];
@@ -23,6 +24,7 @@ export const mcpAdminSchema = z.object({
   license: z.string().trim().max(100).optional(),
   isOfficial: z.boolean().default(false),
   isActive: z.boolean().default(true),
+  coverImages,
 });
 
 export const promptAdminSchema = z.object({
@@ -37,6 +39,7 @@ export const promptAdminSchema = z.object({
   rating: z.number().int().min(0).max(10).default(0),
   isPublic: z.boolean().default(true),
   isActive: z.boolean().default(true),
+  coverImages,
 });
 
 export const skillAdminSchema = z.object({
@@ -53,6 +56,7 @@ export const skillAdminSchema = z.object({
   tags: stringList,
   isOfficial: z.boolean().default(false),
   isActive: z.boolean().default(true),
+  coverImages,
 });
 
 export const repoAdminSchema = z.object({
@@ -65,6 +69,7 @@ export const repoAdminSchema = z.object({
   language: z.string().trim().max(80).optional(),
   stars: optionalStars,
   isActive: z.boolean().default(true),
+  coverImages,
 });
 
 export function isAdminLibraryType(value: string | null): value is AdminLibraryType {

@@ -1,0 +1,4 @@
+ALTER TABLE "McpResource" ADD COLUMN "coverImages" TEXT[] DEFAULT ARRAY[]::TEXT[] NOT NULL;
+ALTER TABLE "PromptResource" ADD COLUMN "coverImages" TEXT[] DEFAULT ARRAY[]::TEXT[] NOT NULL;
+ALTER TABLE "SkillResource" ADD COLUMN "coverImages" TEXT[] DEFAULT ARRAY[]::TEXT[] NOT NULL;
+ALTER TABLE "RepositoryResource" ADD COLUMN "coverImages" TEXT[] DEFAULT ARRAY[]::TEXT[] NOT NULL;

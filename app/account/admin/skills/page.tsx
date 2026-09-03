@@ -26,6 +26,7 @@ export default async function AdminSkillsPage() {
         category: true,
         isOfficial: true,
         tags: true,
+        coverImages: true,
         isActive: true,
       },
     }),

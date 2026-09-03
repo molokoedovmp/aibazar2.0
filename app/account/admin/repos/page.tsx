@@ -22,6 +22,7 @@ export default async function AdminReposPage() {
         url: true,
         language: true,
         stars: true,
+        coverImages: true,
         isActive: true,
       },
     }),

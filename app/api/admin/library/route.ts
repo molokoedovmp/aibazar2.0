@@ -30,6 +30,7 @@ function manualId() {
 function refreshLibrary() {
   revalidatePath("/");
   revalidatePath("/catalog");
+  revalidatePath("/blog");
   revalidatePath("/account/admin");
 }
 
@@ -62,7 +63,7 @@ export async function GET(request: NextRequest) {
         select: {
           id: true, name: true, description: true, author: true, githubUrl: true, websiteUrl: true,
           resourceType: true, languageName: true, tags: true, categoryNames: true, rating: true,
-          stars: true, location: true, license: true, isOfficial: true, isActive: true, updatedAt: true,
+          stars: true, location: true, license: true, isOfficial: true, coverImages: true, isActive: true, updatedAt: true,
         },
       }),
       prisma.mcpResource.count({ where }),
@@ -157,6 +158,7 @@ export async function POST(request: NextRequest) {
         sourceUrl: value.githubUrl || value.websiteUrl || "https://ai-bazar.ru",
         syncedAt: now,
         isActive: value.isActive,
+        coverImages: value.coverImages,
       } });
       refreshLibrary();
       return NextResponse.json({ item }, { status: 201 });
@@ -182,6 +184,7 @@ export async function POST(request: NextRequest) {
         sourceUrl: "https://ai-bazar.ru",
         syncedAt: now,
         isActive: value.isActive,
+        coverImages: value.coverImages,
       } });
       refreshLibrary();
       return NextResponse.json({ item }, { status: 201 });
@@ -209,6 +212,7 @@ export async function POST(request: NextRequest) {
         sourceUrl: value.repoUrl || "https://ai-bazar.ru",
         syncedAt: now,
         isActive: value.isActive,
+        coverImages: value.coverImages,
       } });
       refreshLibrary();
       return NextResponse.json({ item }, { status: 201 });
@@ -232,6 +236,7 @@ export async function POST(request: NextRequest) {
       syncedAt: now,
       lastSeenAt: now,
       isActive: value.isActive,
+      coverImages: value.coverImages,
     } });
     refreshLibrary();
     return NextResponse.json({ item }, { status: 201 });

@@ -28,6 +28,7 @@ export default async function AdminMcpPage() {
         location: true,
         license: true,
         isOfficial: true,
+        coverImages: true,
         isActive: true,
       },
     }),

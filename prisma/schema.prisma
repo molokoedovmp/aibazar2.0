@@ -269,6 +269,7 @@ model McpResource {
   descriptionRu   String?   @db.Text
   longDescription String?   @db.Text
   longDescriptionRu String? @db.Text
+  coverImages      String[]  @default([])
   author          String?
   githubUrl       String?
   websiteUrl      String?
@@ -314,6 +315,7 @@ model PromptResource {
   description      String?   @db.Text
   descriptionRu    String?   @db.Text
   content          String    @db.Text
+  coverImages      String[]  @default([])
   tags             String[]
   authorExternalId String?
   authorName       String?
@@ -343,6 +345,7 @@ model SkillResource {
   name             String
   description      String    @db.Text
   descriptionRu    String?   @db.Text
+  coverImages      String[]  @default([])
   author           String?
   repoUrl          String?
   stars            Int?
@@ -375,6 +378,7 @@ model RepositoryResource {
   repositoryName    String?
   description       String    @db.Text
   descriptionRu     String?   @db.Text
+  coverImages       String[]  @default([])
   url               String    @unique
   language          String?
   stars             Int?

@@ -20,6 +20,7 @@ function slugify(value: string) {
 function refreshLibrary() {
   revalidatePath("/");
   revalidatePath("/catalog");
+  revalidatePath("/blog");
   revalidatePath("/account/admin");
 }
 

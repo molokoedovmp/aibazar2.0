@@ -24,6 +24,7 @@ export default async function AdminPromptsPage() {
         sourceKind: true,
         rating: true,
         isPublic: true,
+        coverImages: true,
         isActive: true,
       },
     }),

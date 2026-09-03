@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Archive, ExternalLink, LoaderCircle, Pencil, Plus, Search } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Archive, ExternalLink, ImageUp, LoaderCircle, Pencil, Plus, Search, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import type { AdminLibraryType } from "@/lib/admin-library-validation";
+import { useEdgeStore } from "@/lib/edgestore";
+import { ToolImage } from "@/app/components/ToolImage";
 
 export type AdminLibraryItem = {
   id: string;
@@ -41,6 +43,7 @@ export type AdminLibraryItem = {
   repositoryName?: string | null;
   url?: string;
   language?: string | null;
+  coverImages?: string[];
   isActive: boolean;
 };
 
@@ -71,6 +74,7 @@ type ResourceForm = {
   owner: string;
   repositoryName: string;
   url: string;
+  coverImages: string[];
   isActive: boolean;
 };
 
@@ -87,7 +91,7 @@ function emptyForm(type: AdminLibraryType): ResourceForm {
     githubUrl: "", websiteUrl: "", resourceType: "MCP Server", languageName: "", tags: "",
     categoryNames: "", rating: "", stars: "", location: "Local", license: "", isOfficial: false,
     sourceKind: "Авторский", isPublic: true, repoUrl: "", installCommand: "", compatibleAgents: "",
-    category: "", owner: "", repositoryName: "", url: "", isActive: true,
+    category: "", owner: "", repositoryName: "", url: "", coverImages: [], isActive: true,
     ...(type === "repos" ? { githubUrl: "" } : {}),
   };
 }
@@ -139,6 +143,7 @@ function formFromItem(item: AdminLibraryItem): ResourceForm {
     owner: item.owner || "",
     repositoryName: item.repositoryName || "",
     url: item.url || "",
+    coverImages: item.coverImages || [],
     isActive: item.isActive,
   };
 }
@@ -152,6 +157,8 @@ function AreaField({ label, value, onChange, tall = false }: { label: string; va
 }
 
 export function AdminLibraryManager({ type, initialItems, initialTotal }: { type: AdminLibraryType; initialItems: AdminLibraryItem[]; initialTotal: number }) {
+  const { edgestore } = useEdgeStore();
+  const fileInput = useRef<HTMLInputElement>(null);
   const [items, setItems] = useState(initialItems);
   const [total, setTotal] = useState(initialTotal);
   const [query, setQuery] = useState("");
@@ -160,6 +167,7 @@ export function AdminLibraryManager({ type, initialItems, initialTotal }: { type
   const [pages, setPages] = useState(Math.max(1, Math.ceil(initialTotal / 30)));
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [open, setOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<ResourceForm>(() => emptyForm(type));
@@ -210,24 +218,50 @@ export function AdminLibraryManager({ type, initialItems, initialTotal }: { type
       websiteUrl: form.websiteUrl, resourceType: form.resourceType, languageName: form.languageName,
       tags: list(form.tags), categoryNames: list(form.categoryNames), rating: numberOrNull(form.rating),
       stars: numberOrNull(form.stars), location: form.location, license: form.license,
-      isOfficial: form.isOfficial, isActive: form.isActive,
+      isOfficial: form.isOfficial, isActive: form.isActive, coverImages: form.coverImages,
     };
     if (type === "prompts") return {
       title: form.name, titleRu: form.titleRu, description: form.description, descriptionRu: form.descriptionRu,
       content: form.content, tags: list(form.tags), authorName: form.author, sourceKind: form.sourceKind,
-      rating: numberOrNull(form.rating) ?? 0, isPublic: form.isPublic, isActive: form.isActive,
+      rating: numberOrNull(form.rating) ?? 0, isPublic: form.isPublic, isActive: form.isActive, coverImages: form.coverImages,
     };
     if (type === "skills") return {
       name: form.name, description: form.description, descriptionRu: form.descriptionRu, author: form.author,
       repoUrl: form.repoUrl, stars: numberOrNull(form.stars), sourceLanguage: form.languageName,
       installCommand: form.installCommand, compatibleAgents: list(form.compatibleAgents), category: form.category,
-      tags: list(form.tags), isOfficial: form.isOfficial, isActive: form.isActive,
+      tags: list(form.tags), isOfficial: form.isOfficial, isActive: form.isActive, coverImages: form.coverImages,
     };
     return {
       name: form.name, owner: form.owner, repositoryName: form.repositoryName, description: form.description,
       descriptionRu: form.descriptionRu, url: form.url, language: form.languageName,
-      stars: numberOrNull(form.stars), isActive: form.isActive,
+      stars: numberOrNull(form.stars), isActive: form.isActive, coverImages: form.coverImages,
     };
+  }
+
+  async function uploadCovers(files: FileList) {
+    const available = Math.max(0, 8 - form.coverImages.length);
+    const selected = Array.from(files).slice(0, available);
+    if (!selected.length) {
+      setMessage("Можно добавить не больше 8 обложек.");
+      return;
+    }
+    setUploading(true);
+    setMessage("");
+    try {
+      for (const file of selected) {
+        const result = await edgestore.toolImages.upload({ file });
+        setForm((current) => ({ ...current, coverImages: [...current.coverImages, result.url] }));
+      }
+    } catch {
+      setMessage("Не удалось загрузить одну из обложек. Проверьте формат и размер файла.");
+    } finally {
+      setUploading(false);
+      if (fileInput.current) fileInput.current.value = "";
+    }
+  }
+
+  function removeCover(index: number) {
+    setForm((current) => ({ ...current, coverImages: current.coverImages.filter((_, currentIndex) => currentIndex !== index) }));
   }
 
   async function save() {
@@ -302,6 +336,18 @@ export function AdminLibraryManager({ type, initialItems, initialTotal }: { type
             {(type === "mcp" || type === "prompts") ? <TextField label="Рейтинг" type="number" value={form.rating} onChange={(value) => update("rating", value)} /> : null}
             {(type === "mcp" || type === "skills" || type === "repos") ? <TextField label="Звёзды GitHub" type="number" value={form.stars} onChange={(value) => update("stars", value)} /> : null}
 
+            <div className="space-y-3 sm:col-span-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div><p className="text-sm font-medium">Обложки для ленты</p><p className="text-xs text-black/45 dark:text-white/45">До 8 изображений. В каталоге они отображаться не будут.</p></div>
+                <input ref={fileInput} type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={(event) => { if (event.target.files) void uploadCovers(event.target.files); }} />
+                <Button type="button" variant="outline" disabled={uploading || form.coverImages.length >= 8} onClick={() => fileInput.current?.click()}>
+                  {uploading ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <ImageUp className="h-4 w-4" />}
+                  {uploading ? "Загрузка…" : "Добавить изображения"}
+                </Button>
+              </div>
+              {form.coverImages.length ? <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">{form.coverImages.map((image, index) => <div key={`${image}-${index}`} className="group relative aspect-[4/3] overflow-hidden rounded-xl border border-black/10 bg-black/5 dark:border-white/10 dark:bg-white/5"><ToolImage src={image} alt={`Обложка ${index + 1}`} className="h-full w-full object-cover" /><button type="button" aria-label="Удалить обложку" onClick={() => removeCover(index)} className="absolute right-1.5 top-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-black/75 text-white opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100"><X className="h-4 w-4" /></button></div>)}</div> : <div className="rounded-xl border border-dashed border-black/15 px-4 py-6 text-center text-xs text-black/40 dark:border-white/15 dark:text-white/40">Обложки пока не добавлены</div>}
+            </div>
+
             <div className="flex flex-col gap-2 sm:col-span-2">
               <label className="flex items-center gap-3 rounded-xl border border-black/10 p-3 dark:border-white/10"><input type="checkbox" checked={form.isActive} onChange={(event) => update("isActive", event.target.checked)} /><span className="text-sm font-medium">Опубликовать в каталоге</span></label>
               {type === "prompts" ? <label className="flex items-center gap-3 rounded-xl border border-black/10 p-3 dark:border-white/10"><input type="checkbox" checked={form.isPublic} onChange={(event) => update("isPublic", event.target.checked)} /><span className="text-sm font-medium">Публичный промпт</span></label> : null}
@@ -309,7 +355,7 @@ export function AdminLibraryManager({ type, initialItems, initialTotal }: { type
             </div>
           </div>
           {message ? <p className="text-sm text-red-600" role="alert">{message}</p> : null}
-          <DialogFooter><Button variant="outline" onClick={() => setOpen(false)}>Отмена</Button><Button disabled={saving} onClick={() => void save()}>{saving ? <LoaderCircle className="h-4 w-4 animate-spin" /> : null}Сохранить</Button></DialogFooter>
+          <DialogFooter><Button variant="outline" onClick={() => setOpen(false)}>Отмена</Button><Button disabled={saving || uploading} onClick={() => void save()}>{saving ? <LoaderCircle className="h-4 w-4 animate-spin" /> : null}Сохранить</Button></DialogFooter>
         </DialogContent>
       </Dialog>
     </>
