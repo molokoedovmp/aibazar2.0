@@ -5,7 +5,7 @@ import { YandexZenIcon } from "@/components/YandexZenIcon";
 
 export const Footer = () => {
   return (
-    <div className="flex items-center w-full p-6 bg-background z-50 dark:bg-[#1F1F1F]">
+    <div className="flex items-center w-full bg-background z-50 dark:bg-[#1F1F1F] px-6 pt-6 pb-[calc(var(--mobile-bar-h,0px)+env(safe-area-inset-bottom)+1.5rem)]">
       <div className="md:ml-auto w-full justify-between md:justify-end flex flex-col md:flex-row items-center gap-4 md:gap-x-2 text-muted-foreground">
         <div className="flex flex-col md:flex-row items-center gap-2">
           <div className="flex items-center gap-2">

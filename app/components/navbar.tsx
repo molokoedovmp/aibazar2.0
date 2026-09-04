@@ -4,9 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { BrainCircuit, Calculator, Home, Users, User as UserIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { MobileNav } from "./mobile-nav";
 
 type Props = { overlay?: boolean };
 
@@ -90,50 +90,13 @@ export const Navbar = ({ overlay = false }: Props) => {
         )}
       </header>
 
-      {/* Нижняя мобильная панель (тёмная) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black/85 text-white backdrop-blur supports-[backdrop-filter]:bg-black/70">
-        <ul className="mx-auto grid max-w-3xl grid-cols-5 px-2 py-2 text-xs">
-          <li>
-            <Link href="/" className="flex flex-col items-center gap-1 rounded-xl px-2 py-1.5 hover:bg-white/10">
-              <Home className="h-5 w-5" />
-              <span>Главная</span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/catalog" className="flex flex-col items-center gap-1 rounded-xl px-2 py-1.5 hover:bg-white/10">
-              <BrainCircuit className="h-5 w-5" />
-              <span>AI</span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/calculator" className="flex flex-col items-center gap-1 rounded-xl px-2 py-1.5 hover:bg-white/10">
-              <Calculator className="h-5 w-5" />
-              <span>Расчёт</span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/blog" className="flex flex-col items-center gap-1 rounded-xl px-2 py-1.5 hover:bg-white/10">
-              <Users className="h-5 w-5" />
-              <span>Сообщество</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={session ? "/account" : "/auth/login"}
-              className="flex flex-col items-center gap-1 rounded-xl px-2 py-1.5 hover:bg-white/10"
-            >
-              <UserIcon className="h-5 w-5" />
-              <span>{session ? "Кабинет" : "Войти"}</span>
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      {/* Нижняя мобильная панель — стеклянные плитки (иконки, текст раскрывается при выборе) */}
+      <MobileNav />
 
-      {/* Отступ под фиксированную мобильную панель */}
+      {/* Отступ под фиксированную мобильную панель добавляет сам footer */}
       <style jsx global>{`
         @media (max-width: 767px) {
-          :root { --mobile-bar-h: 56px; }
-          body { padding-bottom: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom)); }
+          :root { --mobile-bar-h: 66px; }
         }
       `}</style>
     </>

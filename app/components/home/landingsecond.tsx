@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { ArrowRight, CreditCard, Search } from "lucide-react";
+import { ArrowRight, CreditCard, Search, Users } from "lucide-react";
 
 import PopularToolsSection, { type FeaturedResponse } from "./PopularToolsSection";
 
@@ -43,6 +43,21 @@ export function Landingsecond() {
           <div className="pointer-events-none absolute inset-0 opacity-50 [background-image:linear-gradient(rgba(255,255,255,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.035)_1px,transparent_1px)] [background-size:64px_64px]" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/40 to-transparent" />
 
+          {/* Декоративный фон для мобильной версии (робот на mobile скрыт) */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 md:hidden">
+            {/* цветное свечение сверху */}
+            <div className="absolute inset-x-0 top-0 h-96 bg-[radial-gradient(80%_100%_at_50%_-5%,rgba(125,104,255,0.28),transparent_70%)]" />
+            {/* мягкие цветные пятна */}
+            <div className="absolute -left-20 bottom-10 h-64 w-64 rounded-full bg-sky-400/10 blur-[110px]" />
+            <div className="absolute -right-16 top-28 h-72 w-72 rounded-full bg-fuchsia-400/10 blur-[120px]" />
+            {/* более выразительная сетка с плавным затуханием к краям */}
+            <div className="absolute inset-0 opacity-60 [background-image:linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.06)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_85%_65%_at_50%_0%,black_25%,transparent_80%)]" />
+            {/* мягкая виньетка снизу для читаемости */}
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0b0b0c] to-transparent" />
+            {/* лёгкое свечение-линза над заголовком */}
+            <div className="absolute inset-x-8 top-24 h-40 rounded-[50%] bg-white/[0.045] blur-3xl" />
+          </div>
+
           <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-16 lg:px-10 lg:py-20">
             <div className="max-w-xl">
               <h1 className="text-4xl font-medium leading-[1.02] tracking-[-0.045em] sm:text-6xl lg:text-[68px]">
@@ -54,18 +69,18 @@ export function Landingsecond() {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/catalog?type=tools"
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-black transition hover:bg-zinc-200"
-                >
-                  Открыть каталог
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
                   href="/catalog"
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-white/20 px-5 text-sm font-semibold text-white transition hover:border-white/35 hover:bg-white/10"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-5 text-sm font-semibold text-black shadow-[0_6px_20px_rgba(0,0,0,0.35),0_0_0_1px_rgba(255,255,255,0.25)] transition hover:border-zinc-400 hover:bg-zinc-200"
                 >
                   <Search className="h-4 w-4" />
                   Найти инструмент
+                </Link>
+                <Link
+                  href="/blog"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-white/20 px-5 text-sm font-semibold text-white transition hover:border-white/35 hover:bg-white/10"
+                >
+                  <Users className="h-4 w-4" />
+                  Сообщество
                 </Link>
               </div>
 
