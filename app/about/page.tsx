@@ -66,38 +66,13 @@ export default function AboutPage() {
       <Navbar />
 
       <main>
-        <section className="relative flex min-h-[calc(100svh-56px)] items-center overflow-hidden bg-black text-white md:min-h-[calc(100svh-4rem)]">
-          <Image
-            src="/ai-hero-v2.png"
-            alt="3D-иллюстрация AI Bazar"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[66%_center] sm:object-center"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/5 sm:via-black/65 lg:to-transparent" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20" />
-
-          <div className="relative mx-auto grid w-full min-w-0 max-w-7xl grid-cols-1 items-center gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-4 lg:px-10 lg:py-10">
-            <div className="relative z-10 min-w-0 max-w-2xl">
-              <h1 className="text-4xl font-semibold leading-[1.03] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
-                Следите за миром AI вместе с нами
-              </h1>
-              <p className="mt-5 max-w-xl text-base leading-7 text-white/65 sm:text-lg">
-                Собираем полезные нейросети, проверяем инструменты на практике и
-                публикуем понятные разборы без лишнего шума.
-              </p>
-              <Link
-                href="/catalog"
-                className="group mt-8 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
-              >
-                Перейти в каталог
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </div>
-            <div className="hidden min-h-[420px] lg:block" aria-hidden="true" />
-          </div>
-        </section>
+        <section className="relative overflow-hidden bg-black text-white">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(14,165,233,0.25),transparent_28%),radial-gradient(circle_at_80%_5%,rgba(139,92,246,0.23),transparent_30%),radial-gradient(circle_at_70%_100%,rgba(16,185,129,0.16),transparent_28%)]" />
+                  <div className="relative mx-auto max-w-[1160px] px-4 py-14 sm:px-6 sm:py-20">
+                    <h1 className="mt-5 max-w-3xl text-4xl font-semibold tracking-[-0.045em] sm:text-6xl">Следите за миром AI вместе с нами</h1>
+                    <p className="mt-5 max-w-2xl text-base leading-7 text-white/65 sm:text-lg">Собираем полезные нейросети, проверяем инструменты на практике и публикуем понятные разборы без лишнего шума.</p>
+                  </div>
+                </section>
 
         <section id="channels" className="bg-[#f4f4f0] px-5 py-16 dark:bg-zinc-950 sm:px-8 sm:py-24 lg:px-10">
           <div className="mx-auto max-w-6xl">
