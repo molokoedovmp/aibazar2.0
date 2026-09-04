@@ -4,11 +4,14 @@ import {
   BookOpenText,
   Boxes,
   BrainCircuit,
+  CreditCard,
   Github,
   Star,
   WandSparkles,
   type LucideIcon,
 } from "lucide-react";
+
+import NoiseDarkBlueGradientWithSquares from "@/components/ui/noise-dark-blue-gradient-with-squares";
 
 import { ToolImage } from "@/app/components/ToolImage";
 import FavoriteButton from "@/components/FavoriteButton";
@@ -168,6 +171,12 @@ function initials(value: string) {
 function FeaturedCard({ item, type }: { item: FeaturedItem; type: ResourceType }) {
   const config = RESOURCE_CONFIG[type];
   const metric = itemMetric(item);
+  const githubStars =
+    (type === "mcp" || type === "skills" || type === "repos") &&
+    typeof item.stars === "number" &&
+    item.stars > 0
+      ? formatNumber(item.stars)
+      : null;
   const title = itemTitle(item);
   const favoriteType = type === "tools" ? "aiTools" : type;
   const href = itemHref(item, type);
@@ -229,18 +238,7 @@ function FeaturedCard({ item, type }: { item: FeaturedItem; type: ResourceType }
           {initials(title)}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="flex min-w-0 items-center gap-1.5">
-            <span className={`max-w-full truncate rounded-md px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide sm:text-[9px] ${config.badgeClassName}`}>
-              {config.label}
-            </span>
-            {metric ? (
-              <span className="ml-auto inline-flex shrink-0 items-center gap-0.5 text-[9px] font-semibold text-black/45 dark:text-white/45 sm:text-[10px]">
-                <Star className="h-2.5 w-2.5 fill-amber-400 text-amber-400" />
-                {metric}
-              </span>
-            ) : null}
-          </div>
-          <h4 className="mt-1.5 line-clamp-2 text-xs font-bold leading-4 text-zinc-950 dark:text-white sm:text-sm sm:leading-5">
+          <h4 className="line-clamp-2 pt-1 text-xs font-bold leading-4 text-zinc-950 dark:text-white sm:pt-1.5 sm:text-sm sm:leading-5">
             {title}
           </h4>
         </div>
@@ -254,14 +252,15 @@ function FeaturedCard({ item, type }: { item: FeaturedItem; type: ResourceType }
         <span className="max-w-[78%] truncate rounded-md border border-black/10 bg-black/[0.025] px-2 py-1 text-[9px] text-black/55 dark:border-white/10 dark:bg-white/5 dark:text-white/55 sm:text-[10px]">
           {itemMeta(item, type)}
         </span>
-        {type === "mcp" ? (
-          <span className="inline-flex shrink-0 items-center gap-1 text-[9px] font-semibold text-black/45 dark:text-white/45 sm:text-[10px]">
-            Карточка
-            <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
-          </span>
-        ) : (
+        <span className="inline-flex shrink-0 items-center gap-2">
+          {githubStars ? (
+            <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-black/45 dark:text-white/45 sm:text-[10px]">
+              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+              {githubStars}
+            </span>
+          ) : null}
           <ArrowRight className="h-3.5 w-3.5 shrink-0 text-black/30 transition group-hover:translate-x-1 group-hover:text-black dark:text-white/30 dark:group-hover:text-white" />
-        )}
+        </span>
       </div>
       </Link>
     </article>
@@ -279,13 +278,35 @@ export default function PopularToolsSection({
   const counts = payload?.counts || EMPTY_COUNTS;
 
   return (
-    <section id="popular-tools" className="relative overflow-hidden bg-[#f6f6f3] py-16 dark:bg-[#0b0b0c] sm:py-20">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-black/20 to-transparent dark:via-white/20" />
-      </div>
+    <section id="popular-tools" className="relative overflow-hidden border-t border-black/10 bg-[#e8edef] py-10 text-black dark:border-white/10 dark:bg-[#05080a] dark:text-white sm:py-12">
+      <NoiseDarkBlueGradientWithSquares />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="mb-10 max-w-2xl">
+        <Link
+          id="payment-help"
+          href="/calculator"
+          aria-label="Рассчитать стоимость и получить помощь с оплатой AI-сервиса"
+          className="group relative grid w-full gap-5 overflow-hidden rounded-[26px] border border-white/10 bg-black bg-[radial-gradient(circle_at_16%_20%,rgba(14,165,233,0.25),transparent_28%),radial-gradient(circle_at_80%_5%,rgba(139,92,246,0.23),transparent_30%),radial-gradient(circle_at_70%_100%,rgba(16,185,129,0.16),transparent_28%)] px-6 py-6 text-white shadow-[0_14px_40px_rgba(0,0,0,0.12)] transition hover:-translate-y-0.5 hover:border-white/20 hover:shadow-[0_18px_50px_rgba(0,0,0,0.18)] sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:gap-6 sm:px-8 sm:py-7"
+        >
+          <span className="theme-light-button flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-black transition group-hover:scale-105">
+            <CreditCard className="h-5 w-5" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-xl font-medium tracking-[-0.025em] text-white sm:text-2xl">
+              Оплатить зарубежный AI-сервис
+            </span>
+            <span className="mt-1.5 block max-w-3xl text-sm leading-6 text-white/60">
+              Узнайте стоимость подписки в рублях. Если российская карта не проходит,
+              я помогу разобраться с оплатой и покажу весь процесс.
+            </span>
+          </span>
+          <span className="theme-light-button inline-flex h-11 w-fit items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-black transition group-hover:bg-zinc-200">
+            Рассчитать стоимость
+            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+          </span>
+        </Link>
+
+        <div className="mb-10 mt-14 max-w-2xl sm:mt-16">
           <h2 className="text-3xl font-medium tracking-[-0.035em] text-zinc-950 dark:text-white sm:text-4xl">
             Лучшее из AI-библиотеки
           </h2>

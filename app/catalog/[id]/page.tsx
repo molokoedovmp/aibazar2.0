@@ -176,7 +176,7 @@ export default async function ToolPage({ params }: PageProps) {
                 <img
                   src={tool.category.icon}
                   alt={tool.category?.name || "Категория"}
-                  className="h-4 w-4"
+                  className="h-4 w-4 dark:brightness-0 dark:invert"
                 />
               )}
               {tool.category?.name && <span>{tool.category.name}</span>}
@@ -245,7 +245,7 @@ export default async function ToolPage({ params }: PageProps) {
 
                 {/* Desktop (>=lg): полный текст статьи с отзывами */}
                 <div className="hidden lg:block">
-                  <div className="rounded-lg border border-black/10 p-4 dark:border-white/10">
+                  <div className="tool-article-viewer rounded-lg border border-black/10 p-4 dark:border-white/10">
                     <BlockNoteViewer content={linkedDocument.content} />
                   </div>
                   <div className="mt-3 flex gap-3">
@@ -379,7 +379,11 @@ export default async function ToolPage({ params }: PageProps) {
                     >
                       {category.icon && (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={category.icon} alt="" className="h-4 w-4 shrink-0 object-contain" />
+                        <img
+                          src={category.icon}
+                          alt=""
+                          className="h-4 w-4 shrink-0 object-contain dark:brightness-0 dark:invert"
+                        />
                       )}
                       <span className="min-w-0">
                         <span className="block truncate text-xs font-medium text-black group-hover:underline dark:text-white">

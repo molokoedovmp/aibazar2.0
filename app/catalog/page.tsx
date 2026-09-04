@@ -631,7 +631,7 @@ export default function CatalogPage() {
 
           {filters.length > 0 && (
             <div className="mt-3 border-t border-black/10 px-2 pb-8 pt-4">
-              <div className="mb-2 px-3 text-[10px] font-medium uppercase tracking-[0.2em] text-black/40">
+              <div className="mb-2 whitespace-nowrap px-3 text-[9px] font-medium uppercase tracking-[0.14em] text-black/40">
                 Категории и направления
               </div>
               <button
@@ -668,7 +668,7 @@ export default function CatalogPage() {
           )}
         </aside>
 
-        <div className="sticky top-0 hidden h-screen bg-black/10 md:block" />
+        <div className="sticky top-0 hidden h-screen bg-black/15 dark:bg-white/15 md:block" />
 
         <main className="min-w-0 px-4 py-5 sm:px-6 lg:px-8">
           <section className="relative min-h-[280px] overflow-hidden rounded-3xl border border-black/10 bg-white dark:border-white/10 dark:bg-zinc-900 sm:min-h-[320px]">
@@ -698,16 +698,16 @@ export default function CatalogPage() {
                     type="button"
                     onClick={() => selectType(type)}
                     aria-pressed={active}
-                    className={`flex min-w-0 items-center gap-2.5 rounded-2xl border bg-white px-3 py-3 text-left transition sm:px-4 ${
+                    className={`flex min-w-0 items-center gap-2.5 rounded-2xl border px-3 py-3 text-left transition sm:px-4 ${
                       active
-                        ? "border-black/35 shadow-sm ring-1 ring-black/5"
-                        : "border-black/10 hover:border-black/25 hover:bg-black/[0.02]"
+                        ? "border-black bg-black text-white shadow-sm ring-1 ring-black/10 dark:border-white/20"
+                        : "border-black/10 bg-white hover:border-black/25 hover:bg-black/[0.02]"
                     }`}
                   >
                     <ResourceIcon type={type} className="h-8 w-8" />
                     <span className="min-w-0">
                       <span className="block truncate text-xs font-semibold sm:text-sm">{config.shortLabel}</span>
-                      <span className="block text-[10px] text-black/40 sm:text-xs">
+                      <span className={`block text-[10px] sm:text-xs ${active ? "text-white/60" : "text-black/40"}`}>
                         {counts[type] ? formatNumber(counts[type]) : "—"}
                       </span>
                     </span>

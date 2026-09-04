@@ -45,7 +45,7 @@ export default async function BlogArticle({ params }: PageProps) {
   const authorName = author?.name || (author?.email ? author.email.split("@")[0] : "Автор");
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white text-black dark:bg-zinc-950 dark:text-zinc-100">
       <Navbar />
       <section className="bg-black text-white py-12 sm:py-14">
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-10">
@@ -61,7 +61,7 @@ export default async function BlogArticle({ params }: PageProps) {
       
       <section className="py-8 sm:py-12">
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-10">
-          <div className="blog-article-viewer rounded-2xl border border-black/10 p-3 sm:p-5 md:p-6">
+          <div className="blog-article-viewer min-w-0">
             <BlockNoteViewer content={doc.content} className="blog-article-content" />
           </div>
         </div>

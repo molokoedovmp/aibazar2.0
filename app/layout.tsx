@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Prosto_One } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/app/components/SessionProvider";
 
@@ -8,9 +8,11 @@ import SessionProvider from "@/app/components/SessionProvider";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const prostoOne = Prosto_One({
+  variable: "--font-prosto-one",
+  weight: "400",
+  subsets: ["cyrillic", "latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -117,7 +119,7 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}
+        className={`${prostoOne.variable} ${geistMono.variable} bg-background font-sans text-foreground antialiased`}
       >
         <SessionProvider>{children}</SessionProvider>
       </body>

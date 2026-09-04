@@ -34,7 +34,12 @@ export async function GET() {
             stars: true,
             languageName: true,
           },
-          orderBy: [{ rating: "desc" }, { stars: "desc" }, { views: "desc" }, { name: "asc" }],
+          orderBy: [
+            { stars: { sort: "desc", nulls: "last" } },
+            { rating: { sort: "desc", nulls: "last" } },
+            { views: "desc" },
+            { name: "asc" },
+          ],
           take: 5,
         }),
         prisma.promptResource.findMany({

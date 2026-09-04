@@ -258,13 +258,13 @@ export default function BlockNoteEditor({ id, initialTitle, initialContent, dock
         placeholder="Название документа"
         className="h-auto border-0 bg-transparent px-2 py-2 text-2xl font-bold tracking-tight shadow-none focus-visible:ring-0 dark:bg-transparent sm:text-3xl"
       />
-      <div className="min-h-0 flex-1 overflow-auto rounded-xl border border-black/10 bg-white dark:border-white/10 dark:bg-zinc-950">
+      <div className="document-blocknote-editor min-h-0 flex-1 overflow-auto rounded-xl border border-black/10 bg-transparent dark:border-white/10">
         {isMounted ? (
           <BlockNoteView
             editor={editor}
             theme={resolvedTheme === "dark" ? "dark" : "light"}
             onChange={() => scheduleSave()}
-            className="h-full min-w-0 bg-white !border-0 !shadow-none !ring-0 !outline-none dark:bg-zinc-950"
+            className="h-full min-w-0 bg-transparent !border-0 !shadow-none !ring-0 !outline-none"
             data-testid="blocknote-editor"
           />
         ) : (

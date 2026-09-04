@@ -64,7 +64,7 @@ export default function PricingCalculator({
         <label htmlFor="calculator-usd" className="text-sm font-medium text-black dark:text-zinc-100">
           Стоимость подписки в долларах
         </label>
-        <div className="mt-3 flex items-center gap-3 rounded-2xl border border-black/10 px-4 focus-within:border-black/40 dark:border-white/10 dark:bg-zinc-950/60 dark:focus-within:border-white/35">
+        <div className="mt-3 flex items-center gap-3 rounded-2xl border border-black/10 px-4 focus-within:border-black/40 dark:border-white/10 dark:bg-black dark:focus-within:border-white/35">
           <DollarSign className="h-5 w-5 shrink-0 text-black/40" />
           <Input
             id="calculator-usd"
@@ -102,7 +102,7 @@ export default function PricingCalculator({
           href="https://t.me/aibazaru"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-black px-5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-black px-5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-white dark:text-black dark:hover:bg-zinc-200"
         >
           <MessageCircle className="h-5 w-5" />
           Написать по оплате

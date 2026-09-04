@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { AnimatePresence, motion } from "framer-motion";
 import {
   BrainCircuit,
   Calculator,
@@ -25,13 +24,11 @@ export function MobileNav() {
   const { data: session } = useSession();
   const pathname = usePathname() ?? "";
   const accountHref = session ? "/account" : "/auth/login";
-  const accountLabel = session ? "Кабинет" : "Войти";
-
   const items: MobileNavItem[] = [
     { href: "/", label: "Главная", icon: Home, active: pathname === "/" },
     {
       href: "/catalog",
-      label: "AI-библиотека",
+      label: "Каталог",
       icon: BrainCircuit,
       active: pathname.startsWith("/catalog"),
     },
@@ -43,7 +40,7 @@ export function MobileNav() {
     },
     {
       href: "/blog",
-      label: "Сообщество",
+      label: "Лента",
       icon: Users,
       active: pathname.startsWith("/blog"),
     },
@@ -55,69 +52,45 @@ export function MobileNav() {
     },
     {
       href: accountHref,
-      label: accountLabel,
+      label: session ? "Кабинет" : "Войти",
       icon: UserRound,
-      active:
-        pathname.startsWith("/account") ||
-        (!session && pathname.startsWith("/auth/login")),
+      active: pathname.startsWith("/account") || pathname.startsWith("/auth"),
     },
   ];
 
   return (
     <nav
       aria-label="Основная навигация"
-      className="fixed inset-x-0 bottom-0 z-[70] md:hidden"
+      className="fixed inset-x-0 bottom-0 z-[70] flex justify-center md:hidden"
     >
-      {/* Одна общая стеклянная плашка для всех иконок */}
-      <div className="px-3 pb-[calc(env(safe-area-inset-bottom)+10px)]">
-        <motion.ul
-          layout
-          className="mx-auto flex max-w-md items-center justify-between rounded-2xl border border-white/10 bg-black/80 px-2 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl supports-[backdrop-filter]:bg-black/60"
-          transition={{ layout: { duration: 0.3, ease: [0.32, 0.72, 0, 1] } }}
-        >
+      <div className="max-w-full px-2 pb-[calc(env(safe-area-inset-bottom)+10px)]">
+        <ul className="mobile-nav-surface flex items-center gap-0.5 rounded-[22px] border border-black/10 bg-white p-1 shadow-[0_8px_24px_rgba(0,0,0,0.16)]">
           {items.map((item) => {
             const Icon = item.icon;
-            const labelVisible = item.active;
 
             return (
-              <motion.li
-                key={item.href}
-                layout
-                className="min-w-0"
-                transition={{ layout: { duration: 0.3, ease: [0.32, 0.72, 0, 1] } }}
-              >
+              <li key={item.href} className="shrink-0">
                 <Link
                   href={item.href}
+                  aria-label={item.label}
                   aria-current={item.active ? "page" : undefined}
-                  className={[
-                    "flex h-10 items-center justify-center rounded-xl px-2 transition-all duration-300",
+                  className={`flex h-10 items-center justify-center gap-1.5 rounded-[17px] text-xs font-medium transition-all ${
                     item.active
-                      ? "border border-white/25 bg-white/[0.12] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]"
-                      : "border border-transparent text-white/55 hover:text-white/85 active:text-white",
-                  ].join(" ")}
+                      ? "bg-[#202023] px-2.5 text-white dark:!bg-white dark:!text-black"
+                      : "w-9 text-black/45 hover:bg-black/[0.05] hover:text-black dark:text-white/50 dark:hover:bg-white/[0.08] dark:hover:text-white"
+                  }`}
                 >
-                  <span className="flex items-center">
-                    <Icon className="h-[21px] w-[21px] shrink-0" strokeWidth={2} aria-hidden />
-                    <AnimatePresence initial={false}>
-                      {labelVisible && (
-                        <motion.span
-                          key="label"
-                          initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-                          animate={{ width: "auto", opacity: 1, marginLeft: 7 }}
-                          exit={{ width: 0, opacity: 0, marginLeft: 0 }}
-                          transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
-                          className="whitespace-nowrap text-[13px] font-semibold leading-none tracking-tight"
-                        >
-                          {item.label}
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                  </span>
+                  <Icon
+                    className={`h-[19px] w-[19px] shrink-0 ${item.active ? "fill-current" : ""}`}
+                    strokeWidth={2.2}
+                    aria-hidden
+                  />
+                  {item.active ? <span className="whitespace-nowrap">{item.label}</span> : null}
                 </Link>
-              </motion.li>
+              </li>
             );
           })}
-        </motion.ul>
+        </ul>
       </div>
     </nav>
   );

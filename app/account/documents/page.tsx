@@ -352,7 +352,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
             <div className="flex min-h-0 flex-1 flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-3">
               <AISidebar width="24rem" documentTitle={doc.title ?? "Документ"} />
               <div
-                className="min-h-0 min-w-0 flex-1 overflow-hidden rounded-2xl border border-black/10 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-zinc-900 lg:order-1"
+                className="min-h-0 min-w-0 flex-1 overflow-hidden rounded-2xl border border-black/10 bg-transparent p-3 shadow-sm dark:border-white/10 lg:order-1"
                 style={{ height: "calc(100dvh - 7rem)", minHeight: 0 }}
               >
                 <BlockNoteClient

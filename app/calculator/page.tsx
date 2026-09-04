@@ -13,11 +13,11 @@ export default async function CalculatorPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-[#f4f4f0] text-black dark:bg-zinc-950 dark:text-zinc-100">
       <Navbar />
-      <main className="relative flex-1 overflow-hidden px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
+      <main className="relative flex flex-1 items-center overflow-x-hidden px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
         <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-violet-200/50 blur-3xl dark:bg-violet-700/15" />
         <div className="pointer-events-none absolute -right-40 bottom-10 h-96 w-96 rounded-full bg-blue-200/50 blur-3xl dark:bg-blue-700/15" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
+        <div className="relative mx-auto grid w-full max-w-7xl gap-8 min-h-[calc(100dvh-8rem)] content-center lg:grid-cols-2 lg:items-center lg:gap-12">
           <div className="min-w-0">
             <p className="text-sm font-medium uppercase tracking-[0.22em] text-black/45 dark:text-zinc-400">
               Калькулятор цен

@@ -5,7 +5,6 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { Footer } from "@/app/components/footer";
@@ -74,7 +73,7 @@ export default function AboutPage() {
                   </div>
                 </section>
 
-        <section id="channels" className="bg-[#f4f4f0] px-5 py-16 dark:bg-zinc-950 sm:px-8 sm:py-24 lg:px-10">
+        <section id="channels" className="bg-[#f4f4f0] px-5 py-16 dark:!bg-[#151517] sm:px-8 sm:py-24 lg:px-10">
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
               <div>
@@ -173,7 +172,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="bg-white px-5 py-16 dark:bg-zinc-950 sm:px-8 sm:py-24 lg:px-10">
+        <section className="border-t border-black/10 bg-[#fbfbf9] px-5 py-16 dark:border-white/10 dark:bg-black sm:px-8 sm:py-24 lg:px-10">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.65fr_1fr] lg:gap-20">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.22em] text-black/45">FAQ</p>
