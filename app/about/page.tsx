@@ -1,5 +1,3 @@
-"use client";
-
 import {
   ArrowUpRight,
   BookOpenText,
@@ -7,11 +5,10 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
 
 import { Footer } from "@/app/components/footer";
-import Stars from "@/app/components/home/Stars";
 import { Navbar } from "@/app/components/navbar";
 import { YandexZenIcon } from "@/components/YandexZenIcon";
 import {
@@ -68,26 +65,20 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white text-black dark:bg-zinc-950 dark:text-zinc-100">
       <Navbar />
 
-      <Script id="model-viewer-meshopt" strategy="afterInteractive">
-        {`self.ModelViewerElement = self.ModelViewerElement || {};
-self.ModelViewerElement.meshoptDecoderLocation = "https://cdn.jsdelivr.net/npm/meshoptimizer@0.24.0/meshopt_decoder.js";`}
-      </Script>
-      <Script
-        id="model-viewer"
-        type="module"
-        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"
-        strategy="afterInteractive"
-      />
-
       <main>
         <section className="relative flex min-h-[calc(100svh-56px)] items-center overflow-hidden bg-black text-white md:min-h-[calc(100svh-4rem)]">
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_40%,rgba(255,255,255,0.14),transparent_32%),radial-gradient(circle_at_15%_85%,rgba(114,72,255,0.18),transparent_30%)]" />
-            <div className="absolute inset-0 opacity-50 [background-image:linear-gradient(rgba(255,255,255,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.035)_1px,transparent_1px)] [background-size:72px_72px]" />
-            <Stars />
-          </div>
+          <Image
+            src="/ai-hero-v2.png"
+            alt="3D-иллюстрация AI Bazar"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[66%_center] sm:object-center"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/5 sm:via-black/65 lg:to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20" />
 
-          <div className="relative mx-auto grid w-full min-w-0 max-w-7xl grid-cols-1 items-center gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-4 lg:px-10 lg:py-10">
+          <div className="relative mx-auto grid w-full min-w-0 max-w-7xl grid-cols-1 items-center gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-4 lg:px-10 lg:py-10">
             <div className="relative z-10 min-w-0 max-w-2xl">
               <h1 className="text-4xl font-semibold leading-[1.03] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
                 Следите за миром AI вместе с нами
@@ -104,36 +95,7 @@ self.ModelViewerElement.meshoptDecoderLocation = "https://cdn.jsdelivr.net/npm/m
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
-
-            <div className="relative mx-auto h-[38svh] min-h-[280px] w-full min-w-0 max-w-[680px] sm:h-[48svh] lg:h-[min(76svh,720px)]">
-              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/10 blur-3xl" />
-              <model-viewer
-                src="/Robot_Doodle_1002171232_texture.glb"
-                alt="3D-модель робота AI Bazar"
-                loading="auto"
-                reveal="auto"
-                interaction-prompt="none"
-                exposure="0.9"
-                shadow-intensity="0.8"
-                bounds="tight"
-                camera-orbit="30deg 65deg 110%"
-                camera-target="0m -0.02m 0m"
-                field-of-view="25deg"
-                min-field-of-view="25deg"
-                max-field-of-view="25deg"
-                style={{ width: "100%", height: "100%", background: "transparent" }}
-                disable-zoom
-              >
-                <div
-                  slot="poster"
-                  className="absolute inset-0 flex items-center justify-center text-sm text-white/45"
-                >
-                  <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur">
-                    Загружаем 3D-модель…
-                  </span>
-                </div>
-              </model-viewer>
-            </div>
+            <div className="hidden min-h-[420px] lg:block" aria-hidden="true" />
           </div>
         </section>
 

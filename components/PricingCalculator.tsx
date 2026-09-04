@@ -29,26 +29,26 @@ export default function PricingCalculator({
   }, [numericUsd, fx]);
 
   return (
-    <div className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_30px_100px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-zinc-900 dark:shadow-[0_30px_100px_rgba(0,0,0,0.4)]">
-      <div className="bg-black p-6 text-white sm:p-8">
+    <div className="overflow-hidden rounded-[1.75rem] border border-black/10 bg-white shadow-[0_30px_100px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-zinc-900 dark:shadow-[0_30px_100px_rgba(0,0,0,0.4)]">
+      <div className="bg-black p-5 text-white sm:p-6">
         <div className="flex items-start justify-between gap-5">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-white/45">
               Расчёт стоимости
             </p>
-            <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">
+            <h2 className="mt-2 text-2xl font-semibold sm:text-[28px]">
               Подписка на AI-инструмент
             </h2>
           </div>
-          <span className="theme-light-button flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-black">
-            <Calculator className="h-6 w-6" />
+          <span className="theme-light-button flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-black">
+            <Calculator className="h-5 w-5" />
           </span>
         </div>
 
-        <div className="mt-8 rounded-2xl border border-white/15 bg-white/[0.07] p-5">
+        <div className="mt-6 rounded-2xl border border-white/15 bg-white/[0.07] p-4">
           <p className="text-sm text-white/55">Итоговая стоимость</p>
-          <div className="mt-2 flex min-h-12 items-end gap-2">
-            <span className="text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
+          <div className="mt-2 flex min-h-10 items-end gap-2">
+            <span className="text-4xl font-semibold tracking-[-0.04em]">
               {rub ? rub.toLocaleString("ru-RU") : "—"}
             </span>
             {rub && <span className="pb-1 text-lg text-white/65">₽</span>}
@@ -60,7 +60,7 @@ export default function PricingCalculator({
         </div>
       </div>
 
-      <div className="p-6 sm:p-8">
+      <div className="p-5 sm:p-6">
         <label htmlFor="calculator-usd" className="text-sm font-medium text-black dark:text-zinc-100">
           Стоимость подписки в долларах
         </label>
@@ -75,7 +75,7 @@ export default function PricingCalculator({
             value={usd}
             onChange={(event) => setUsd(event.target.value)}
             placeholder="Например, 20"
-            className="h-14 border-0 bg-transparent px-0 text-lg shadow-none focus-visible:ring-0"
+            className="h-12 border-0 bg-transparent px-0 text-base shadow-none focus-visible:ring-0"
           />
           <span className="text-sm font-medium text-black/45">USD</span>
         </div>
@@ -86,34 +86,34 @@ export default function PricingCalculator({
               key={value}
               type="button"
               onClick={() => setUsd(String(value))}
-              className="rounded-xl border border-black/10 px-3 py-2.5 text-sm font-medium transition hover:border-black hover:bg-black hover:text-white dark:border-white/10 dark:hover:border-white/40 dark:hover:bg-white dark:hover:text-black"
+              className="rounded-xl border border-black/10 px-3 py-2 text-sm font-medium transition hover:border-black hover:bg-black hover:text-white dark:border-white/10 dark:hover:border-white/40 dark:hover:bg-white dark:hover:text-black"
             >
               ${value}
             </button>
           ))}
         </div>
 
-        <p className="mt-5 text-sm leading-6 text-black/50">
-          Расчёт выполняется по той же формуле, которая используется на страницах
-          инструментов. Итог обновляется автоматически при вводе суммы.
+        <p className="mt-4 text-sm leading-6 text-black/50 dark:text-white/50">
+          Это предварительный расчёт. Чтобы уточнить итоговую сумму и оплатить
+          подписку, отправьте мне в Telegram название сервиса и выбранный тариф.
         </p>
 
         <a
           href="https://t.me/aibazaru"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-black px-5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-black px-5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
         >
           <MessageCircle className="h-5 w-5" />
-          Уточнить цены
+          Написать по оплате
         </a>
 
         <Link
           href="/payment-instructions"
-          className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-black/15 bg-white px-5 text-sm font-semibold text-black transition hover:border-black hover:bg-black hover:text-white dark:border-white/15 dark:bg-zinc-900 dark:text-white dark:hover:bg-white dark:hover:text-black"
+          className="mt-3 inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-black/15 bg-white px-5 text-sm font-semibold text-black transition hover:border-black hover:bg-black hover:text-white dark:border-white/15 dark:bg-zinc-900 dark:text-white dark:hover:bg-white dark:hover:text-black"
         >
           <BookOpenText className="h-4 w-4" />
-          Открыть инструкцию по оплате
+          Как проходит оплата
         </Link>
       </div>
     </div>

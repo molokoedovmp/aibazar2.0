@@ -1,122 +1,117 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import dynamic from 'next/dynamic';
-import TransitionButton from '@/app/components/home/TransitionButton';
-import Stars from "@/app/components/home/Stars";
-import PopularToolsSection from './PopularToolsSection';
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import { ArrowRight, CreditCard, Search } from "lucide-react";
+
+import PopularToolsSection, { type FeaturedResponse } from "./PopularToolsSection";
+
 const Spline = dynamic(() => import("@/app/components/home/SplineClient"), { ssr: false });
-  // Исправлено: переносим параметры внутрь объекта, передаваемого в dynami
 
 export function Landingsecond() {
+  const [payload, setPayload] = useState<FeaturedResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("/api/library/featured", { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to load featured resources");
+        return response.json() as Promise<FeaturedResponse>;
+      })
+      .then((result) => {
+        if (result.success) setPayload(result);
+      })
+      .catch((error: unknown) => {
+        if (!(error instanceof DOMException && error.name === "AbortError")) setPayload(null);
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+
+    return () => controller.abort();
+  }, []);
+
   return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans">
+    <div className="flex min-h-screen flex-col bg-white font-sans text-black dark:bg-black dark:text-white">
       <main className="flex-1">
         <meta name="yandex-verification" content="31f9fbf9bddca189" />
 
-        {/* HERO */}
-        {/* Делает фон всегда тёмным и на десктопе */}
-        <section className="relative z-10 w-full overflow-hidden bg-black h-[100dvh] md:h-[calc(100dvh-64px)]">
-          {/* ===== Мобильный фон: ЧЁРНЫЙ + робот позади ===== */}
-          <div className="lg:hidden absolute inset-0 z-0 overflow-hidden">
-            <div className="absolute inset-0 bg-black" />
-            <div className="absolute inset-0">
-              <Spline
-                scene="https://prod.spline.design/xasN6jN3w1ggRc6p/scene.splinecode"
-                // className="w-full h-full"
-              />
-            </div>
-            <div className="absolute inset-0 bg-black/40" />
-            {/* Нижний градиент внутри секции, без выхода за границы */}
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black to-transparent" />
-          </div>
+        <section className="relative overflow-hidden bg-[#0b0b0c] pt-16 text-white md:min-h-[680px]">
+          <div className="pointer-events-none absolute inset-0 opacity-50 [background-image:linear-gradient(rgba(255,255,255,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.035)_1px,transparent_1px)] [background-size:64px_64px]" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/40 to-transparent" />
 
-          {/* Декор (поверх фона) */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
-            <Stars />
-            <div className="absolute h-64 w-64 border border-gray-800 rounded-full -top-32 -left-32 opacity-50" />
-            <div className="absolute h-96 w-96 border border-gray-800 rounded-full -bottom-48 -right-48 opacity-50" />
-            <div className="absolute h-px w-1/3 bg-gradient-to-r from-transparent via-gray-800 to-transparent top-1/4 left-0" />
-            <div className="absolute h-px w-1/3 bg-gradient-to-r from-transparent via-gray-800 to-transparent bottom-1/4 right-0" />
+          <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-16 lg:px-10 lg:py-20">
+            <div className="max-w-xl">
+              <h1 className="text-4xl font-medium leading-[1.02] tracking-[-0.045em] sm:text-6xl lg:text-[68px]">
+                Найдите AI-инструмент под свою задачу
+              </h1>
+              <p className="mt-6 max-w-lg text-base leading-7 text-white/60 sm:text-lg">
+                Нейросети, MCP-серверы, промпты, навыки и open-source проекты — с понятными описаниями, рейтингами и быстрым поиском.
+              </p>
 
-            {/* ОДНА звёздочка для десктопа */}
-            <svg
-              className="hidden lg:block absolute top-16 right-[15%] h-6 w-6 opacity-60"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 3l2.09 4.24L18.8 8l-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7L5.2 8l4.71-.76L12 3z" />
-            </svg>
-          </div>
-
-          {/* ===== Контент ===== */}
-          {/* Делаем текст белым и на десктопе, чтобы сочетался с чёрным фоном */}
-          <div className="container mx-auto px-4 py-0 relative z-[2] text-white h-full overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center content-center h-full overflow-hidden">
-              {/* Левая колонка — текст (контент не менялся) */}
-              <div className="flex flex-col justify-center lg:mt-0">
-                <h1 className="mb-4 text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
-                  Мощь AI <span>под вашим</span> контролем
-                </h1>
-                <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl">
-                  Всё в одном месте
-                </h2>
-                <p className="mb-8 text-lg text-white/80 md:text-xl">
-                  Здесь собрана большая библиотека из AI инструментов для решения ваших задач. Всё в одном месте.
-                </p>
-
-                <div className="flex flex-col gap-4 sm:flex-row">
-                  <TransitionButton
-                    size="lg"
-                    className="flex w-full items-center justify-center rounded-full bg-white px-8 py-4 text-lg text-black shadow-lg hover:bg-gray-200 sm:w-auto"
-                    path="/catalog"
-                  >
-                    Смотреть <ArrowRight className="ml-2 h-5 w-5" />
-                  </TransitionButton>
-                  <TransitionButton
-                    size="lg"
-                    className="flex w-full items-center justify-center rounded-full border border-white/50 bg-transparent px-8 py-4 text-lg text-white hover:bg-white/10 sm:w-auto"
-                    path="/blog"
-                  >
-                    Сообщество
-                  </TransitionButton>
-                </div>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/catalog?type=tools"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-black transition hover:bg-zinc-200"
+                >
+                  Открыть каталог
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/catalog"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-white/20 px-5 text-sm font-semibold text-white transition hover:border-white/35 hover:bg-white/10"
+                >
+                  <Search className="h-4 w-4" />
+                  Найти инструмент
+                </Link>
               </div>
 
-              {/* Правая колонка — ТОЛЬКО ДЕСКТОП (как было) */}
-              <div className="hidden lg:block relative h-[450px] md:h-[500px] lg:h-[550px]">
-                <div className="absolute inset-4 border-2 border-dashed border-gray-700 rounded-3xl opacity-40" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-[90%] h-[90%] border border-gray-800 rounded-full opacity-30" />
-                </div>
-                <div className="absolute -top-6 -right-6 w-12 h-12 bg-gray-800 rounded-full opacity-70" />
-                <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-gray-800 rounded-full opacity-70" />
-                <div className="absolute top-1/4 -left-4 w-8 h-1 bg-gray-800 rounded-full opacity-60" />
-                <div className="absolute bottom-1/4 -right-4 w-8 h-1 bg-gray-800 rounded-full opacity-60" />
-                <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-purple-600 rounded-full opacity-70 animate-pulse" />
-                <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-blue-600 rounded-full opacity-70 animate-pulse" style={{ animationDelay: '1s' }} />
-                <div className="absolute top-2/3 left-1/3 w-2 h-2 bg-red-600 rounded-full opacity-70 animate-pulse" style={{ animationDelay: '1.5s' }} />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-[90%] h-[90%] rounded-full bg-gradient-to-br from-purple-900/20 via-transparent to-blue-900/20 opacity-60 blur-xl" />
-                </div>
+              {payload?.counts?.tools ? (
+                <p className="mt-6 text-xs text-white/40">
+                  В каталоге уже {payload.counts.tools.toLocaleString("ru-RU")} AI-инструментов
+                </p>
+              ) : null}
+            </div>
 
-                <div className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-3xl">
-                  <Spline
-                    scene="https://prod.spline.design/xasN6jN3w1ggRc6p/scene.splinecode"
-                    // className="w-[110%] h-[110%]"
-                  />
-                </div>
+            <div className="relative mx-auto hidden h-[520px] w-full max-w-[680px] lg:block">
+              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.08] blur-3xl" />
+              <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                <Spline scene="https://prod.spline.design/xasN6jN3w1ggRc6p/scene.splinecode" />
               </div>
             </div>
           </div>
         </section>
 
-        <PopularToolsSection />
+        <section
+          id="payment-help"
+          className="bg-[#f6f6f3] px-5 pt-6 dark:bg-[#0b0b0c] sm:px-8 sm:pt-8 lg:px-10"
+        >
+          <Link
+            href="/calculator"
+            className="group mx-auto grid w-full max-w-7xl gap-5 overflow-hidden rounded-3xl bg-black px-6 py-6 text-white transition hover:-translate-y-0.5 hover:shadow-xl dark:border dark:border-white/10 dark:bg-zinc-900 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:px-8"
+          >
+            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-black">
+              <CreditCard className="h-6 w-6" />
+            </span>
+            <span className="min-w-0">
+              <span className="block text-xl font-semibold tracking-[-0.025em] sm:text-2xl">
+                Нужна помощь с оплатой AI-сервиса?
+              </span>
+              <span className="mt-1 block max-w-2xl text-sm leading-6 text-white/60">
+                Рассчитайте стоимость подписки в рублях и узнайте, как проходит оплата зарубежных сервисов.
+              </span>
+            </span>
+            <span className="inline-flex h-11 w-fit items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-black">
+              Открыть калькулятор
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </span>
+          </Link>
+        </section>
+
+        <PopularToolsSection payload={payload} loading={loading} />
       </main>
     </div>
   );

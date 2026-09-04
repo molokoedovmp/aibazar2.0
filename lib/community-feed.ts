@@ -46,6 +46,29 @@ function textFromBlockNote(content: string | null) {
   }
 }
 
+function imagesFromBlockNote(content: string | null) {
+  if (!content) return [];
+  try {
+    const parsed: unknown = JSON.parse(content);
+    const images: string[] = [];
+    const visit = (value: unknown) => {
+      if (Array.isArray(value)) {
+        value.forEach(visit);
+        return;
+      }
+      if (!value || typeof value !== "object") return;
+      const record = value as Record<string, unknown>;
+      const props = record.props && typeof record.props === "object" ? record.props as Record<string, unknown> : null;
+      if (record.type === "image" && typeof props?.url === "string" && props.url.trim()) images.push(props.url.trim());
+      Object.values(record).forEach(visit);
+    };
+    visit(parsed);
+    return [...new Set(images)].slice(0, 8);
+  } catch {
+    return [];
+  }
+}
+
 function fallbackDescription(type: CommunityFeedItem["type"]) {
   const labels: Record<CommunityFeedItem["type"], string> = {
     articles: "Новая статья сообщества AI Bazar.",
@@ -221,7 +244,7 @@ export async function getCommunityFeed({
       href: `/blog/${article.id}`,
       createdAt: article.createdAt.toISOString(),
       coverImage: article.coverImage,
-      coverImages: article.coverImage ? [article.coverImage] : [],
+      coverImages: [...new Set([article.coverImage, ...imagesFromBlockNote(article.content)].filter((value): value is string => Boolean(value)))].slice(0, 8),
       author: articleAuthors.get(article.userId) || "Автор",
       category: "Статья",
       tags: [],

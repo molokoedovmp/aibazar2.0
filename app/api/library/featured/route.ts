@@ -4,20 +4,22 @@ import { prisma } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
+const toolSelect = {
+  id: true,
+  name: true,
+  description: true,
+  coverImage: true,
+  rating: true,
+  category: { select: { name: true } },
+} as const;
+
 export async function GET() {
   try {
     const [tools, mcp, prompts, skills, repos, toolCount, mcpCount, promptCount, skillCount, repoCount] =
       await Promise.all([
         prisma.aiTool.findMany({
           where: { isActive: true, rating: { not: null } },
-          select: {
-            id: true,
-            name: true,
-            description: true,
-            coverImage: true,
-            rating: true,
-            category: { select: { name: true } },
-          },
+          select: toolSelect,
           orderBy: [{ rating: { sort: "desc", nulls: "last" } }, { name: "asc" }],
           take: 5,
         }),

@@ -105,6 +105,46 @@ const guides: PaymentGuide[] = [
   },
 ];
 
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Как оплатить зарубежный AI-сервис из России",
+  description:
+    "Пошаговая инструкция по оплате зарубежных AI-сервисов с помощью aiBazar.",
+  inLanguage: "ru-RU",
+  totalTime: "PT15M",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Выберите AI-сервис и тариф",
+      text: "Откройте официальный сайт нужного AI-сервиса и выберите подходящий тариф.",
+      url: "https://ai-bazar.ru/payment-instructions#payment-guide",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Отправьте данные менеджеру",
+      text: "Пришлите в Telegram название сервиса, тариф и ссылку на страницу оплаты.",
+      url: "https://ai-bazar.ru/payment-instructions#payment-guide",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Получите расчёт",
+      text: "Менеджер проверит доступный способ оплаты и сообщит итоговую стоимость в рублях.",
+      url: "https://ai-bazar.ru/payment-instructions#payment-guide",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Подтвердите активацию подписки",
+      text: "После проведения оплаты проверьте, что выбранный тариф активирован в вашем аккаунте.",
+      url: "https://ai-bazar.ru/payment-instructions#payment-guide",
+    },
+  ],
+};
+
 export default function PaymentInstructionsPage() {
   const [activeGuide, setActiveGuide] = useState(0);
   const guide = guides[activeGuide];
@@ -114,6 +154,12 @@ export default function PaymentInstructionsPage() {
       <Navbar />
 
       <main className="flex-1">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(howToJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <section className="border-b border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-zinc-950">
           <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-10">
             <Link
@@ -138,7 +184,7 @@ export default function PaymentInstructionsPage() {
           </div>
         </section>
 
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-10">
+        <div id="payment-guide" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-10">
           <label className="block md:hidden">
             <span className="mb-2 block text-xs font-semibold text-black/50 dark:text-white/50">Способ оплаты</span>
             <select

@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -8,7 +5,6 @@ import {
   Boxes,
   BrainCircuit,
   Github,
-  Sparkles,
   Star,
   WandSparkles,
   type LucideIcon,
@@ -19,7 +15,7 @@ import FavoriteButton from "@/components/FavoriteButton";
 
 type ResourceType = "tools" | "mcp" | "prompts" | "skills" | "repos";
 
-type FeaturedItem = {
+export type FeaturedItem = {
   id: string;
   slug?: string | null;
   name?: string | null;
@@ -36,7 +32,7 @@ type FeaturedItem = {
   category?: string | { name: string } | null;
 };
 
-type FeaturedResponse = {
+export type FeaturedResponse = {
   success: boolean;
   data: Record<ResourceType, FeaturedItem[]>;
   counts: Record<ResourceType, number>;
@@ -59,40 +55,40 @@ const RESOURCE_CONFIG: Record<ResourceType, ResourceConfig> = {
     shortDescription: "Нейросети и сервисы",
     icon: Boxes,
     href: "/catalog?type=tools",
-    accentClassName: "bg-black text-white",
-    badgeClassName: "bg-black/5 text-black",
+    accentClassName: "bg-gradient-to-br from-amber-300 via-orange-400 to-orange-600 text-white shadow-orange-500/25",
+    badgeClassName: "bg-orange-50 text-orange-700 dark:bg-orange-500/10 dark:text-orange-300",
   },
   mcp: {
     label: "MCP",
     shortDescription: "Серверы для AI-агентов",
     icon: BrainCircuit,
     href: "/catalog?type=mcp",
-    accentClassName: "bg-emerald-500 text-white",
-    badgeClassName: "bg-emerald-50 text-emerald-700",
+    accentClassName: "bg-gradient-to-br from-cyan-300 via-sky-500 to-blue-600 text-white shadow-sky-500/25",
+    badgeClassName: "bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300",
   },
   prompts: {
     label: "Промпты",
     shortDescription: "Готовые инструкции",
     icon: BookOpenText,
     href: "/catalog?type=prompts",
-    accentClassName: "bg-rose-500 text-white",
-    badgeClassName: "bg-rose-50 text-rose-700",
+    accentClassName: "bg-gradient-to-br from-violet-300 via-violet-500 to-indigo-700 text-white shadow-violet-500/25",
+    badgeClassName: "bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300",
   },
   skills: {
     label: "Навыки",
     shortDescription: "Расширения для агентов",
     icon: WandSparkles,
     href: "/catalog?type=skills",
-    accentClassName: "bg-violet-500 text-white",
-    badgeClassName: "bg-violet-50 text-violet-700",
+    accentClassName: "bg-gradient-to-br from-emerald-300 via-teal-500 to-cyan-700 text-white shadow-teal-500/25",
+    badgeClassName: "bg-teal-50 text-teal-700 dark:bg-teal-500/10 dark:text-teal-300",
   },
   repos: {
     label: "Репозитории",
     shortDescription: "Open-source проекты",
     icon: Github,
     href: "/catalog?type=repos",
-    accentClassName: "bg-amber-500 text-white",
-    badgeClassName: "bg-amber-50 text-amber-800",
+    accentClassName: "bg-gradient-to-br from-zinc-600 via-zinc-900 to-black text-white shadow-black/25",
+    badgeClassName: "bg-zinc-100 text-zinc-700 dark:bg-white/10 dark:text-zinc-300",
   },
 };
 
@@ -176,6 +172,46 @@ function FeaturedCard({ item, type }: { item: FeaturedItem; type: ResourceType }
   const favoriteType = type === "tools" ? "aiTools" : type;
   const href = itemHref(item, type);
 
+  if (type === "tools") {
+    return (
+      <article className="group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-black/20 hover:shadow-lg dark:border-white/10 dark:bg-zinc-900 sm:min-h-[250px]">
+        <FavoriteButton
+          toolId={item.id}
+          itemType="aiTools"
+          iconOnly
+          callbackUrl={href}
+          className="absolute right-2 top-2 z-20 h-8 w-8"
+        />
+        <Link href={href} className="flex min-h-0 flex-1 flex-col">
+          <ToolImage
+            src={item.coverImage}
+            alt={title}
+            className="h-24 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-32"
+            fallbackTextClassName="px-3 text-sm sm:text-lg"
+          />
+          <div className="flex flex-1 flex-col p-3">
+            <div className="flex items-start justify-between gap-2">
+              <h4 className="line-clamp-2 text-xs font-semibold leading-4 text-zinc-950 dark:text-white sm:text-sm sm:leading-5">
+                {title}
+              </h4>
+              {metric ? (
+                <span className="shrink-0 rounded-md bg-black px-1.5 py-0.5 text-[9px] font-semibold text-white dark:bg-white dark:text-black">
+                  {metric}
+                </span>
+              ) : null}
+            </div>
+            <p className="mt-2 line-clamp-2 text-[10px] leading-4 text-black/55 dark:text-white/55 sm:text-xs sm:leading-5">
+              {itemDescription(item, type)}
+            </p>
+            <div className="mt-auto truncate pt-3 text-[10px] text-black/45 dark:text-white/45 sm:text-xs">
+              {itemMeta(item, type)}
+            </div>
+          </div>
+        </Link>
+      </article>
+    );
+  }
+
   return (
     <article
       className="group relative flex min-h-[190px] min-w-0 flex-col rounded-2xl border border-black/10 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-black/20 hover:shadow-xl dark:border-white/10 dark:bg-black sm:min-h-[220px] sm:p-4"
@@ -189,20 +225,9 @@ function FeaturedCard({ item, type }: { item: FeaturedItem; type: ResourceType }
       />
       <Link href={href} className="flex min-h-0 flex-1 flex-col">
       <div className="flex min-w-0 items-start gap-2.5 pr-9 sm:gap-3">
-        {type === "tools" ? (
-          <div className="h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-zinc-100 ring-1 ring-black/5 sm:h-12 sm:w-12">
-            <ToolImage
-              src={item.coverImage}
-              alt={title}
-              className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-              fallbackTextClassName="px-1 text-[8px]"
-            />
-          </div>
-        ) : (
-          <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-xs font-bold shadow-sm transition group-hover:scale-105 sm:h-12 sm:w-12 sm:text-sm ${config.accentClassName}`}>
-            {initials(title)}
-          </div>
-        )}
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-xs font-bold shadow-sm transition group-hover:scale-105 sm:h-12 sm:w-12 sm:text-sm ${config.accentClassName}`}>
+          {initials(title)}
+        </div>
         <div className="min-w-0 flex-1">
           <div className="flex min-w-0 items-center gap-1.5">
             <span className={`max-w-full truncate rounded-md px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide sm:text-[9px] ${config.badgeClassName}`}>
@@ -243,57 +268,28 @@ function FeaturedCard({ item, type }: { item: FeaturedItem; type: ResourceType }
   );
 }
 
-export default function PopularToolsSection() {
-  const [data, setData] = useState(EMPTY_DATA);
-  const [counts, setCounts] = useState(EMPTY_COUNTS);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let active = true;
-
-    fetch("/api/library/featured")
-      .then((response) => {
-        if (!response.ok) throw new Error("Failed to load featured resources");
-        return response.json() as Promise<FeaturedResponse>;
-      })
-      .then((payload) => {
-        if (!active || !payload.success) return;
-        setData(payload.data);
-        setCounts(payload.counts);
-      })
-      .catch(() => {
-        if (active) {
-          setData(EMPTY_DATA);
-          setCounts(EMPTY_COUNTS);
-        }
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-
-    return () => {
-      active = false;
-    };
-  }, []);
+export default function PopularToolsSection({
+  payload,
+  loading,
+}: {
+  payload: FeaturedResponse | null;
+  loading: boolean;
+}) {
+  const data = payload?.data || EMPTY_DATA;
+  const counts = payload?.counts || EMPTY_COUNTS;
 
   return (
-    <section id="popular-tools" className="relative overflow-hidden bg-zinc-50 py-20 dark:bg-zinc-950 sm:py-28">
+    <section id="popular-tools" className="relative overflow-hidden bg-[#f6f6f3] py-16 dark:bg-[#0b0b0c] sm:py-20">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-black/20 to-transparent dark:via-white/20" />
-        <div className="absolute -left-32 top-32 h-72 w-72 rounded-full bg-violet-300/20 blur-3xl dark:bg-violet-700/10" />
-        <div className="absolute -right-32 bottom-12 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl dark:bg-cyan-700/10" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 md:px-6">
-        <div className="mx-auto mb-10 max-w-2xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-300">
-            <Sparkles className="h-4 w-4" />
-            Лучшее в каталоге
-          </div>
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-950 dark:text-white sm:text-4xl">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+        <div className="mb-10 max-w-2xl">
+          <h2 className="text-3xl font-medium tracking-[-0.035em] text-zinc-950 dark:text-white sm:text-4xl">
             Лучшее из AI-библиотеки
           </h2>
-          <p className="mt-4 text-base leading-7 text-zinc-600 dark:text-zinc-400 sm:text-lg">
+          <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400 sm:text-base">
             Популярные ресурсы из каждого раздела нашей AI-библиотеки.
           </p>
         </div>
@@ -312,7 +308,7 @@ export default function PopularToolsSection() {
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-baseline gap-2">
-                        <h3 className="truncate text-lg font-bold tracking-tight text-zinc-950 dark:text-white sm:text-xl">
+                        <h3 className="truncate text-lg font-semibold tracking-tight text-zinc-950 dark:text-white sm:text-xl">
                           {config.label}
                         </h3>
                         <span className="text-xs font-medium text-black/35 dark:text-white/35">
@@ -325,7 +321,7 @@ export default function PopularToolsSection() {
 
                   <Link
                     href={config.href}
-                    className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-black transition hover:gap-2 dark:text-white sm:text-sm"
+                    className="inline-flex h-9 shrink-0 items-center gap-1 rounded-lg px-2 text-xs font-semibold text-black transition hover:bg-black/5 dark:text-white dark:hover:bg-white/10 sm:text-sm"
                   >
                     Смотреть все <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
@@ -359,7 +355,7 @@ export default function PopularToolsSection() {
         <div className="mt-10 flex justify-center sm:mt-12">
           <Link
             href="/catalog"
-            className="inline-flex items-center gap-2 rounded-full bg-black px-7 py-3.5 font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+            className="inline-flex h-11 items-center gap-2 rounded-xl bg-black px-5 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
           >
             Открыть всю AI-библиотеку
             <ArrowRight className="h-4 w-4" />
