@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
@@ -18,6 +19,60 @@ export const dynamicParams = true;
 
 interface PageProps {
   params: Promise<{ id: string }>;
+}
+
+function metadataDescription(value: string, fallback: string) {
+  const normalized = value.replace(/\s+/g, " ").trim() || fallback;
+  if (normalized.length <= 158) return normalized;
+  return `${normalized.slice(0, 155).replace(/\s+\S*$/, "")}…`;
+}
+
+const getToolSeoData = unstable_cache(
+  async (id: string) =>
+    prisma.aiTool.findFirst({
+      where: { id, isActive: true },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        coverImage: true,
+        category: { select: { name: true } },
+      },
+    }),
+  ["tool-seo-data"],
+  { revalidate: 60, tags: ["tools"] },
+);
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const tool = await getToolSeoData(id);
+  if (!tool) return { title: "AI-инструмент не найден", robots: { index: false } };
+
+  const description = metadataDescription(
+    tool.description,
+    `${tool.name} — AI-инструмент из категории «${tool.category.name}». Описание, возможности и похожие решения в каталоге aiBazar.`,
+  );
+  const canonical = `/catalog/${encodeURIComponent(tool.id)}`;
+
+  return {
+    title: `${tool.name} — AI-инструмент: описание и возможности`,
+    description,
+    keywords: [tool.name, `${tool.name} AI`, tool.category.name, "AI-инструмент", "нейросеть"],
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      title: `${tool.name} — AI-инструмент`,
+      description,
+      url: canonical,
+      images: tool.coverImage ? [{ url: tool.coverImage, alt: tool.name }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${tool.name} — AI-инструмент`,
+      description,
+      images: tool.coverImage ? [tool.coverImage] : undefined,
+    },
+  };
 }
 
 function articleExcerpt(content?: string | null) {
@@ -141,6 +196,18 @@ export default async function ToolPage({ params }: PageProps) {
   if (!data) return notFound();
 
   const { tool, fx, linkedDocument, similarTools, recommendedArticles, relatedCategories } = data;
+  const canonicalUrl = `https://ai-bazar.ru/catalog/${encodeURIComponent(tool.id)}`;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: tool.name,
+    description: metadataDescription(tool.description, `${tool.name} — AI-инструмент.`),
+    url: canonicalUrl,
+    applicationCategory: tool.category.name,
+    operatingSystem: "Web",
+    ...(tool.coverImage ? { image: tool.coverImage } : {}),
+    ...(tool.url ? { sameAs: tool.url } : {}),
+  };
 
   let computedRubPrice: number | null = null;
   try {
@@ -154,6 +221,10 @@ export default async function ToolPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-white dark:bg-black">
       <Navbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+      />
       <main className="container mx-auto px-6 py-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)] xl:grid-cols-[minmax(0,2.1fr)_minmax(420px,1fr)]">
           <div className="space-y-6 lg:col-start-1 lg:row-start-1">
@@ -245,7 +316,7 @@ export default async function ToolPage({ params }: PageProps) {
 
                 {/* Desktop (>=lg): полный текст статьи с отзывами */}
                 <div className="hidden lg:block">
-                  <div className="tool-article-viewer rounded-lg border border-black/10 p-4 dark:border-white/10">
+                  <div className="tool-article-viewer min-w-0 overflow-hidden rounded-3xl border border-black/10 bg-white/90 py-5 shadow-[0_20px_70px_rgba(0,0,0,0.08)] backdrop-blur-sm dark:border-white/10 dark:bg-zinc-950/90 sm:py-8">
                     <BlockNoteViewer content={linkedDocument.content} />
                   </div>
                   <div className="mt-3 flex gap-3">

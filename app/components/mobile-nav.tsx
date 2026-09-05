@@ -36,7 +36,7 @@ export function MobileNav() {
       href: "/calculator",
       label: "Расчёт",
       icon: Calculator,
-      active: pathname.startsWith("/calculator"),
+      active: pathname.startsWith("/calculator") || pathname.startsWith("/payment-instructions"),
     },
     {
       href: "/blog",
@@ -63,29 +63,29 @@ export function MobileNav() {
       aria-label="Основная навигация"
       className="fixed inset-x-0 bottom-0 z-[70] flex justify-center md:hidden"
     >
-      <div className="max-w-full px-2 pb-[calc(env(safe-area-inset-bottom)+10px)]">
-        <ul className="mobile-nav-surface flex items-center gap-0.5 rounded-[22px] border border-black/10 bg-white p-1 shadow-[0_8px_24px_rgba(0,0,0,0.16)]">
+      <div className="w-[calc(100vw-1rem)] max-w-[520px] pb-[calc(env(safe-area-inset-bottom)+10px)]">
+        <ul className="mobile-nav-surface flex w-full items-center gap-0.5 rounded-[28px] border border-black/10 bg-white p-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
           {items.map((item) => {
             const Icon = item.icon;
 
             return (
-              <li key={item.href} className="shrink-0">
+              <li key={item.href} className={item.active ? "min-w-0 flex-[2]" : "min-w-0 flex-1"}>
                 <Link
                   href={item.href}
                   aria-label={item.label}
                   aria-current={item.active ? "page" : undefined}
-                  className={`flex h-10 items-center justify-center gap-1.5 rounded-[17px] text-xs font-medium transition-all ${
+                  className={`flex h-14 items-center justify-center gap-2 rounded-[22px] text-[13px] font-semibold transition-all ${
                     item.active
-                      ? "bg-[#202023] px-2.5 text-white dark:!bg-white dark:!text-black"
-                      : "w-9 text-black/45 hover:bg-black/[0.05] hover:text-black dark:text-white/50 dark:hover:bg-white/[0.08] dark:hover:text-white"
+                      ? "w-full bg-[#202023] px-2 text-white dark:!bg-white dark:!text-black"
+                      : "w-full text-black/45 hover:bg-black/[0.05] hover:text-black dark:text-white/50 dark:hover:bg-white/[0.08] dark:hover:text-white"
                   }`}
                 >
                   <Icon
-                    className={`h-[19px] w-[19px] shrink-0 ${item.active ? "fill-current" : ""}`}
+                    className="h-[22px] w-[22px] shrink-0"
                     strokeWidth={2.2}
                     aria-hidden
                   />
-                  {item.active ? <span className="whitespace-nowrap">{item.label}</span> : null}
+                  {item.active ? <span className="whitespace-nowrap max-[359px]:hidden">{item.label}</span> : null}
                 </Link>
               </li>
             );

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import {
   ArrowRight,
   BookOpenText,
@@ -11,7 +12,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import NoiseDarkBlueGradientWithSquares from "@/components/ui/noise-dark-blue-gradient-with-squares";
 
 import { ToolImage } from "@/app/components/ToolImage";
 import FavoriteButton from "@/components/FavoriteButton";
@@ -270,18 +270,20 @@ function FeaturedCard({ item, type }: { item: FeaturedItem; type: ResourceType }
 export default function PopularToolsSection({
   payload,
   loading,
+  children,
 }: {
   payload: FeaturedResponse | null;
   loading: boolean;
+  children?: ReactNode;
 }) {
   const data = payload?.data || EMPTY_DATA;
   const counts = payload?.counts || EMPTY_COUNTS;
 
   return (
-    <section id="popular-tools" className="relative overflow-hidden border-t border-black/10 bg-[#e8edef] py-10 text-black dark:border-white/10 dark:bg-[#05080a] dark:text-white sm:py-12">
-      <NoiseDarkBlueGradientWithSquares />
+    <section id="popular-tools" className="relative py-10 text-foreground sm:py-12">
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+        {children}
         <Link
           id="payment-help"
           href="/calculator"

@@ -96,7 +96,7 @@ export const Navbar = ({ overlay = false }: Props) => {
       {/* Отступ под фиксированную мобильную панель добавляет сам footer */}
       <style jsx global>{`
         @media (max-width: 767px) {
-          :root { --mobile-bar-h: 66px; }
+          :root { --mobile-bar-h: 82px; }
         }
       `}</style>
     </>

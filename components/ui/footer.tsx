@@ -44,8 +44,8 @@ const columns: Array<{
   },
   {
     featured: {
-      title: "Дзен · dzen.ru/aibazar",
-      href: "https://dzen.ru/aibazar?share_to=link",
+      title: "Дзен",
+      href: "/out/dzen",
       external: true,
     },
     title: "Помощь",
@@ -71,7 +71,7 @@ export function Footer({ className, ...props }: FooterProps) {
   return (
     <footer
       className={cn(
-        "relative z-10 border-t border-black/10 bg-background bg-[radial-gradient(35%_128px_at_50%_0%,rgba(0,0,0,0.04),transparent)] dark:border-white/10 dark:bg-[radial-gradient(35%_128px_at_50%_0%,rgba(255,255,255,0.08),transparent)]",
+        "relative z-10 border-t border-black/10 bg-transparent dark:border-white/10",
         className,
       )}
       {...props}

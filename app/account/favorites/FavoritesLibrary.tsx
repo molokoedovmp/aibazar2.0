@@ -3,6 +3,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import {
+  ArrowRight,
   BookOpenText,
   Boxes,
   BrainCircuit,
@@ -52,40 +53,40 @@ const typeConfig = {
     label: "AI-инструменты",
     singular: "AI-инструмент",
     icon: Boxes,
-    accent: "bg-black text-white",
-    badge: "bg-black/5 text-black",
+    accent: "bg-gradient-to-br from-amber-300 via-orange-400 to-orange-600 text-white shadow-orange-500/25",
+    badge: "bg-orange-50 text-orange-700 dark:bg-orange-500/10 dark:text-orange-300",
     catalogHref: "/catalog?type=tools",
   },
   mcp: {
     label: "MCP-серверы",
     singular: "MCP",
     icon: BrainCircuit,
-    accent: "bg-emerald-500 text-white",
-    badge: "bg-emerald-50 text-emerald-700",
+    accent: "bg-gradient-to-br from-cyan-300 via-sky-500 to-blue-600 text-white shadow-sky-500/25",
+    badge: "bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300",
     catalogHref: "/catalog?type=mcp",
   },
   prompts: {
     label: "Промпты",
     singular: "Промпт",
     icon: BookOpenText,
-    accent: "bg-rose-500 text-white",
-    badge: "bg-rose-50 text-rose-700",
+    accent: "bg-gradient-to-br from-violet-300 via-violet-500 to-indigo-700 text-white shadow-violet-500/25",
+    badge: "bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300",
     catalogHref: "/catalog?type=prompts",
   },
   skills: {
     label: "Навыки",
     singular: "Навык",
     icon: WandSparkles,
-    accent: "bg-violet-500 text-white",
-    badge: "bg-violet-50 text-violet-700",
+    accent: "bg-gradient-to-br from-emerald-300 via-teal-500 to-cyan-700 text-white shadow-teal-500/25",
+    badge: "bg-teal-50 text-teal-700 dark:bg-teal-500/10 dark:text-teal-300",
     catalogHref: "/catalog?type=skills",
   },
   repos: {
     label: "Репозитории",
     singular: "Репозиторий",
     icon: Github,
-    accent: "bg-amber-500 text-white",
-    badge: "bg-amber-50 text-amber-800",
+    accent: "bg-gradient-to-br from-zinc-600 via-zinc-900 to-black text-white shadow-black/25",
+    badge: "bg-zinc-100 text-zinc-700 dark:bg-white/10 dark:text-zinc-300",
     catalogHref: "/catalog?type=repos",
   },
 } satisfies Record<
@@ -235,60 +236,41 @@ function ResourceDetailsDialog({ resource, children }: { resource: FavoriteResou
 
 function CardContent({ resource }: { resource: FavoriteResource }) {
   const config = typeConfig[resource.itemType];
-  const Icon = config.icon;
-  const metric = resource.rating
-    ? resource.rating.toFixed(1)
-    : resource.stars
+  const githubStars =
+    (resource.itemType === "mcp" || resource.itemType === "skills" || resource.itemType === "repos") &&
+    resource.stars
       ? formatNumber(resource.stars)
       : null;
 
   return (
     <>
-      <div className="flex min-w-0 items-center gap-2.5">
-        {resource.itemType === "aiTools" ? (
-          <div className="h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-black/5 ring-1 ring-black/5 sm:h-12 sm:w-12">
-            <ToolImage
-              src={resource.coverImage}
-              alt={resource.name}
-              className="h-full w-full object-cover"
-              fallbackTextClassName="px-1 text-[8px]"
-            />
-          </div>
-        ) : (
-          <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-xs font-bold sm:h-12 sm:w-12 ${config.accent}`}>
-            {initials(resource.name)}
-          </div>
-        )}
-        <div className="min-w-0">
-          <span className={`inline-flex rounded-md px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide sm:text-[9px] ${config.badge}`}>
-            {config.singular}
-          </span>
-          <h3 className="mt-1 line-clamp-2 text-xs font-bold leading-4 text-black sm:text-sm sm:leading-5">
+      <div className="flex min-w-0 items-start gap-2.5 pr-9 sm:gap-3">
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-xs font-bold shadow-sm transition group-hover:scale-105 sm:h-12 sm:w-12 sm:text-sm ${config.accent}`}>
+          {initials(resource.name)}
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="line-clamp-2 pt-1 text-xs font-bold leading-4 text-zinc-950 dark:text-white sm:pt-1.5 sm:text-sm sm:leading-5">
             {resource.name}
           </h3>
         </div>
       </div>
 
-      <p className="mt-4 line-clamp-3 text-[10px] leading-4 text-black/50 sm:text-xs sm:leading-5">
+      <p className="mt-4 line-clamp-3 text-[10px] leading-4 text-zinc-500 dark:text-zinc-400 sm:text-xs sm:leading-5">
         {resource.description}
       </p>
 
-      <div className="mt-auto flex min-w-0 items-center justify-between gap-2 pt-4">
-        <span className="max-w-[70%] truncate rounded-md border border-black/10 bg-black/[0.025] px-2 py-1 text-[9px] text-black/50 sm:text-[10px]">
+      <div className="mt-auto flex items-end justify-between gap-2 pt-4">
+        <span className="max-w-[78%] truncate rounded-md border border-black/10 bg-black/[0.025] px-2 py-1 text-[9px] text-black/55 dark:border-white/10 dark:bg-white/5 dark:text-white/55 sm:text-[10px]">
           {resource.meta}
         </span>
-        <span className="inline-flex shrink-0 items-center gap-1 text-[9px] font-semibold text-black/45 sm:text-[10px]">
-          {metric ? (
-            <>
+        <span className="inline-flex shrink-0 items-center gap-2">
+          {githubStars ? (
+            <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-black/45 dark:text-white/45 sm:text-[10px]">
               <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-              {metric}
-            </>
-          ) : (
-            <>
-              <Icon className="h-3.5 w-3.5" />
-              {resource.itemType === "aiTools" || resource.itemType === "mcp" ? "Открыть" : "Подробнее"}
-            </>
-          )}
+              {githubStars}
+            </span>
+          ) : null}
+          <ArrowRight className="h-3.5 w-3.5 shrink-0 text-black/30 transition group-hover:translate-x-1 group-hover:text-black dark:text-white/30 dark:group-hover:text-white" />
         </span>
       </div>
     </>
@@ -297,10 +279,51 @@ function CardContent({ resource }: { resource: FavoriteResource }) {
 
 function ResourceCard({ resource }: { resource: FavoriteResource }) {
   const hasDedicatedPage = resource.itemType === "aiTools" || resource.itemType === "mcp";
-  const contentClassName = "flex min-h-0 flex-1 flex-col pr-9 text-left";
+  const contentClassName = "flex min-h-0 flex-1 flex-col text-left";
+
+  if (resource.itemType === "aiTools") {
+    return (
+      <article className="group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-black/20 hover:shadow-lg dark:border-white/10 dark:bg-zinc-900 sm:min-h-[250px]">
+        <FavoriteButton
+          toolId={resource.id}
+          itemType="aiTools"
+          isFavoritedInitial
+          iconOnly
+          callbackUrl="/account/favorites"
+          className="absolute right-2 top-2 z-20 h-8 w-8"
+        />
+        <Link href={resource.href} className="flex min-h-0 flex-1 flex-col">
+          <ToolImage
+            src={resource.coverImage}
+            alt={resource.name}
+            className="h-24 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-32"
+            fallbackTextClassName="px-3 text-sm sm:text-lg"
+          />
+          <div className="flex flex-1 flex-col p-3">
+            <div className="flex items-start justify-between gap-2">
+              <h3 className="line-clamp-2 text-xs font-semibold leading-4 text-zinc-950 dark:text-white sm:text-sm sm:leading-5">
+                {resource.name}
+              </h3>
+              {resource.rating ? (
+                <span className="shrink-0 rounded-md bg-black px-1.5 py-0.5 text-[9px] font-semibold text-white dark:bg-white dark:text-black">
+                  {resource.rating.toFixed(1)}
+                </span>
+              ) : null}
+            </div>
+            <p className="mt-2 line-clamp-2 text-[10px] leading-4 text-black/55 dark:text-white/55 sm:text-xs sm:leading-5">
+              {resource.description}
+            </p>
+            <div className="mt-auto truncate pt-3 text-[10px] text-black/45 dark:text-white/45 sm:text-xs">
+              {resource.meta}
+            </div>
+          </div>
+        </Link>
+      </article>
+    );
+  }
 
   return (
-    <article className="relative flex min-h-[190px] min-w-0 flex-col rounded-2xl border border-black/10 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:min-h-[220px] sm:p-4">
+    <article className="group relative flex min-h-[190px] min-w-0 flex-col rounded-2xl border border-black/10 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-black/20 hover:shadow-xl dark:border-white/10 dark:bg-black sm:min-h-[220px] sm:p-4">
       <FavoriteButton
         toolId={resource.id}
         itemType={resource.itemType}
@@ -417,7 +440,7 @@ export function FavoritesLibrary({ resources }: { resources: FavoriteResource[] 
                   </Link>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 2xl:grid-cols-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                   {items.map((resource) => (
                     <ResourceCard key={`${resource.itemType}:${resource.id}`} resource={resource} />
                   ))}

@@ -17,13 +17,18 @@ const streakMasks = [
 
 export function DarkGradientBg({ children, className }: DarkGradientBgProps) {
   return (
-    <div className={cn("relative min-h-screen w-full overflow-hidden bg-black", className)}>
+    <div
+      className={cn(
+        "relative min-h-screen w-full overflow-hidden bg-[#f5f8fa] [--pattern-start:#e2edf1] [--pattern-end:#f5f8fa] [--pattern-streak:rgba(0,155,195,0.45)] [--pattern-dot:rgba(30,60,75,0.35)] [--pattern-highlight:rgba(220,236,243,0.3)] dark:bg-black dark:[--pattern-start:#2e2e2e] dark:[--pattern-end:#000] dark:[--pattern-streak:rgb(0,207,255)] dark:[--pattern-dot:rgba(255,255,255,0.5)] dark:[--pattern-highlight:rgba(30,41,59,0.2)]",
+        className,
+      )}
+    >
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(100% 100% at 0% 0%, rgb(46, 46, 46) 0%, rgb(0, 0, 0) 100%)",
+              "radial-gradient(100% 100% at 0% 0%, var(--pattern-start) 0%, var(--pattern-end) 100%)",
             mask: "radial-gradient(125% 100% at 0% 0%, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.224) 88.2883%, transparent 100%)",
             WebkitMask:
               "radial-gradient(125% 100% at 0% 0%, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.224) 88.2883%, transparent 100%)",
@@ -34,7 +39,7 @@ export function DarkGradientBg({ children, className }: DarkGradientBgProps) {
               key={mask}
               className="absolute inset-0 opacity-20"
               style={{
-                background: "linear-gradient(rgb(0, 207, 255) 0%, transparent 100%)",
+                background: "linear-gradient(var(--pattern-streak) 0%, transparent 100%)",
                 mask,
                 WebkitMask: mask,
                 transform: `translateX(${index * 1.5 - 3}%) skewX(45deg)`,
@@ -44,7 +49,7 @@ export function DarkGradientBg({ children, className }: DarkGradientBgProps) {
         </div>
 
         <div
-          className="absolute inset-0 bg-repeat opacity-5"
+          className="absolute inset-0 bg-repeat opacity-[0.025] mix-blend-multiply dark:opacity-5 dark:mix-blend-normal"
           style={{
             backgroundImage:
               'url("https://cdn.21st.dev/assets/mirror/f5/f55dfc553c100e6da0ad95258a042b4100f0ff4bb03a5313d1f541984275e262.png")',
@@ -55,7 +60,7 @@ export function DarkGradientBg({ children, className }: DarkGradientBgProps) {
           className="absolute inset-0 opacity-20"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.5) 1px, transparent 0)",
+              "radial-gradient(circle at 1px 1px, var(--pattern-dot) 1px, transparent 0)",
             backgroundSize: "20px 20px",
           }}
         />
@@ -63,7 +68,7 @@ export function DarkGradientBg({ children, className }: DarkGradientBgProps) {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(circle at 50% 0%, rgba(30,41,59,.2), transparent 58%)",
+              "radial-gradient(circle at 50% 0%, var(--pattern-highlight), transparent 58%)",
           }}
         />
       </div>

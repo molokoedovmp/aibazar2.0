@@ -60,6 +60,12 @@ const getMcp = cache(async (slug: string) => {
   });
 });
 
+function metadataDescription(value: string, fallback: string) {
+  const normalized = value.replace(/\s+/g, " ").trim() || fallback;
+  if (normalized.length <= 158) return normalized;
+  return `${normalized.slice(0, 155).replace(/\s+\S*$/, "")}…`;
+}
+
 function parseGitHubRepository(githubUrl: string | null) {
   if (!githubUrl) return null;
 
@@ -149,11 +155,38 @@ const getGitHubDetails = cache(async (githubUrl: string | null): Promise<GitHubD
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const mcp = await getMcp(slug);
-  if (!mcp) return { title: "MCP не найден — aiBazar" };
+  if (!mcp) return { title: "MCP-сервер не найден", robots: { index: false } };
+
+  const description = metadataDescription(
+    mcp.descriptionRu || mcp.description,
+    `${mcp.name} — MCP-сервер: описание, возможности, установка и ссылка на исходный код.`,
+  );
+  const canonical = `/catalog/mcp/${encodeURIComponent(mcp.slug)}`;
 
   return {
-    title: `${mcp.name} — MCP — aiBazar`,
-    description: mcp.description,
+    title: `${mcp.name} — MCP-сервер: описание и установка`,
+    description,
+    keywords: [
+      mcp.name,
+      `${mcp.name} MCP`,
+      "MCP-сервер",
+      "Model Context Protocol",
+      ...mcp.categoryNames.slice(0, 3),
+    ],
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      title: `${mcp.name} — MCP-сервер`,
+      description,
+      url: canonical,
+      images: mcp.coverImages[0] ? [{ url: mcp.coverImages[0], alt: mcp.name }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${mcp.name} — MCP-сервер`,
+      description,
+      images: mcp.coverImages[0] ? [mcp.coverImages[0]] : undefined,
+    },
   };
 }
 
@@ -194,10 +227,33 @@ export default async function McpDetailPage({ params }: PageProps) {
   const author = githubDetails?.author || mcp.author;
   const license = githubDetails?.license || mcp.license;
   const lastUpdated = githubDetails?.lastUpdated || mcp.sourceUpdatedAt;
+  const canonicalUrl = `https://ai-bazar.ru/catalog/mcp/${encodeURIComponent(mcp.slug)}`;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: mcp.name,
+    description: metadataDescription(
+      mcp.descriptionRu || mcp.description,
+      `${mcp.name} — MCP-сервер.`,
+    ),
+    url: canonicalUrl,
+    applicationCategory: "MCP Server",
+    operatingSystem: "Cross-platform",
+    isAccessibleForFree: true,
+    ...(mcp.coverImages[0] ? { image: mcp.coverImages[0] } : {}),
+    ...(externalUrl ? { sameAs: externalUrl } : {}),
+    ...(mcp.githubUrl ? { codeRepository: mcp.githubUrl } : {}),
+    ...(language ? { programmingLanguage: language } : {}),
+    ...(license ? { license } : {}),
+  };
 
   return (
     <div className="min-h-screen bg-[#f6f6f3] text-black">
       <Navbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+      />
 
       <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
         <Link
@@ -346,7 +402,7 @@ export default async function McpDetailPage({ params }: PageProps) {
         </div>
       </main>
 
-      <div className="border-t border-black/10 bg-white">
+      <div className="border-t border-black/10">
         <Footer />
       </div>
     </div>

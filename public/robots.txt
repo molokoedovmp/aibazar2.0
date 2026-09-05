@@ -1,22 +1,9 @@
-# Правила для всех поисковых роботов
 User-agent: *
 Allow: /
 
-# Запрет доступа к административным разделам
-Disallow: /admin/
-Disallow: /dashboard/
 Disallow: /api/
-Disallow: /_next/
+Disallow: /account/
+Disallow: /auth/
+Disallow: /payment/
 
-# Разрешаем индексацию основных разделов
-Allow: /services/
-Allow: /services/webservices
-Allow: /catalog/
-Allow: /blog/
-Allow: /about/
-Allow: /payment-instructions
-Allow: /category/
-Allow: /catalog/jd78abfgkqdj167271tdgy5s5d7aetgj
-
-# Ссылка на карту сайта
 Sitemap: https://ai-bazar.ru/sitemap.xml

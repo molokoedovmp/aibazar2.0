@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Footer } from "@/app/components/footer";
 import { Navbar } from "@/app/components/navbar";
 import PricingCalculator from "@/components/PricingCalculator";
@@ -7,6 +8,18 @@ import Link from "next/link";
 
 export const revalidate = 600;
 
+export const metadata: Metadata = {
+  title: "Калькулятор стоимости подписки на AI-инструменты",
+  description:
+    "Рассчитайте ориентировочную стоимость зарубежной AI-подписки в рублях и перейдите к инструкции по оплате выбранного инструмента.",
+  alternates: { canonical: "/calculator" },
+  openGraph: {
+    title: "Калькулятор стоимости AI-подписок",
+    description: "Пересчитайте цену подписки на нейросеть или AI-инструмент из долларов в рубли.",
+    url: "/calculator",
+  },
+};
+
 export default async function CalculatorPage() {
   const fx = await getUsdFx();
 
@@ -14,9 +27,6 @@ export default async function CalculatorPage() {
     <div className="flex min-h-dvh flex-col bg-[#f4f4f0] text-black dark:bg-zinc-950 dark:text-zinc-100">
       <Navbar />
       <main className="relative flex flex-1 items-center overflow-x-hidden px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
-        <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-violet-200/50 blur-3xl dark:bg-violet-700/15" />
-        <div className="pointer-events-none absolute -right-40 bottom-10 h-96 w-96 rounded-full bg-blue-200/50 blur-3xl dark:bg-blue-700/15" />
-
         <div className="relative mx-auto grid w-full max-w-7xl gap-8 min-h-[calc(100dvh-8rem)] content-center lg:grid-cols-2 lg:items-center lg:gap-12">
           <div className="min-w-0">
             <p className="text-sm font-medium uppercase tracking-[0.22em] text-black/45 dark:text-zinc-400">
@@ -73,7 +83,7 @@ export default async function CalculatorPage() {
           <PricingCalculator fx={fx} />
         </div>
       </main>
-      <div className="mt-auto shrink-0 border-t border-black/10 bg-white dark:border-white/10 dark:bg-zinc-950">
+      <div className="mt-auto shrink-0 border-t border-black/10 dark:border-white/10">
         <Footer />
       </div>
     </div>

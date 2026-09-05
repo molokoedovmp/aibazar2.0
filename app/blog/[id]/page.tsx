@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { prisma } from "@/lib/db";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
@@ -22,21 +24,63 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function BlogArticle({ params }: PageProps) {
-  const { id } = await params;
-  const doc = await prisma.document.findFirst({
+const getArticle = cache(async (id: string) =>
+  prisma.document.findFirst({
     where: { id, isPublished: true },
     select: {
       id: true,
       title: true,
       content: true,
       coverImage: true,
+      previewText: true,
       readTime: true,
       views: true,
       userId: true,
       updatedAt: true,
     },
-  });
+  }),
+);
+
+function articleDescription(previewText: string | null, title: string) {
+  const normalized = (previewText || `Статья «${title}» о нейросетях и AI-инструментах в библиотеке aiBazar.`)
+    .replace(/\s+/g, " ")
+    .trim();
+  if (normalized.length <= 158) return normalized;
+  return `${normalized.slice(0, 155).replace(/\s+\S*$/, "")}…`;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const article = await getArticle(id);
+  if (!article) return { title: "Статья не найдена", robots: { index: false } };
+
+  const description = articleDescription(article.previewText, article.title);
+  const canonical = `/blog/${encodeURIComponent(article.id)}`;
+
+  return {
+    title: article.title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      title: article.title,
+      description,
+      url: canonical,
+      modifiedTime: article.updatedAt.toISOString(),
+      images: article.coverImage ? [{ url: article.coverImage, alt: article.title }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description,
+      images: article.coverImage ? [article.coverImage] : undefined,
+    },
+  };
+}
+
+export default async function BlogArticle({ params }: PageProps) {
+  const { id } = await params;
+  const doc = await getArticle(id);
 
   if (!doc) return notFound();
   await prisma.document.update({ where: { id }, data: { views: { increment: 1 } } }).catch(() => {});
@@ -61,9 +105,9 @@ export default async function BlogArticle({ params }: PageProps) {
       
       <section className="py-8 sm:py-12">
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-10">
-          <div className="blog-article-viewer min-w-0">
+          <article className="blog-article-viewer min-w-0 overflow-hidden rounded-3xl border border-black/10 bg-white/90 py-5 shadow-[0_20px_70px_rgba(0,0,0,0.08)] backdrop-blur-sm dark:border-white/10 dark:bg-zinc-950/90 sm:py-8">
             <BlockNoteViewer content={doc.content} className="blog-article-content" />
-          </div>
+          </article>
         </div>
       </section>
       <Footer />

@@ -4,10 +4,10 @@ import { Navbar } from "@/app/components/navbar";
 
 const MarketingPage = () => {
   return (
-    <div className="flex min-h-full flex-col bg-white dark:bg-black">
+    <div className="min-h-screen text-foreground">
       <Navbar overlay />
       <Landingsecond />
-      <Footer />
+      <Footer className="!bg-transparent !bg-none" />
     </div>
   );
 };

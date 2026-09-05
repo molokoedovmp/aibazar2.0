@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
+
+export const metadata: Metadata = {
+  title: "Пользовательское соглашение",
+  description: "Пользовательское соглашение сайта и библиотеки AI-инструментов aiBazar.",
+  alternates: { canonical: "/legal/user-agreement" },
+};
 
 export default function UserAgreementPage() {
   return (

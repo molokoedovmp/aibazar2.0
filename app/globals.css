@@ -81,19 +81,19 @@
 
 .dark {
   color-scheme: dark;
-  --background: oklch(0.145 0 0);
+  --background: oklch(0.12 0 0);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: oklch(0.16 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: oklch(0.16 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  --secondary: oklch(0.19 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
+  --muted: oklch(0.19 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --accent: oklch(0.19 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
@@ -104,11 +104,11 @@
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
+  --sidebar: oklch(0.145 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent: oklch(0.19 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
@@ -139,7 +139,19 @@
 .dark .bg-gray-100,
 .dark .bg-slate-100,
 .dark .bg-zinc-100 {
-  background-color: #1c1c1f;
+  background-color: #18181b;
+}
+
+/* Единые тёмные поверхности для карточек, форм, меню и панелей. */
+.dark .dark\:bg-zinc-900,
+.dark .dark\:bg-zinc-900\/40,
+.dark .dark\:bg-zinc-900\/90,
+.dark .dark\:bg-zinc-900\/95 {
+  background-color: #101012 !important;
+}
+
+.dark .dark\:bg-zinc-800 {
+  background-color: #18181b !important;
 }
 
 .dark .text-black,
@@ -218,7 +230,7 @@
 
 /* Плавающая мобильная панель инвертируется вместе с темой. */
 .dark .mobile-nav-surface {
-  background-color: #18181b !important;
+  background-color: #0d0d0f !important;
   border-color: rgb(255 255 255 / 0.12) !important;
   color: #ffffff !important;
 }
@@ -242,6 +254,18 @@
   body {
     @apply text-foreground;
   }
+
+  /* The application pattern lives in the root layout. Page shells stay transparent,
+     while cards, forms and navigation keep their own surfaces for readability. */
+  .global-page-layer > [class*="min-h-screen"],
+  .global-page-layer > [class*="min-h-dvh"],
+  .global-page-layer > [class*="min-h-svh"] {
+    background-color: transparent !important;
+  }
+
+  .global-page-layer [data-slot="sidebar-inset"] {
+    background-color: transparent !important;
+  }
   .blog-article-viewer .bn-container,
   .blog-article-viewer .bn-editor {
     background-color: transparent !important;
@@ -253,12 +277,16 @@
   .tool-article-viewer .bn-editor {
     background-color: transparent !important;
   }
+  .tool-article-viewer .bn-editor {
+    padding-inline: clamp(18px, 5vw, 32px) !important;
+  }
   .document-blocknote-editor .bn-container,
   .document-blocknote-editor .bn-editor {
     background-color: transparent !important;
   }
   @media (max-width: 640px) {
-    .blog-article-viewer .bn-editor {
+    .blog-article-viewer .bn-editor,
+    .tool-article-viewer .bn-editor {
       padding-inline: 12px !important;
     }
   }

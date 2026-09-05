@@ -518,6 +518,9 @@ export default function CatalogPage() {
       ? requestedType as ResourceType
       : "tools";
     const requestedSort = params.get("sort") as SortOption | null;
+    const initialQuery = params.get("q")?.trim() || "";
+    setQuery(initialQuery);
+    setDebouncedQuery(initialQuery);
     setActiveType(type);
     setSort(requestedSort && sortOptions(type).includes(requestedSort) ? requestedSort : defaultSort(type));
   }, []);
@@ -605,7 +608,7 @@ export default function CatalogPage() {
       <Navbar />
 
       <div className="grid w-full grid-cols-1 md:grid-cols-[240px_1px_minmax(0,1fr)]">
-        <aside className="sticky top-0 hidden h-screen overflow-y-auto bg-white dark:bg-zinc-950 md:block">
+        <aside className="sticky top-0 hidden h-screen overflow-y-auto bg-transparent md:block">
           <nav className="space-y-1 px-2 pb-2 pt-5">
             {RESOURCE_TYPES.map((type) => {
               const config = RESOURCE_CONFIG[type];
@@ -747,7 +750,7 @@ export default function CatalogPage() {
             </div>
           </section>
 
-          <section className="mt-5 rounded-3xl border border-black/10 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900 sm:p-6">
+          <section className="mt-5">
             <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
               {activeFilterTitle ? (
                 <h2 className="text-lg font-semibold tracking-[-0.02em] sm:text-xl">{activeFilterTitle}</h2>
@@ -959,7 +962,7 @@ export default function CatalogPage() {
         </main>
       </div>
 
-      <div className="border-t border-black/10 bg-white dark:border-white/10 dark:bg-zinc-950">
+      <div className="border-t border-black/10 dark:border-white/10">
         <Footer />
       </div>
     </div>

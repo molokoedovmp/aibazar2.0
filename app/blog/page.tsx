@@ -5,8 +5,14 @@ import { getCommunityFeed } from "@/lib/community-feed";
 import { communityFeedTypes, type CommunityFeedType } from "@/lib/community-types";
 
 export const metadata: Metadata = {
-  title: "Сообщество AI Bazar — статьи и новые AI-ресурсы",
-  description: "Единая лента новых AI-инструментов, MCP-серверов, промптов, навыков, репозиториев и статей сообщества AI Bazar.",
+  title: "Новые AI-инструменты, MCP и статьи сообщества",
+  description: "Лента новых нейросетей, AI-инструментов, MCP-серверов, промптов, навыков, репозиториев и полезных статей из библиотеки aiBazar.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Новые AI-инструменты, MCP и статьи сообщества",
+    description: "Следите за обновлениями большой библиотеки AI-ресурсов и читайте практические материалы.",
+    url: "/blog",
+  },
 };
 
 export const dynamic = "force-dynamic";

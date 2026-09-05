@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
+
+export const metadata: Metadata = {
+  title: "Правила и условия использования",
+  description: "Правила использования каталога нейросетей и AI-инструментов aiBazar.",
+  alternates: { canonical: "/legal/terms" },
+};
 
 export default function TermsPage() {
   return (

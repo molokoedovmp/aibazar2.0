@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/app/components/navbar";
 import { Footer } from "@/app/components/footer";
+
+export const metadata: Metadata = {
+  title: "Политика конфиденциальности",
+  description: "Политика обработки и защиты персональных данных пользователей сайта aiBazar.",
+  alternates: { canonical: "/legal/privacy" },
+};
 
 export default function PrivacyPage() {
   return (

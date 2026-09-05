@@ -160,24 +160,25 @@ export default function PaymentInstructionsPage() {
             __html: JSON.stringify(howToJsonLd).replace(/</g, "\\u003c"),
           }}
         />
-        <section className="border-b border-black/10 bg-zinc-50 dark:border-white/10 dark:bg-zinc-950">
-          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-10">
+        <section className="relative overflow-hidden border-b border-white/10 bg-black text-white">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(14,165,233,0.25),transparent_28%),radial-gradient(circle_at_80%_5%,rgba(139,92,246,0.23),transparent_30%),radial-gradient(circle_at_70%_100%,rgba(16,185,129,0.16),transparent_28%)]" />
+          <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm font-medium text-black/50 transition hover:text-black dark:text-white/50 dark:hover:text-white"
+              className="inline-flex items-center gap-2 text-sm font-medium text-white/55 transition hover:text-white"
             >
               <ArrowLeft className="h-4 w-4" />
               На главную
             </Link>
 
             <div className="mt-8 max-w-3xl">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/40 dark:text-white/40">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/45">
                 Инструкция по оплате
               </span>
               <h1 className="mt-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
                 Как оплатить AI-сервис из России
               </h1>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400 sm:text-lg">
+              <p className="mt-4 max-w-2xl text-base leading-7 text-white/65 sm:text-lg">
                 Выберите подходящий вариант и следуйте короткой пошаговой инструкции. Если останутся вопросы, менеджер поможет в Telegram.
               </p>
             </div>
@@ -285,10 +286,10 @@ export default function PaymentInstructionsPage() {
                 ))}
               </ol>
 
-              <div className="mt-8 flex flex-col gap-5 rounded-3xl bg-black p-5 text-white sm:flex-row sm:items-center sm:justify-between sm:p-7 dark:bg-white dark:text-black">
+              <div className="relative mt-8 flex flex-col gap-5 overflow-hidden rounded-[2rem] border border-white/10 bg-black bg-[radial-gradient(circle_at_16%_20%,rgba(14,165,233,0.25),transparent_28%),radial-gradient(circle_at_80%_5%,rgba(139,92,246,0.23),transparent_30%),radial-gradient(circle_at_70%_100%,rgba(16,185,129,0.16),transparent_28%)] p-5 text-white shadow-[0_14px_40px_rgba(0,0,0,0.12)] sm:flex-row sm:items-center sm:justify-between sm:p-7">
                 <div className="min-w-0">
                   <h2 className="text-xl font-bold tracking-tight sm:text-2xl">Нужна помощь с оплатой?</h2>
-                  <p className="mt-2 max-w-xl text-sm leading-6 text-white/65 dark:text-black/65">
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-white/65">
                     Напишите менеджеру — поможем выбрать способ оплаты и рассчитаем итоговую стоимость.
                   </p>
                 </div>
@@ -296,7 +297,7 @@ export default function PaymentInstructionsPage() {
                   href="https://t.me/aibazaru"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-zinc-100 sm:w-auto dark:bg-black dark:text-white dark:hover:bg-zinc-900"
+                  className="theme-light-button inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-zinc-200 sm:w-auto"
                 >
                   <MessageCircle className="h-4 w-4" />
                   Написать в Telegram

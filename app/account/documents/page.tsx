@@ -9,7 +9,6 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/auth-options";
 import { prisma } from "@/lib/db";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb"
 import DocHeaderTitle from "@/components/account/DocHeaderTitle";
 import { Separator } from "@/components/ui/separator"
 import {
@@ -17,7 +16,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { FileText, Star } from "lucide-react";
+import { ArrowLeft, FileText, Star } from "lucide-react";
 
 interface SearchParams {
   doc?: string;
@@ -236,19 +235,22 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset className="bg-[#f6f6f3] dark:bg-zinc-950">
-        <header className="flex h-16 shrink-0 items-center justify-between border-b border-black/10 bg-white px-4 dark:border-white/10 dark:bg-zinc-950 sm:px-6">
+        <header className="flex h-16 shrink-0 items-center justify-between border-b border-black/10 bg-white/90 px-4 backdrop-blur dark:border-white/10 dark:bg-zinc-950/90 sm:px-6">
           <div className="flex flex-1 items-center gap-1.5">
             <SidebarTrigger className="text-black/60 hover:bg-black/5 dark:text-zinc-300 dark:hover:bg-white/10" />
             <Separator orientation="vertical" className="h-7" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbPage>
-                    <DocHeaderTitle docId={doc?.id} defaultTitle={doc?.title ?? "Документы"} />
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <Link href="/account" className="flex items-center gap-2 text-sm text-black/55 hover:text-black dark:text-white/55 dark:hover:text-white">
+              <ArrowLeft className="h-4 w-4" />
+              Личный кабинет
+            </Link>
+            {doc ? (
+              <>
+                <Separator orientation="vertical" className="hidden h-7 sm:block" />
+                <div className="hidden min-w-0 sm:block">
+                  <DocHeaderTitle docId={doc.id} defaultTitle={doc.title} />
+                </div>
+              </>
+            ) : null}
           </div>
           <div className="flex items-center gap-1.5">
             {!doc && (
@@ -352,7 +354,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
             <div className="flex min-h-0 flex-1 flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-3">
               <AISidebar width="24rem" documentTitle={doc.title ?? "Документ"} />
               <div
-                className="min-h-0 min-w-0 flex-1 overflow-hidden rounded-2xl border border-black/10 bg-transparent p-3 shadow-sm dark:border-white/10 lg:order-1"
+                className="min-h-0 min-w-0 flex-1 overflow-hidden rounded-3xl border border-black/10 bg-white/90 p-4 shadow-[0_20px_70px_rgba(0,0,0,0.08)] backdrop-blur-sm dark:border-white/10 dark:bg-zinc-950/90 lg:order-1"
                 style={{ height: "calc(100dvh - 7rem)", minHeight: 0 }}
               >
                 <BlockNoteClient

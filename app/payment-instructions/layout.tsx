@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Как оплатить зарубежные AI-сервисы из России | aiBazar",
+  title: "Как оплатить зарубежные AI-сервисы из России",
   description:
     "Пошаговая инструкция по оплате ChatGPT, Claude, Midjourney и других зарубежных AI-сервисов из России: по ссылке, через аккаунт или с помощью aiBazar.",
   keywords: [
@@ -13,12 +13,12 @@ export const metadata: Metadata = {
     "подписка на нейросеть",
   ],
   alternates: {
-    canonical: "https://ai-bazar.ru/payment-instructions",
+    canonical: "/payment-instructions",
   },
   openGraph: {
     type: "article",
     locale: "ru_RU",
-    url: "https://ai-bazar.ru/payment-instructions",
+    url: "/payment-instructions",
     siteName: "aiBazar",
     title: "Как оплатить зарубежные AI-сервисы из России",
     description:

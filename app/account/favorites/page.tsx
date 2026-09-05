@@ -1,16 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+import { ArrowLeft } from "lucide-react";
 
 import { FavoritesLibrary, type FavoriteResource } from "@/app/account/favorites/FavoritesLibrary";
 import { authOptions } from "@/app/api/auth/auth-options";
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { prisma } from "@/lib/db";
@@ -179,17 +174,14 @@ export default async function FavoritesToolsPage() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset className="bg-[#f6f6f3]">
-        <header className="flex h-16 shrink-0 items-center border-b border-black/10 bg-white px-4 sm:px-6">
+        <header className="flex h-16 shrink-0 items-center border-b border-black/10 bg-white/90 px-4 backdrop-blur dark:border-white/10 dark:bg-zinc-950/90 sm:px-6">
           <div className="flex items-center gap-3">
             <SidebarTrigger className="text-black/60 hover:bg-black/5" />
             <Separator orientation="vertical" className="h-7" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Избранное</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <Link href="/account" className="flex items-center gap-2 text-sm text-black/55 hover:text-black dark:text-white/55 dark:hover:text-white">
+              <ArrowLeft className="h-4 w-4" />
+              Личный кабинет
+            </Link>
           </div>
         </header>
 

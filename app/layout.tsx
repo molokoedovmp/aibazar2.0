@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, Prosto_One } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/app/components/SessionProvider";
+import { DarkGradientBg } from "@/components/ui/elegant-dark-pattern";
 
 // Force dynamic rendering across the app to avoid
 // DB access during static generation at build time.
@@ -21,9 +22,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "aiBazar",
+  metadataBase: new URL("https://ai-bazar.ru"),
+  applicationName: "aiBazar",
+  title: {
+    default: "Каталог нейросетей и AI-инструментов | aiBazar",
+    template: "%s | aiBazar",
+  },
   description:
-    "aiBazar - это сервис, который предоставляет доступ к различным AI-инструментам и сервисам.",
+    "Большая библиотека нейросетей и AI-инструментов: MCP-серверы, промпты, навыки и open-source проекты. Найдите решение под свою задачу по описанию и рейтингу.",
+  keywords: [
+    "каталог нейросетей",
+    "библиотека AI-инструментов",
+    "найти AI-инструмент",
+    "MCP-серверы",
+    "промпты для нейросетей",
+    "навыки AI-агентов",
+    "open-source AI",
+  ],
   icons: {
     icon: [
       { url: "/favicon-ptsr.png", type: "image/png" },
@@ -33,19 +48,25 @@ export const metadata: Metadata = {
     apple: ["/favicon-ptsr.png"],
   },
   openGraph: {
-    title: "aiBazar",
+    title: "Каталог нейросетей и AI-инструментов | aiBazar",
     description:
-      "aiBazar - это сервис, который предоставляет доступ к различным AI-инструментам и сервисам.",
-    url: "https://ai-bazar.ru",
+      "Большая AI-библиотека: нейросети, MCP-серверы, промпты, навыки и open-source проекты для разных задач.",
+    url: "/",
     siteName: "aiBazar",
     images: [
-      { url: "https://ai-bazar.ru/og-image.jpg", width: 1200, height: 630, alt: "aiBazar Preview" },
+      { url: "/og-image.jpg", width: 1200, height: 630, alt: "Каталог нейросетей и AI-инструментов aiBazar" },
     ],
     locale: "ru_RU",
     type: "website",
   },
   
-  alternates: { canonical: "https://ai-bazar.ru" },
+  twitter: {
+    card: "summary_large_image",
+    title: "Каталог нейросетей и AI-инструментов | aiBazar",
+    description: "Найдите нейросеть, MCP-сервер, промпт, навык или AI-проект под свою задачу.",
+    images: ["/og-image.jpg"],
+  },
+  alternates: { canonical: "/" },
   robots: {
     index: true,
     follow: true,
@@ -78,10 +99,10 @@ export default function RootLayout({
               "@type": "WebSite",
               "url": "https://ai-bazar.ru/",
               "name": "aiBazar",
-              "description": "aiBazar - это сервис, который предоставляет доступ к различным AI-инструментам и сервисам.",
+              "description": "Большая библиотека нейросетей, AI-инструментов, MCP-серверов, промптов, навыков и open-source проектов для поиска решений под конкретные задачи.",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://ai-bazar.ru/search?q={search_term_string}",
+                "target": "https://ai-bazar.ru/catalog?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               }
             }`,
@@ -119,9 +140,14 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
       </head>
       <body
-        className={`${prostoOne.variable} ${geistMono.variable} bg-background font-sans text-foreground antialiased`}
+        className={`${prostoOne.variable} ${geistMono.variable} bg-transparent font-sans text-foreground antialiased`}
       >
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider>
+          <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
+            <DarkGradientBg className="h-full min-h-0" />
+          </div>
+          <div className="global-page-layer relative z-10 min-h-screen">{children}</div>
+        </SessionProvider>
       </body>
     </html>
   );
