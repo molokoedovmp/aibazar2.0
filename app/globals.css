@@ -133,7 +133,7 @@
 .dark .bg-\[\#f4f4f0\],
 .dark .bg-\[\#f6f6f3\],
 .dark .bg-\[\#f7f7f5\] {
-  background-color: #111113;
+  background-color: #09090b;
 }
 
 .dark .bg-gray-100,
@@ -147,7 +147,7 @@
 .dark .dark\:bg-zinc-900\/40,
 .dark .dark\:bg-zinc-900\/90,
 .dark .dark\:bg-zinc-900\/95 {
-  background-color: #101012 !important;
+  background-color: #09090b !important;
 }
 
 .dark .dark\:bg-zinc-800 {
@@ -230,7 +230,7 @@
 
 /* Плавающая мобильная панель инвертируется вместе с темой. */
 .dark .mobile-nav-surface {
-  background-color: #0d0d0f !important;
+  background-color: #070708 !important;
   border-color: rgb(255 255 255 / 0.12) !important;
   color: #ffffff !important;
 }
