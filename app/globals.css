@@ -133,7 +133,7 @@
 .dark .bg-\[\#f4f4f0\],
 .dark .bg-\[\#f6f6f3\],
 .dark .bg-\[\#f7f7f5\] {
-  background-color: #09090b;
+  background-color: rgb(21 21 23 / 0.92);
 }
 
 .dark .bg-gray-100,
@@ -147,7 +147,7 @@
 .dark .dark\:bg-zinc-900\/40,
 .dark .dark\:bg-zinc-900\/90,
 .dark .dark\:bg-zinc-900\/95 {
-  background-color: #09090b !important;
+  background-color: rgb(21 21 23 / 0.92) !important;
 }
 
 .dark .dark\:bg-zinc-800 {
@@ -230,7 +230,7 @@
 
 /* Плавающая мобильная панель инвертируется вместе с темой. */
 .dark .mobile-nav-surface {
-  background-color: #070708 !important;
+  background-color: rgb(18 18 20 / 0.96) !important;
   border-color: rgb(255 255 255 / 0.12) !important;
   color: #ffffff !important;
 }
@@ -278,15 +278,14 @@
     background-color: transparent !important;
   }
   .tool-article-viewer .bn-editor {
-    padding-inline: clamp(18px, 5vw, 32px) !important;
+    padding-inline: 0 !important;
   }
   .document-blocknote-editor .bn-container,
   .document-blocknote-editor .bn-editor {
     background-color: transparent !important;
   }
   @media (max-width: 640px) {
-    .blog-article-viewer .bn-editor,
-    .tool-article-viewer .bn-editor {
+    .blog-article-viewer .bn-editor {
       padding-inline: 12px !important;
     }
   }

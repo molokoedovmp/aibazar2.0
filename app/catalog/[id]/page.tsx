@@ -8,11 +8,9 @@ import { Footer } from "@/app/components/footer";
 import { Navbar } from "@/app/components/navbar";
 import { ToolImage } from "@/app/components/ToolImage";
 import FavoriteButton from "@/components/FavoriteButton";
-import ToolPurchaseActions from "@/components/ToolPurchaseActions";
 import BlockNoteViewer from "@/components/editor/BlockNoteViewerClient";
 import Reviews from "@/components/reviews/Reviews";
 import { prisma } from "@/lib/db";
-import { calcRubPrice, getUsdFx } from "@/lib/pricing";
 import { relatedCategoryNames } from "@/lib/related-categories";
 
 export const revalidate = 60;
@@ -125,8 +123,7 @@ const getToolPageData = unstable_cache(
     if (!tool) return null;
 
     const relatedNames = relatedCategoryNames(tool.category.name);
-    const [fx, linkedDocument, similarTools, recommendedArticles, relatedCategories] = await Promise.all([
-      getUsdFx(),
+    const [linkedDocument, similarTools, recommendedArticles, relatedCategories] = await Promise.all([
       tool.linkedDocumentId
         ? prisma.document.findUnique({
             where: { id: tool.linkedDocumentId },
@@ -161,7 +158,7 @@ const getToolPageData = unstable_cache(
     ]);
 
     relatedCategories.sort((left, right) => relatedNames.indexOf(left.name) - relatedNames.indexOf(right.name));
-    return { tool, fx, linkedDocument, similarTools, recommendedArticles, relatedCategories: relatedCategories.slice(0, 6) };
+    return { tool, linkedDocument, similarTools, recommendedArticles, relatedCategories: relatedCategories.slice(0, 6) };
   },
   ["tool-page-data"],
   { revalidate: 60, tags: ["tools"] },
@@ -172,7 +169,7 @@ export default async function ToolPage({ params }: PageProps) {
   const data = await getToolPageData(id);
   if (!data) notFound();
 
-  const { tool, fx, linkedDocument, similarTools, recommendedArticles, relatedCategories } = data;
+  const { tool, linkedDocument, similarTools, recommendedArticles, relatedCategories } = data;
   const canonicalUrl = `https://ai-bazar.ru/catalog/${encodeURIComponent(tool.id)}`;
   const structuredData = {
     "@context": "https://schema.org",
@@ -186,22 +183,11 @@ export default async function ToolPage({ params }: PageProps) {
     ...(tool.url ? { sameAs: tool.url } : {}),
   };
 
-  let computedRubPrice: number | null = null;
-  try {
-    if (typeof tool.startPrice === "number" && Number.isFinite(tool.startPrice) && tool.startPrice > 0) {
-      computedRubPrice = calcRubPrice(tool.startPrice, { fx });
-    } else if (typeof tool.price === "number" && tool.price > 0) {
-      computedRubPrice = tool.price;
-    }
-  } catch {
-    computedRubPrice = null;
-  }
-
   const priceLabel =
     typeof tool.startPrice === "number" && tool.startPrice > 0
       ? `$${tool.startPrice.toLocaleString("en-US")}`
-      : typeof computedRubPrice === "number"
-        ? `${computedRubPrice.toLocaleString("ru-RU")} ₽`
+      : typeof tool.price === "number" && tool.price > 0
+        ? `${tool.price.toLocaleString("ru-RU")} ₽`
         : "—";
 
   return (
@@ -217,7 +203,12 @@ export default async function ToolPage({ params }: PageProps) {
 
         <section className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
           <div className="grid min-w-0 grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-            <ToolImage src={tool.coverImage} alt={tool.name} className="h-56 w-full object-cover sm:h-72 lg:h-full lg:min-h-[380px]" fallbackTextClassName="px-8 text-3xl sm:text-5xl" />
+            <ToolImage
+              src={tool.coverImage}
+              alt={tool.name}
+              className="block h-56 w-full object-cover sm:h-72 lg:h-[380px]"
+              fallbackTextClassName="px-8 text-3xl sm:text-5xl"
+            />
             <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 lg:p-10">
               <div className="flex flex-wrap gap-2">
                 <span className="rounded-full border border-black/10 bg-black/[0.03] px-3 py-1.5 text-xs font-medium">{tool.category.name}</span>
@@ -261,7 +252,7 @@ export default async function ToolPage({ params }: PageProps) {
                   <h2 className="text-2xl font-semibold tracking-[-0.03em]">Статья об инструменте</h2>
                   <Link href={linkedDocument.isPublished ? `/blog/${linkedDocument.id}` : `/account/documents?doc=${linkedDocument.id}`} className="text-sm text-black/50 underline transition hover:text-black">Открыть отдельно</Link>
                 </div>
-                <div className="tool-article-viewer mt-5 min-w-0 overflow-hidden rounded-2xl border border-black/10 bg-black/[0.02] py-5">
+                <div className="tool-article-viewer mt-5 min-w-0 overflow-hidden">
                   <BlockNoteViewer content={linkedDocument.content} />
                 </div>
                 <div className="mt-6"><Reviews documentId={linkedDocument.id} /></div>
@@ -289,18 +280,17 @@ export default async function ToolPage({ params }: PageProps) {
           </article>
 
           <aside className="space-y-5 lg:sticky lg:top-5 lg:h-fit">
-            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
-              <div className="bg-black p-5 text-white">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/45">Стоимость</p>
-                <div className="mt-3 flex items-end justify-between gap-3">
-                  <span id="current-price-value" className="text-3xl font-semibold">{computedRubPrice ? `${computedRubPrice.toLocaleString("ru-RU")} ₽` : "—"}</span>
-                  <span id="current-price-usd" className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70">{tool.startPrice ? `≈ $${tool.startPrice}` : "Цена по запросу"}</span>
-                </div>
-                <div className="mt-5 flex items-center justify-between border-t border-white/15 pt-4 text-xs text-white/60"><span>Курс USD</span><strong className="text-white">{fx.toFixed(2)} ₽</strong></div>
-              </div>
-              <div className="space-y-3 p-3">
-                <ToolPurchaseActions toolId={tool.id} toolName={tool.name} toolDescription={tool.description} toolUrl={tool.url ?? undefined} initialRubPrice={computedRubPrice} initialStartPriceUsd={tool.startPrice && tool.startPrice > 0 ? tool.startPrice : null} fx={fx} />
-              </div>
+            <div className="rounded-3xl border border-black/10 bg-white p-5 shadow-sm sm:p-6">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-black text-white">
+                <WalletCards className="h-5 w-5" />
+              </span>
+              <h2 className="mt-5 text-xl font-semibold tracking-[-0.025em]">Нужна помощь с оплатой?</h2>
+              <p className="mt-2 text-sm leading-6 text-black/55">
+                Рассчитайте стоимость подписки в рублях и посмотрите, как проходит оплата зарубежного AI-сервиса.
+              </p>
+              <Link href="/calculator" className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-xl bg-black px-5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-black/85">
+                Перейти к расчёту
+              </Link>
             </div>
 
             {similarTools.length > 0 ? (
