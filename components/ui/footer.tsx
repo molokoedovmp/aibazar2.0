@@ -36,10 +36,10 @@ const columns: Array<{
     title: "Каталог",
     links: [
       { title: "AI-инструменты", href: "/catalog?type=tools" },
-      { title: "MCP-серверы", href: "/catalog?type=mcp" },
-      { title: "Промпты", href: "/catalog?type=prompts" },
-      { title: "Навыки", href: "/catalog?type=skills" },
-      { title: "Репозитории", href: "/catalog?type=repos" },
+      { title: "MCP-серверы", href: "/catalog/mcp" },
+      { title: "Промпты", href: "/catalog/prompts" },
+      { title: "Навыки", href: "/catalog/skills" },
+      { title: "Репозитории", href: "/catalog/repos" },
     ],
   },
   {

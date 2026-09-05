@@ -7,33 +7,17 @@ import {
   BrainCircuit,
   CreditCard,
   Github,
-  Star,
   WandSparkles,
   type LucideIcon,
 } from "lucide-react";
 
+import {
+  LibraryResourceCard,
+  type LibraryResourceItem,
+  type LibraryResourceType as ResourceType,
+} from "@/components/library/LibraryResourceCard";
 
-import { ToolImage } from "@/app/components/ToolImage";
-import FavoriteButton from "@/components/FavoriteButton";
-
-type ResourceType = "tools" | "mcp" | "prompts" | "skills" | "repos";
-
-export type FeaturedItem = {
-  id: string;
-  slug?: string | null;
-  name?: string | null;
-  title?: string | null;
-  titleRu?: string | null;
-  description?: string | null;
-  descriptionRu?: string | null;
-  coverImage?: string | null;
-  rating?: number | null;
-  stars?: number | null;
-  sourceKind?: string | null;
-  languageName?: string | null;
-  language?: string | null;
-  category?: string | { name: string } | null;
-};
+export type FeaturedItem = LibraryResourceItem;
 
 export type FeaturedResponse = {
   success: boolean;
@@ -65,7 +49,7 @@ const RESOURCE_CONFIG: Record<ResourceType, ResourceConfig> = {
     label: "MCP",
     shortDescription: "Серверы для AI-агентов",
     icon: BrainCircuit,
-    href: "/catalog?type=mcp",
+    href: "/catalog/mcp",
     accentClassName: "bg-gradient-to-br from-cyan-300 via-sky-500 to-blue-600 text-white shadow-sky-500/25",
     badgeClassName: "bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300",
   },
@@ -73,7 +57,7 @@ const RESOURCE_CONFIG: Record<ResourceType, ResourceConfig> = {
     label: "Промпты",
     shortDescription: "Готовые инструкции",
     icon: BookOpenText,
-    href: "/catalog?type=prompts",
+    href: "/catalog/prompts",
     accentClassName: "bg-gradient-to-br from-violet-300 via-violet-500 to-indigo-700 text-white shadow-violet-500/25",
     badgeClassName: "bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300",
   },
@@ -81,7 +65,7 @@ const RESOURCE_CONFIG: Record<ResourceType, ResourceConfig> = {
     label: "Навыки",
     shortDescription: "Расширения для агентов",
     icon: WandSparkles,
-    href: "/catalog?type=skills",
+    href: "/catalog/skills",
     accentClassName: "bg-gradient-to-br from-emerald-300 via-teal-500 to-cyan-700 text-white shadow-teal-500/25",
     badgeClassName: "bg-teal-50 text-teal-700 dark:bg-teal-500/10 dark:text-teal-300",
   },
@@ -89,7 +73,7 @@ const RESOURCE_CONFIG: Record<ResourceType, ResourceConfig> = {
     label: "Репозитории",
     shortDescription: "Open-source проекты",
     icon: Github,
-    href: "/catalog?type=repos",
+    href: "/catalog/repos",
     accentClassName: "bg-gradient-to-br from-zinc-600 via-zinc-900 to-black text-white shadow-black/25",
     badgeClassName: "bg-zinc-100 text-zinc-700 dark:bg-white/10 dark:text-zinc-300",
   },
@@ -115,37 +99,6 @@ function formatNumber(value: number) {
   return value.toLocaleString("ru-RU");
 }
 
-function itemTitle(item: FeaturedItem) {
-  return item.titleRu || item.title || item.name || "Без названия";
-}
-
-function itemDescription(item: FeaturedItem, type: ResourceType) {
-  if (type === "mcp") return item.description || "Description is not available yet.";
-  return item.descriptionRu || item.description || "Описание скоро появится.";
-}
-
-function itemMeta(item: FeaturedItem, type: ResourceType) {
-  if (type === "tools") {
-    return typeof item.category === "object" ? item.category?.name : "AI-инструмент";
-  }
-  if (type === "mcp") return item.languageName || "MCP Server";
-  if (type === "prompts") return item.sourceKind || "Готовый промпт";
-  if (type === "skills") return typeof item.category === "string" ? item.category : "Навык агента";
-  return item.language || "Open source";
-}
-
-function itemHref(item: FeaturedItem, type: ResourceType) {
-  if (type === "tools") return `/catalog/${item.id}`;
-  if (type === "mcp" && item.slug) return `/catalog/mcp/${item.slug}`;
-  return RESOURCE_CONFIG[type].href;
-}
-
-function itemMetric(item: FeaturedItem) {
-  if (typeof item.rating === "number" && item.rating > 0) return item.rating.toFixed(1);
-  if (typeof item.stars === "number" && item.stars > 0) return formatNumber(item.stars);
-  return null;
-}
-
 function CardSkeleton() {
   return (
     <div className="min-h-[190px] rounded-2xl border border-black/10 bg-white p-3 sm:min-h-[220px] sm:p-4">
@@ -158,112 +111,6 @@ function CardSkeleton() {
         <div className="h-4 w-5/6 animate-pulse rounded bg-black/5" />
       </div>
     </div>
-  );
-}
-
-function initials(value: string) {
-  const normalized = value.replace(/[^a-zA-Zа-яА-ЯёЁ0-9]+/g, " ").trim();
-  const parts = normalized.split(/\s+/).filter(Boolean);
-  if (parts.length > 1) return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
-  return (parts[0] || "AI").slice(0, 2).toUpperCase();
-}
-
-function FeaturedCard({ item, type }: { item: FeaturedItem; type: ResourceType }) {
-  const config = RESOURCE_CONFIG[type];
-  const metric = itemMetric(item);
-  const githubStars =
-    (type === "mcp" || type === "skills" || type === "repos") &&
-    typeof item.stars === "number" &&
-    item.stars > 0
-      ? formatNumber(item.stars)
-      : null;
-  const title = itemTitle(item);
-  const favoriteType = type === "tools" ? "aiTools" : type;
-  const href = itemHref(item, type);
-
-  if (type === "tools") {
-    return (
-      <article className="group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-black/20 hover:shadow-lg dark:border-white/10 dark:bg-zinc-900 sm:min-h-[250px]">
-        <FavoriteButton
-          toolId={item.id}
-          itemType="aiTools"
-          iconOnly
-          callbackUrl={href}
-          className="absolute right-2 top-2 z-20 h-8 w-8"
-        />
-        <Link href={href} className="flex min-h-0 flex-1 flex-col">
-          <ToolImage
-            src={item.coverImage}
-            alt={title}
-            className="h-24 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-32"
-            fallbackTextClassName="px-3 text-sm sm:text-lg"
-          />
-          <div className="flex flex-1 flex-col p-3">
-            <div className="flex items-start justify-between gap-2">
-              <h4 className="line-clamp-2 text-xs font-semibold leading-4 text-zinc-950 dark:text-white sm:text-sm sm:leading-5">
-                {title}
-              </h4>
-              {metric ? (
-                <span className="shrink-0 rounded-md bg-black px-1.5 py-0.5 text-[9px] font-semibold text-white dark:bg-white dark:text-black">
-                  {metric}
-                </span>
-              ) : null}
-            </div>
-            <p className="mt-2 line-clamp-2 text-[10px] leading-4 text-black/55 dark:text-white/55 sm:text-xs sm:leading-5">
-              {itemDescription(item, type)}
-            </p>
-            <div className="mt-auto truncate pt-3 text-[10px] text-black/45 dark:text-white/45 sm:text-xs">
-              {itemMeta(item, type)}
-            </div>
-          </div>
-        </Link>
-      </article>
-    );
-  }
-
-  return (
-    <article
-      className="group relative flex min-h-[190px] min-w-0 flex-col rounded-2xl border border-black/10 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-black/20 hover:shadow-xl dark:border-white/10 dark:bg-black sm:min-h-[220px] sm:p-4"
-    >
-      <FavoriteButton
-        toolId={item.id}
-        itemType={favoriteType}
-        iconOnly
-        callbackUrl={href}
-        className="absolute right-3 top-3 z-20 h-8 w-8"
-      />
-      <Link href={href} className="flex min-h-0 flex-1 flex-col">
-      <div className="flex min-w-0 items-start gap-2.5 pr-9 sm:gap-3">
-        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-xs font-bold shadow-sm transition group-hover:scale-105 sm:h-12 sm:w-12 sm:text-sm ${config.accentClassName}`}>
-          {initials(title)}
-        </div>
-        <div className="min-w-0 flex-1">
-          <h4 className="line-clamp-2 pt-1 text-xs font-bold leading-4 text-zinc-950 dark:text-white sm:pt-1.5 sm:text-sm sm:leading-5">
-            {title}
-          </h4>
-        </div>
-      </div>
-
-      <p className="mt-4 line-clamp-3 text-[10px] leading-4 text-zinc-500 dark:text-zinc-400 sm:text-xs sm:leading-5">
-        {itemDescription(item, type)}
-      </p>
-
-      <div className="mt-auto flex items-end justify-between gap-2 pt-4">
-        <span className="max-w-[78%] truncate rounded-md border border-black/10 bg-black/[0.025] px-2 py-1 text-[9px] text-black/55 dark:border-white/10 dark:bg-white/5 dark:text-white/55 sm:text-[10px]">
-          {itemMeta(item, type)}
-        </span>
-        <span className="inline-flex shrink-0 items-center gap-2">
-          {githubStars ? (
-            <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-black/45 dark:text-white/45 sm:text-[10px]">
-              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-              {githubStars}
-            </span>
-          ) : null}
-          <ArrowRight className="h-3.5 w-3.5 shrink-0 text-black/30 transition group-hover:translate-x-1 group-hover:text-black dark:text-white/30 dark:group-hover:text-white" />
-        </span>
-      </div>
-      </Link>
-    </article>
   );
 }
 
@@ -365,7 +212,7 @@ export default function PopularToolsSection({
                             key={item.id}
                             className={isUnpairedMobileCard ? "hidden lg:contents" : "contents"}
                           >
-                            <FeaturedCard item={item} type={type} />
+                            <LibraryResourceCard item={item} type={type} />
                           </div>
                         );
                       })}

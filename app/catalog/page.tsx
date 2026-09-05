@@ -2,39 +2,28 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
 import {
-  ArrowRight,
   BookOpenText,
   Boxes,
   BrainCircuit,
-  Check,
-  Copy,
-  ExternalLink,
   Github,
   Search,
   Sparkles,
-  Star,
   WandSparkles,
 } from "lucide-react";
 
 import { Footer } from "@/app/components/footer";
 import { Navbar } from "@/app/components/navbar";
-import { ToolImage } from "@/app/components/ToolImage";
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+  LibraryResourceCard,
+  LIBRARY_RESOURCE_PATHS,
+  type LibraryResourceType,
+} from "@/components/library/LibraryResourceCard";
 import { Input } from "@/components/ui/input";
-import FavoriteButton from "@/components/FavoriteButton";
 
-type ResourceType = "tools" | "mcp" | "prompts" | "skills" | "repos";
+type ResourceType = LibraryResourceType;
 type SortOption = "rating" | "stars" | "newest";
 
 type ResourceCounts = Record<ResourceType, number>;
@@ -155,6 +144,14 @@ const RESOURCE_CONFIG: Record<ResourceType, ResourceConfig> = {
 
 const RESOURCE_TYPES = Object.keys(RESOURCE_CONFIG) as ResourceType[];
 
+function resourceTypeFromPathname(pathname: string): ResourceType | null {
+  if (pathname === "/catalog/mcp") return "mcp";
+  if (pathname === "/catalog/prompts") return "prompts";
+  if (pathname === "/catalog/skills") return "skills";
+  if (pathname === "/catalog/repos") return "repos";
+  return null;
+}
+
 function defaultSort(type: ResourceType): SortOption {
   return type === "tools" || type === "prompts" ? "rating" : "stars";
 }
@@ -236,10 +233,6 @@ function formatNumber(value?: number | null) {
   return value.toLocaleString("ru-RU");
 }
 
-function itemName(item: LibraryItem) {
-  return item.name || item.title || "Без названия";
-}
-
 function filterLabel(option: FilterOption) {
   return FILTER_TRANSLATIONS[option.value] || FILTER_TRANSLATIONS[option.label] || option.label;
 }
@@ -260,237 +253,9 @@ function resultWord(type: ResourceType, count: number) {
   return "инструментов";
 }
 
-function ResourceImage({ item, type }: { item: LibraryItem; type: ResourceType }) {
-  return (
-    <ToolImage
-      src={type === "tools" ? item.coverImage : null}
-      alt={itemName(item)}
-      className="h-24 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-32"
-      fallbackTextClassName="px-3 text-sm sm:text-lg"
-    />
-  );
-}
-
-function PromptResourceCard({
-  item,
-  copied,
-  onCopy,
-}: {
-  item: LibraryItem;
-  copied: boolean;
-  onCopy: (value: string, id: string) => void;
-}) {
-  const source = FILTER_TRANSLATIONS[item.sourceKind || ""] || item.sourceKind || "Сообщество";
-  const title = item.titleRu || itemName(item);
-
-  return (
-    <article className="group flex min-w-0 flex-col rounded-2xl border border-black/10 bg-white p-3 transition hover:-translate-y-0.5 hover:border-black/20 hover:shadow-lg sm:min-h-[250px] sm:p-4">
-      <div className="flex items-start justify-between gap-2">
-        <ResourceIcon type="prompts" className="h-9 w-9 sm:h-10 sm:w-10" />
-        <div className="flex min-w-0 items-center gap-1.5">
-          <span className="max-w-[100px] truncate rounded-full border border-black/10 bg-black/[0.025] px-2 py-1 text-[9px] font-medium text-black/55 sm:text-[10px]">
-            {source}
-          </span>
-          <FavoriteButton
-            toolId={item.id}
-            itemType="prompts"
-            iconOnly
-            callbackUrl="/catalog?type=prompts"
-            className="h-8 w-8"
-          />
-        </div>
-      </div>
-      <h3 className="mt-3 line-clamp-2 text-sm font-semibold leading-5 sm:text-base">{title}</h3>
-      <p className="mt-2 line-clamp-3 text-xs leading-5 text-black/55 sm:text-sm">
-        {item.descriptionRu || item.description || "Описание пока не добавлено."}
-      </p>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {(item.tags || []).slice(0, 2).map((tag) => (
-          <span key={tag} className="max-w-full truncate rounded-full bg-black/[0.045] px-2 py-1 text-[9px] text-black/55 sm:text-[10px]">
-            {tag}
-          </span>
-        ))}
-      </div>
-      <div className="mt-auto flex items-center justify-between gap-2 pt-4">
-        <span className="min-w-0 truncate text-[10px] text-black/40 sm:text-xs">
-          {item.authorName || "Готовый промпт"}
-        </span>
-        {item.content && (
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <button
-                type="button"
-                className="inline-flex h-8 shrink-0 items-center gap-1 rounded-lg bg-black px-2 text-[9px] font-semibold text-white transition hover:bg-zinc-800 sm:gap-1.5 sm:px-3 sm:text-xs"
-              >
-                <BookOpenText className="h-3.5 w-3.5" />
-                Показать промпт
-              </button>
-            </AlertDialogTrigger>
-            <AlertDialogContent className="max-h-[88vh] grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden sm:max-w-3xl">
-              <AlertDialogHeader>
-                <AlertDialogTitle>{title}</AlertDialogTitle>
-              </AlertDialogHeader>
-              <AlertDialogDescription asChild>
-                <div className="min-h-0 overflow-y-auto rounded-xl border border-black/10 bg-black/[0.03] p-4 text-left">
-                  <pre className="whitespace-pre-wrap break-words font-mono text-xs leading-6 text-black/75 sm:text-sm">
-                    {item.content}
-                  </pre>
-                </div>
-              </AlertDialogDescription>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Закрыть</AlertDialogCancel>
-                <button
-                  type="button"
-                  onClick={() => onCopy(item.content || "", item.id)}
-                  className="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-black px-4 text-sm font-medium text-white transition hover:bg-zinc-800"
-                >
-                  {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                  {copied ? "Скопировано" : "Копировать"}
-                </button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        )}
-      </div>
-    </article>
-  );
-}
-
-function SkillResourceCard({
-  item,
-  copied,
-  onCopy,
-}: {
-  item: LibraryItem;
-  copied: boolean;
-  onCopy: (value: string, id: string) => void;
-}) {
-  const category = FILTER_TRANSLATIONS[String(item.category || "")] || String(item.category || "Навык");
-
-  return (
-    <article className="group flex min-w-0 flex-col rounded-2xl border border-black/10 bg-white p-3 transition hover:-translate-y-0.5 hover:border-black/20 hover:shadow-lg sm:min-h-[270px] sm:p-4">
-      <div className="flex items-start justify-between gap-2">
-        <ResourceIcon type="skills" className="h-9 w-9 sm:h-10 sm:w-10" />
-        <div className="flex items-center gap-1.5">
-          {typeof item.stars === "number" && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[9px] font-semibold text-black/60 ring-1 ring-black/5 sm:text-[10px]">
-              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-              {formatNumber(item.stars)}
-            </span>
-          )}
-          <FavoriteButton
-            toolId={item.id}
-            itemType="skills"
-            iconOnly
-            callbackUrl="/catalog?type=skills"
-            className="h-8 w-8"
-          />
-        </div>
-      </div>
-      <div className="mt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-black/35 sm:text-[10px]">
-        {category}
-      </div>
-      <h3 className="mt-1.5 line-clamp-2 text-sm font-semibold leading-5 sm:text-base">{itemName(item)}</h3>
-      <p className="mt-2 line-clamp-4 text-xs leading-5 text-black/55 sm:text-sm">
-        {item.descriptionRu || item.description || "Описание пока не добавлено."}
-      </p>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {[item.sourceLanguage, ...(item.compatibleAgents || []).slice(0, 2)]
-          .filter((value): value is string => Boolean(value))
-          .map((value) => (
-            <span key={value} className="max-w-full truncate rounded-full bg-black/[0.045] px-2 py-1 text-[9px] text-black/55 sm:text-[10px]">
-              {value}
-            </span>
-          ))}
-      </div>
-      {item.installCommand && (
-        <div className="mt-3 truncate rounded-lg bg-black/[0.04] px-2.5 py-2 font-mono text-[9px] text-black/50 sm:text-[10px]">
-          {item.installCommand}
-        </div>
-      )}
-      <div className="mt-auto flex items-center justify-between gap-2 pt-4">
-        <span className="truncate text-[10px] text-black/40 sm:text-xs">{item.author || "Сообщество"}</span>
-        <div className="flex shrink-0 items-center gap-1.5">
-          {item.installCommand && (
-            <button
-              type="button"
-              onClick={() => onCopy(item.installCommand || "", item.id)}
-              className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-black px-2.5 text-[10px] font-semibold text-white transition hover:bg-zinc-800 sm:px-3 sm:text-xs"
-            >
-              {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-              <span className="hidden sm:inline">{copied ? "Скопировано" : "Установить"}</span>
-            </button>
-          )}
-          {item.repoUrl && (
-            <a
-              href={item.repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Открыть репозиторий ${itemName(item)}`}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-black/10 bg-white transition hover:bg-black/5"
-            >
-              <Github className="h-3.5 w-3.5" />
-            </a>
-          )}
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function RepositoryResourceCard({ item }: { item: LibraryItem }) {
-  return (
-    <article className="group flex min-w-0 flex-col rounded-2xl border border-black/10 bg-white p-3 transition hover:-translate-y-0.5 hover:border-black/20 hover:shadow-lg sm:min-h-[260px] sm:p-4">
-      <div className="flex items-start justify-between gap-2">
-        <ResourceIcon type="repos" className="h-9 w-9 sm:h-10 sm:w-10" />
-        <div className="flex items-center gap-1.5">
-          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1.5 text-[10px] font-bold text-amber-800 ring-1 ring-amber-200 sm:text-xs">
-            <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-            {formatNumber(item.stars) || 0}
-            <span className="hidden font-medium text-amber-700/70 sm:inline">звёзд</span>
-          </span>
-          <FavoriteButton
-            toolId={item.id}
-            itemType="repos"
-            iconOnly
-            callbackUrl="/catalog?type=repos"
-            className="h-8 w-8"
-          />
-        </div>
-      </div>
-      <div className="mt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-black/35 sm:text-[10px]">
-        Репозиторий
-      </div>
-      <h3 className="mt-1.5 line-clamp-2 break-all text-sm font-semibold leading-5 sm:text-base">{itemName(item)}</h3>
-      <p className="mt-3 line-clamp-5 text-xs leading-5 text-black/55 sm:text-sm">
-        {item.descriptionRu || item.description || "Описание пока не добавлено."}
-      </p>
-      <div className="mt-auto flex items-center justify-between gap-2 pt-5">
-        <div className="flex min-w-0 items-center gap-2 text-[10px] text-black/45 sm:text-xs">
-          {item.language && (
-            <span className="inline-flex items-center gap-1.5 truncate">
-              <span className="h-2 w-2 shrink-0 rounded-full bg-sky-500" />
-              {item.language}
-            </span>
-          )}
-          {item.owner && <span className="truncate">{item.owner}</span>}
-        </div>
-        <a
-          href={item.url || item.repoUrl || "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-slate-900 px-2.5 text-[10px] font-semibold text-white transition hover:bg-slate-700 sm:px-3 sm:text-xs"
-        >
-          Открыть
-          <ExternalLink className="h-3.5 w-3.5" />
-        </a>
-      </div>
-    </article>
-  );
-}
-
 export default function CatalogPage() {
-  const [activeType, setActiveType] = useState<ResourceType>("tools");
+  const pathname = usePathname();
+  const [activeType, setActiveType] = useState<ResourceType>(() => resourceTypeFromPathname(pathname) || "tools");
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("");
@@ -509,21 +274,23 @@ export default function CatalogPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const requestedType = params.get("type");
-    const type = requestedType && RESOURCE_TYPES.includes(requestedType as ResourceType)
+    const pathType = resourceTypeFromPathname(pathname);
+    const type = pathType || (requestedType && RESOURCE_TYPES.includes(requestedType as ResourceType)
       ? requestedType as ResourceType
-      : "tools";
+      : "tools");
     const requestedSort = params.get("sort") as SortOption | null;
     const initialQuery = params.get("q")?.trim() || "";
     setQuery(initialQuery);
     setDebouncedQuery(initialQuery);
     setActiveType(type);
+    setActiveFilter("");
+    setPage(1);
     setSort(requestedSort && sortOptions(type).includes(requestedSort) ? requestedSort : defaultSort(type));
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -583,26 +350,6 @@ export default function CatalogPage() {
     return option ? filterLabel(option) : activeFilter;
   }, [activeFilter, filters]);
 
-  function selectType(type: ResourceType) {
-    const nextSort = defaultSort(type);
-    setActiveType(type);
-    setActiveFilter("");
-    setSort(nextSort);
-    setPage(1);
-    const url = new URL(window.location.href);
-    url.searchParams.set("type", type);
-    url.searchParams.delete("filter");
-    url.searchParams.delete("page");
-    url.searchParams.set("sort", nextSort);
-    window.history.replaceState({}, "", url);
-  }
-
-  async function copyValue(value: string, id: string) {
-    await navigator.clipboard.writeText(value);
-    setCopiedId(id);
-    window.setTimeout(() => setCopiedId(null), 1800);
-  }
-
   return (
     <div className="min-h-screen bg-[#f6f6f3] text-black dark:bg-zinc-950 dark:text-zinc-100">
       <Navbar />
@@ -614,27 +361,28 @@ export default function CatalogPage() {
               const config = RESOURCE_CONFIG[type];
               const active = type === activeType;
               return (
-                <button
+                <Link
                   key={type}
-                  type="button"
-                  onClick={() => selectType(type)}
+                  href={LIBRARY_RESOURCE_PATHS[type]}
                   className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition ${
-                    active ? "bg-black text-white" : "text-black/70 hover:bg-black/5 hover:text-black"
+                    active
+                      ? "bg-black text-white"
+                      : "text-black/75 hover:bg-black/5 hover:text-black dark:text-white/85 dark:hover:bg-white/10 dark:hover:text-white"
                   }`}
                 >
                   <ResourceIcon type={type} />
-                  <span className="min-w-0 flex-1 truncate text-sm">{config.label}</span>
-                  <span className={`text-xs ${active ? "text-white/65" : "text-black/40"}`}>
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium">{config.label}</span>
+                  <span className={`text-xs ${active ? "text-white/65" : "text-black/50 dark:text-white/65"}`}>
                     {counts[type] ? formatNumber(counts[type]) : "—"}
                   </span>
-                </button>
+                </Link>
               );
             })}
           </nav>
 
           {filters.length > 0 && (
-            <div className="mt-3 border-t border-black/10 px-2 pb-8 pt-4">
-              <div className="mb-2 whitespace-nowrap px-3 text-[9px] font-medium uppercase tracking-[0.14em] text-black/40">
+            <div className="mt-3 border-t border-black/10 px-2 pb-8 pt-4 dark:border-white/15">
+              <div className="mb-2 whitespace-nowrap px-3 text-[9px] font-medium uppercase tracking-[0.14em] text-black/50 dark:text-white/60">
                 Категории и направления
               </div>
               <button
@@ -644,7 +392,9 @@ export default function CatalogPage() {
                   setPage(1);
                 }}
                 className={`w-full rounded-lg px-3 py-2 text-left text-xs transition ${
-                  !activeFilter ? "bg-black/5 font-semibold" : "hover:bg-black/5"
+                  !activeFilter
+                    ? "bg-black/5 font-semibold dark:bg-white/10 dark:text-white"
+                    : "text-black/75 hover:bg-black/5 dark:text-white/80 dark:hover:bg-white/10"
                 }`}
               >
                 {filterPlaceholder(activeType)}
@@ -658,11 +408,13 @@ export default function CatalogPage() {
                     setPage(1);
                   }}
                   className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-xs transition ${
-                    activeFilter === option.value ? "bg-black text-white" : "hover:bg-black/5"
+                    activeFilter === option.value
+                      ? "bg-black text-white"
+                      : "text-black/75 hover:bg-black/5 dark:text-white/80 dark:hover:bg-white/10"
                   }`}
                 >
                   <span className="min-w-0 flex-1 truncate">{filterLabel(option)}</span>
-                  <span className={activeFilter === option.value ? "text-white/60" : "text-black/35"}>
+                  <span className={activeFilter === option.value ? "text-white/60" : "text-black/45 dark:text-white/55"}>
                     {option.count}
                   </span>
                 </button>
@@ -674,7 +426,8 @@ export default function CatalogPage() {
         <div className="sticky top-0 hidden h-screen bg-black/15 dark:bg-white/15 md:block" />
 
         <main className="min-w-0 px-4 py-5 sm:px-6 lg:px-8">
-          <section className="relative min-h-[280px] overflow-hidden rounded-3xl border border-black/10 bg-white dark:border-white/10 dark:bg-zinc-900 sm:min-h-[320px]">
+          <div className="contents md:block md:overflow-hidden md:rounded-3xl md:border md:border-black/10 md:bg-white md:shadow-sm md:dark:border-white/10 md:dark:bg-zinc-900">
+          <section className="relative min-h-[280px] overflow-hidden rounded-3xl border border-black/10 bg-white dark:border-white/10 dark:bg-zinc-900 sm:min-h-[320px] md:rounded-none md:border-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/ai-hero.png" alt="AI-библиотека" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent" />
@@ -690,16 +443,15 @@ export default function CatalogPage() {
             </div>
           </section>
 
-          <div className="mt-4 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="mt-4 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mt-0 md:px-4 md:pt-4">
             <div className="grid min-w-[680px] grid-cols-5 gap-2">
               {RESOURCE_TYPES.map((type) => {
                 const config = RESOURCE_CONFIG[type];
                 const active = activeType === type;
                 return (
-                  <button
+                  <Link
                     key={type}
-                    type="button"
-                    onClick={() => selectType(type)}
+                    href={LIBRARY_RESOURCE_PATHS[type]}
                     aria-pressed={active}
                     className={`flex min-w-0 items-center gap-2.5 rounded-2xl border px-3 py-3 text-left transition sm:px-4 ${
                       active
@@ -714,13 +466,13 @@ export default function CatalogPage() {
                         {counts[type] ? formatNumber(counts[type]) : "—"}
                       </span>
                     </span>
-                  </button>
+                  </Link>
                 );
               })}
             </div>
           </div>
 
-          <section className="mt-4 rounded-2xl border border-black/10 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+          <section className="sticky top-0 z-30 mt-4 rounded-2xl border border-black/10 bg-white/95 p-3 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/95 md:static md:mx-4 md:mb-4 md:mt-3 md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none md:dark:bg-transparent">
             <div className="flex items-center gap-2">
               <div className="relative min-w-0 flex-1">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40" />
@@ -749,6 +501,7 @@ export default function CatalogPage() {
               </select>
             </div>
           </section>
+          </div>
 
           <section className="mt-5">
             <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
@@ -765,7 +518,7 @@ export default function CatalogPage() {
                 {error}
               </div>
             ) : loading ? (
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-5">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-[repeat(auto-fit,minmax(210px,1fr))]">
                 {Array.from({ length: 12 }, (_, index) => (
                   <div key={index} className="overflow-hidden rounded-2xl border border-black/10">
                     <div className="h-28 animate-pulse bg-black/5 sm:h-40" />
@@ -783,146 +536,10 @@ export default function CatalogPage() {
                 <p className="mt-3 text-sm text-black/55">По вашему запросу ничего не найдено.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-5">
-                {items.map((item) =>
-                  activeType === "tools" ? (
-                    <article
-                      key={item.id}
-                      className="group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition hover:-translate-y-0.5 hover:shadow-lg sm:min-h-[250px]"
-                    >
-                      <FavoriteButton
-                        toolId={item.id}
-                        itemType="aiTools"
-                        iconOnly
-                        callbackUrl={`/catalog/${item.id}`}
-                        className="absolute right-2 top-2 z-20 h-8 w-8"
-                      />
-                      <Link href={`/catalog/${item.id}`} className="flex min-h-0 flex-1 flex-col">
-                        <ResourceImage item={item} type={activeType} />
-                        <div className="flex flex-1 flex-col p-3">
-                          <div className="flex items-start justify-between gap-2">
-                            <h3 className="line-clamp-2 text-xs font-semibold sm:text-sm">{itemName(item)}</h3>
-                            {typeof item.rating === "number" && (
-                              <span className="shrink-0 rounded-md bg-black px-1.5 py-0.5 text-[9px] font-semibold text-white">
-                                {item.rating.toFixed(1)}
-                              </span>
-                            )}
-                          </div>
-                          <p className="mt-2 line-clamp-2 text-[10px] leading-4 text-black/55 sm:text-xs sm:leading-5">
-                            {item.description || "AI-инструмент для решения рабочих и творческих задач."}
-                          </p>
-                          <div className="mt-auto truncate pt-3 text-[10px] text-black/45 sm:text-xs">
-                            {typeof item.category === "object" ? item.category?.name : "AI-инструмент"}
-                          </div>
-                        </div>
-                      </Link>
-                    </article>
-                  ) : activeType === "prompts" ? (
-                    <PromptResourceCard
-                      key={item.id}
-                      item={item}
-                      copied={copiedId === item.id}
-                      onCopy={copyValue}
-                    />
-                  ) : activeType === "skills" ? (
-                    <SkillResourceCard
-                      key={item.id}
-                      item={item}
-                      copied={copiedId === item.id}
-                      onCopy={copyValue}
-                    />
-                  ) : activeType === "repos" ? (
-                    <RepositoryResourceCard key={item.id} item={item} />
-                  ) : (
-                    <article
-                      key={item.id}
-                      className="group flex min-w-0 flex-col rounded-2xl border border-black/10 bg-white p-3 transition hover:-translate-y-0.5 hover:border-black/20 hover:shadow-lg sm:min-h-[270px] sm:p-4"
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <ResourceIcon type="mcp" className="h-9 w-9 sm:h-10 sm:w-10" />
-                        <div className="flex items-center gap-1.5">
-                          {typeof item.stars === "number" ? (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[9px] font-semibold text-black/60 ring-1 ring-black/5 sm:text-[10px]">
-                              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-                              {formatNumber(item.stars)}
-                            </span>
-                          ) : item.isOfficial ? (
-                            <span className="rounded-full bg-emerald-100 px-2 py-1 text-[9px] font-semibold text-emerald-700 sm:text-[10px]">
-                              Официальный
-                            </span>
-                          ) : null}
-                          <FavoriteButton
-                            toolId={item.id}
-                            itemType="mcp"
-                            iconOnly
-                            callbackUrl={item.slug ? `/catalog/mcp/${item.slug}` : "/catalog?type=mcp"}
-                            className="h-8 w-8"
-                          />
-                        </div>
-                      </div>
-                      <div className="flex flex-1 flex-col">
-                        <div className="mt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-black/35 sm:text-[10px]">
-                          {item.resourceType || "MCP Server"}
-                        </div>
-                        <div className="mt-1.5 flex items-start justify-between gap-2">
-                          <h3 className="line-clamp-2 text-sm font-semibold sm:text-base">
-                            {item.slug ? (
-                              <Link href={`/catalog/mcp/${item.slug}`} className="hover:underline">
-                                {itemName(item)}
-                              </Link>
-                            ) : (
-                              itemName(item)
-                            )}
-                          </h3>
-                          {item.isOfficial && typeof item.stars === "number" && (
-                            <span className="shrink-0 rounded-full bg-emerald-100 px-2 py-0.5 text-[9px] font-semibold text-emerald-700">
-                              Официальный
-                            </span>
-                          )}
-                        </div>
-
-                        <p className="mt-2 line-clamp-3 text-xs leading-5 text-black/55 sm:text-sm">
-                          {item.description || "Description is not available yet."}
-                        </p>
-
-                        <div className="mt-3 flex flex-wrap gap-1.5">
-                          {[item.languageName, item.categoryNames?.[0], item.location]
-                            .filter((value): value is string => Boolean(value))
-                            .slice(0, 3)
-                            .map((value) => (
-                              <span key={value} className="max-w-full truncate rounded-full bg-black/[0.045] px-2 py-1 text-[9px] text-black/55 sm:text-[10px]">
-                                {value}
-                              </span>
-                            ))}
-                        </div>
-
-                        <div className="mt-auto flex items-center justify-between gap-2 pt-4">
-                          <div className="flex min-w-0 items-center gap-2 text-[10px] text-black/45 sm:text-xs">
-                            {typeof item.rating === "number" && (
-                              <span className="flex items-center gap-1">
-                                <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-                                {item.rating.toFixed(1)}
-                              </span>
-                            )}
-                            {item.author || item.authorName ? (
-                              <span className="truncate">{item.author || item.authorName}</span>
-                            ) : null}
-                          </div>
-
-                          {item.slug && (
-                            <Link
-                              href={`/catalog/mcp/${item.slug}`}
-                              className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-black px-2.5 text-[10px] font-semibold text-white transition hover:bg-zinc-800 sm:px-3 sm:text-xs"
-                            >
-                              Открыть карточку
-                              <ArrowRight className="h-3.5 w-3.5" />
-                            </Link>
-                          )}
-                        </div>
-                      </div>
-                    </article>
-                  ),
-                )}
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-[repeat(auto-fit,minmax(210px,1fr))]">
+                {items.map((item) => (
+                  <LibraryResourceCard key={item.id} item={item} type={activeType} />
+                ))}
               </div>
             )}
 

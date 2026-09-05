@@ -206,7 +206,7 @@ export default async function ToolPage({ params }: PageProps) {
             <ToolImage
               src={tool.coverImage}
               alt={tool.name}
-              className="block h-56 w-full object-cover sm:h-72 lg:h-[380px]"
+              className="block h-56 w-full object-cover sm:h-72 lg:h-full lg:min-h-[380px]"
               fallbackTextClassName="px-8 text-3xl sm:text-5xl"
             />
             <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 lg:p-10">

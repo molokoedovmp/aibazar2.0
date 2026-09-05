@@ -257,7 +257,7 @@ export default async function McpDetailPage({ params }: PageProps) {
 
       <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
         <Link
-          href="/catalog?type=mcp"
+          href="/catalog/mcp"
           className="inline-flex items-center gap-2 text-sm text-black/55 transition hover:text-black"
         >
           <ArrowLeft className="h-4 w-4" />

@@ -63,7 +63,7 @@ const typeConfig = {
     icon: BrainCircuit,
     accent: "bg-gradient-to-br from-cyan-300 via-sky-500 to-blue-600 text-white shadow-sky-500/25",
     badge: "bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300",
-    catalogHref: "/catalog?type=mcp",
+    catalogHref: "/catalog/mcp",
   },
   prompts: {
     label: "Промпты",
@@ -71,7 +71,7 @@ const typeConfig = {
     icon: BookOpenText,
     accent: "bg-gradient-to-br from-violet-300 via-violet-500 to-indigo-700 text-white shadow-violet-500/25",
     badge: "bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300",
-    catalogHref: "/catalog?type=prompts",
+    catalogHref: "/catalog/prompts",
   },
   skills: {
     label: "Навыки",
@@ -79,7 +79,7 @@ const typeConfig = {
     icon: WandSparkles,
     accent: "bg-gradient-to-br from-emerald-300 via-teal-500 to-cyan-700 text-white shadow-teal-500/25",
     badge: "bg-teal-50 text-teal-700 dark:bg-teal-500/10 dark:text-teal-300",
-    catalogHref: "/catalog?type=skills",
+    catalogHref: "/catalog/skills",
   },
   repos: {
     label: "Репозитории",
@@ -87,7 +87,7 @@ const typeConfig = {
     icon: Github,
     accent: "bg-gradient-to-br from-zinc-600 via-zinc-900 to-black text-white shadow-black/25",
     badge: "bg-zinc-100 text-zinc-700 dark:bg-white/10 dark:text-zinc-300",
-    catalogHref: "/catalog?type=repos",
+    catalogHref: "/catalog/repos",
   },
 } satisfies Record<
   FavoriteItemType,

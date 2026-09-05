@@ -19,16 +19,24 @@ function hashName(name: string): number {
   return hash >>> 0;
 }
 
-function gradientForName(name: string): string {
+function gradientsForName(name: string) {
   const hash = hashName(name);
-  const firstHue = hash % 360;
-  const secondHue = (firstHue + 55 + ((hash >>> 8) % 80)) % 360;
-  const thirdHue = (secondHue + 45 + ((hash >>> 16) % 75)) % 360;
+  const tealHue = 174 + (hash % 22);
+  const blueHue = 205 + ((hash >>> 8) % 25);
+  const accentPosition = 18 + ((hash >>> 16) % 56);
 
-  return [
-    "radial-gradient(circle at 18% 18%, rgba(255,255,255,0.32), transparent 38%)",
-    `linear-gradient(135deg, hsl(${firstHue} 78% 36%), hsl(${secondHue} 76% 44%) 52%, hsl(${thirdHue} 82% 48%))`,
-  ].join(", ");
+  return {
+    lightTheme: [
+      `radial-gradient(circle at ${accentPosition}% 18%, hsl(${tealHue} 74% 45% / 0.34), transparent 42%)`,
+      `radial-gradient(circle at 82% 82%, hsl(${blueHue} 78% 46% / 0.24), transparent 44%)`,
+      "linear-gradient(145deg, #14262b 0%, #0b171b 48%, #101820 100%)",
+    ].join(", "),
+    darkTheme: [
+      `radial-gradient(circle at ${accentPosition}% 18%, hsl(${tealHue} 64% 52% / 0.2), transparent 42%)`,
+      `radial-gradient(circle at 82% 82%, hsl(${blueHue} 70% 55% / 0.14), transparent 44%)`,
+      "linear-gradient(145deg, #f4f8f7 0%, #dce9e9 48%, #edf3f5 100%)",
+    ].join(", "),
+  };
 }
 
 export function ToolImage({
@@ -40,17 +48,41 @@ export function ToolImage({
 }: ToolImageProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const showFallback = !src || failedSrc === src;
+  const fallbackGradients = gradientsForName(alt);
 
   if (showFallback) {
     return (
       <div
         role="img"
         aria-label={alt}
-        className={`flex items-center justify-center overflow-hidden text-center text-white ${className}`}
-        style={{ ...style, backgroundImage: gradientForName(alt) }}
+        className={`relative isolate flex items-center justify-center overflow-hidden bg-[#0b171b] text-center text-white dark:bg-[#e7f0f0] dark:text-slate-950 ${className}`}
+        style={style}
       >
+        <span aria-hidden="true" className="absolute inset-0 z-0 dark:hidden" style={{ backgroundImage: fallbackGradients.lightTheme }} />
+        <span aria-hidden="true" className="absolute inset-0 z-0 hidden dark:block" style={{ backgroundImage: fallbackGradients.darkTheme }} />
         <span
-          className={`line-clamp-3 max-w-[88%] font-bold leading-tight tracking-tight drop-shadow-lg ${fallbackTextClassName}`}
+          aria-hidden="true"
+          className="absolute inset-0 z-0 opacity-25 dark:hidden"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px), radial-gradient(circle at 1px 1px, rgba(255,255,255,.45) 1px, transparent 0)",
+            backgroundSize: "28px 28px, 28px 28px, 15px 15px",
+            maskImage: "linear-gradient(to bottom, black, rgba(0,0,0,.45))",
+          }}
+        />
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 z-0 hidden opacity-30 dark:block"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(5,28,32,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(5,28,32,.12) 1px, transparent 1px), radial-gradient(circle at 1px 1px, rgba(5,28,32,.35) 1px, transparent 0)",
+            backgroundSize: "28px 28px, 28px 28px, 15px 15px",
+            maskImage: "linear-gradient(to bottom, black, rgba(0,0,0,.45))",
+          }}
+        />
+        <span aria-hidden="true" className="absolute inset-x-0 bottom-0 z-0 h-1/2 bg-gradient-to-t from-black/35 to-transparent dark:from-white/30" />
+        <span
+          className={`relative z-10 line-clamp-3 max-w-[84%] font-bold leading-tight tracking-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)] dark:drop-shadow-[0_2px_14px_rgba(255,255,255,0.8)] ${fallbackTextClassName}`}
         >
           {alt}
         </span>
