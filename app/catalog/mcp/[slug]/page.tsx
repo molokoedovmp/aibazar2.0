@@ -248,7 +248,7 @@ export default async function McpDetailPage({ params }: PageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#f6f6f3] text-black">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <script
         type="application/ld+json"
@@ -265,15 +265,15 @@ export default async function McpDetailPage({ params }: PageProps) {
         </Link>
 
         <section className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
-          <div className="grid min-w-0 grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+          <div className="grid min-w-0 grid-cols-1 lg:h-[480px] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
             <ToolImage
               src={null}
               alt={mcp.name}
-              className="h-56 w-full object-cover sm:h-72 lg:h-full lg:min-h-[380px]"
+              className="h-56 w-full object-cover object-center sm:h-72 lg:h-full"
               fallbackTextClassName="px-8 text-3xl sm:text-5xl"
             />
 
-            <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 lg:p-10">
+            <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 lg:h-full lg:overflow-y-auto lg:p-10">
               <div className="flex flex-wrap gap-2">
                 {language && (
                   <span className="rounded-full border border-black/10 bg-black/[0.03] px-3 py-1.5 text-xs font-medium">

@@ -77,7 +77,7 @@ export function LibraryResourceDetail({
   const canonicalPath = `${config.href}/${encodeURIComponent(id)}`;
 
   return (
-    <div className="min-h-screen bg-[#f6f6f3] text-black">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <script
         type="application/ld+json"
@@ -90,15 +90,15 @@ export function LibraryResourceDetail({
           {config.backLabel}
         </Link>
 
-        <section className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm dark:border-white/10">
-          <div className="grid min-w-0 grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <section className="catalog-card mt-5 overflow-hidden rounded-3xl border border-border shadow-sm">
+          <div className="grid min-w-0 grid-cols-1 lg:h-[480px] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
             <ToolImage
               src={coverImages[0] || null}
               alt={title}
-              className="block h-56 w-full object-cover sm:h-72 lg:h-full lg:min-h-[380px]"
+              className="block h-56 w-full object-cover object-center sm:h-72 lg:h-full"
               fallbackTextClassName="px-8 text-3xl sm:text-5xl"
             />
-            <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 lg:p-10">
+            <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 lg:h-full lg:overflow-y-auto lg:p-10">
               <div className="flex flex-wrap gap-2">
                 {badges.filter(Boolean).slice(0, 5).map((badge, index) => (
                   <span key={`${badge}-${index}`} className="rounded-full border border-black/10 bg-black/[0.03] px-3 py-1.5 text-xs font-medium dark:border-white/10 dark:bg-white/5">
@@ -124,7 +124,7 @@ export function LibraryResourceDetail({
 
         <section className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
           {stats.slice(0, 4).map((stat) => (
-            <div key={stat.label} className="rounded-2xl border border-black/10 bg-white p-4 sm:p-5 dark:border-white/10">
+            <div key={stat.label} className="catalog-card rounded-2xl border border-border p-4 sm:p-5">
               <StatIcon kind={stat.kind} />
               <div className="mt-4 break-words text-xl font-semibold sm:text-2xl">{stat.value}</div>
               <div className="mt-1 text-xs text-black/45 dark:text-white/45">{stat.label}</div>
@@ -133,7 +133,7 @@ export function LibraryResourceDetail({
         </section>
 
         <div className="mt-5 grid min-w-0 grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
-          <article className="min-w-0 rounded-3xl border border-black/10 bg-white p-5 shadow-sm dark:border-white/10 sm:p-8">
+          <article className="catalog-card min-w-0 rounded-3xl border border-border p-5 shadow-sm sm:p-8">
             <h2 className="text-2xl font-semibold tracking-[-0.03em]">Описание</h2>
             <p className="mt-5 whitespace-pre-line text-sm leading-7 text-black/60 dark:text-white/60 sm:text-base">{description}</p>
 
@@ -187,7 +187,7 @@ export function LibraryResourceDetail({
             ) : null}
           </article>
 
-          <aside className="h-fit rounded-3xl border border-black/10 bg-white p-5 shadow-sm dark:border-white/10 sm:p-6 lg:sticky lg:top-5">
+          <aside className="catalog-card h-fit rounded-3xl border border-border p-5 shadow-sm sm:p-6 lg:sticky lg:top-5">
             <h2 className="text-lg font-semibold">Краткая информация</h2>
             <dl className="mt-3">
               {details.map((detail) => (

@@ -178,8 +178,8 @@ export function LibraryResourceCard({
     <article
       className={
         type === "tools"
-          ? "group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-black/20 hover:shadow-lg dark:border-white/10 dark:bg-zinc-900 sm:min-h-[250px]"
-          : "group relative flex min-h-[190px] min-w-0 flex-col rounded-2xl border border-black/10 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-black/20 hover:shadow-xl dark:border-white/10 dark:bg-black sm:min-h-[220px] sm:p-4"
+          ? "resource-card-surface catalog-card group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border transition duration-300 hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-lg sm:min-h-[250px]"
+          : "resource-card-surface catalog-card group relative flex min-h-[190px] min-w-0 flex-col rounded-2xl border border-border p-3 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-foreground/20 hover:shadow-xl sm:min-h-[220px] sm:p-4"
       }
     >
       <FavoriteButton

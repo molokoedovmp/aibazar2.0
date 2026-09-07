@@ -61,15 +61,15 @@ export function MobileNav() {
   return (
     <nav
       aria-label="Основная навигация"
-      className="fixed inset-x-0 bottom-0 z-[70] flex justify-center md:hidden"
+      className="fixed inset-x-0 bottom-0 z-[70] flex justify-center px-4 md:hidden"
     >
-      <div className="w-[calc(100vw-1rem)] max-w-[520px] pb-[calc(env(safe-area-inset-bottom)+10px)]">
+      <div className="w-full max-w-[520px] pb-[calc(env(safe-area-inset-bottom)+10px)]">
         <ul className="mobile-nav-surface flex w-full items-center gap-0.5 rounded-[28px] border border-black/10 bg-white p-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
           {items.map((item) => {
             const Icon = item.icon;
 
             return (
-              <li key={item.href} className={item.active ? "min-w-0 flex-[2]" : "min-w-0 flex-1"}>
+              <li key={item.href} className={item.active ? "min-w-0 flex-1" : "w-11 flex-none"}>
                 <Link
                   href={item.href}
                   aria-label={item.label}

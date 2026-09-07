@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import {
   ArrowUpRight,
-  BookOpenText,
   Instagram,
   Send,
-  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -18,7 +16,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const DZEN_URL = "https://dzen.ru/aibazar?share_to=link";
+const DZEN_URL = "/out/dzen";
 const TELEGRAM_URL = "https://t.me/aiBazar1";
 const INSTAGRAM_URL = "https://www.instagram.com/aibazaru/";
 
@@ -78,131 +76,83 @@ export default function AboutPage() {
     <div className="min-h-screen text-black dark:text-zinc-100">
       <Navbar />
 
-      <main>
-        <section className="relative overflow-hidden">
-                  <div className="relative mx-auto max-w-[1160px] px-4 py-14 sm:px-6 sm:py-20">
-                    <h1 className="mt-5 max-w-3xl text-4xl font-semibold tracking-[-0.045em] sm:text-6xl">Следите за миром AI вместе с нами</h1>
-                    <p className="mt-5 max-w-2xl text-base leading-7 text-black/60 dark:text-white/60 sm:text-lg">Собираем полезные нейросети, проверяем инструменты на практике и публикуем понятные разборы без лишнего шума.</p>
-                  </div>
-                </section>
-
-        <section id="channels" className="px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-              <div>
-                <h2 className="text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
-                  Наши каналы
-                </h2>
-              </div>
-              <p className="max-w-2xl text-base leading-7 text-black/60 dark:text-zinc-400 lg:justify-self-end">
-                Публикуем обзоры нейросетей, инструкции и подборки, которые можно
-                сразу применять в работе, творчестве и бизнесе.
-              </p>
-            </div>
-
-            <article className="relative mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-black bg-[radial-gradient(circle_at_16%_20%,rgba(14,165,233,0.25),transparent_28%),radial-gradient(circle_at_80%_5%,rgba(139,92,246,0.23),transparent_30%),radial-gradient(circle_at_70%_100%,rgba(16,185,129,0.16),transparent_28%)] p-6 text-white shadow-[0_14px_40px_rgba(0,0,0,0.12)] sm:p-9">
-              <div className="relative grid gap-10 md:grid-cols-[1fr_0.8fr] md:items-center">
-                <div>
-                  <div className="flex items-center gap-4">
-                    <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white text-black sm:h-20 sm:w-20">
-                      <YandexZenIcon className="h-9 w-9 sm:h-11 sm:w-11" />
-                    </span>
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/45">
-                        Канал в Дзене
-                      </p>
-                      <h3 className="mt-1 text-2xl font-semibold sm:text-3xl">AI Bazar</h3>
-                      <p className="mt-1 text-sm text-white/55">dzen.ru/aibazar</p>
-                    </div>
-                  </div>
-                  <p className="mt-6 max-w-xl text-base leading-7 text-white/65">
-                    Подробно разбираем новые AI-сервисы, сравниваем возможности и
-                    собираем практические сценарии использования.
-                  </p>
-                  <Link
-                    href={DZEN_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="theme-light-button group mt-6 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 font-medium text-black transition-transform hover:-translate-y-0.5 hover:bg-zinc-200"
-                  >
-                    Открыть канал
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
-                </div>
-
-                <div className="rounded-3xl border border-white/10 bg-black/35 p-6 text-white backdrop-blur-sm sm:p-7">
-                  <div className="flex items-center gap-2 text-sm text-white/55">
-                    <BookOpenText className="h-4 w-4" />
-                    Что публикуем
-                  </div>
-                  <ul className="mt-5 space-y-3">
-                    {["Обзоры нейросетей", "Пошаговые инструкции", "Подборки AI-инструментов"].map(
-                      (item) => (
-                        <li key={item} className="flex items-center gap-3 text-sm sm:text-base">
-                          <Sparkles className="h-4 w-4 shrink-0 text-white/50" />
-                          {item}
-                        </li>
-                      ),
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </article>
-
-            <div className="mt-5 grid gap-5 sm:grid-cols-2">
-              <Link
-                href={TELEGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-black bg-[radial-gradient(circle_at_16%_20%,rgba(14,165,233,0.25),transparent_35%),radial-gradient(circle_at_82%_15%,rgba(139,92,246,0.22),transparent_36%)] p-5 text-white transition hover:-translate-y-0.5 hover:border-white/20 hover:shadow-lg"
-              >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-black">
-                  <Send className="h-6 w-6" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-xs uppercase tracking-[0.18em] text-white/45">Telegram</span>
-                  <span className="mt-1 block text-lg font-semibold">@aiBazar1</span>
-                </span>
-                <ArrowUpRight className="h-5 w-5 shrink-0" />
+      <main className="mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
+        <section className="py-16 sm:py-24">
+          <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.045em] sm:text-6xl">
+            Находим полезные AI-инструменты в одном месте
+          </h1>
+          <div className="mt-8 grid gap-8 border-t border-black/10 pt-8 dark:border-white/10 lg:grid-cols-[1fr_0.65fr]">
+            <p className="max-w-2xl text-base leading-7 text-black/60 dark:text-white/60 sm:text-lg">
+              Собираем нейросети, MCP-серверы, промпты, навыки и open-source проекты в одной библиотеке с понятными описаниями и быстрым поиском по задаче.
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row lg:justify-self-end">
+              <Link href="/catalog" className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-black px-6 text-sm font-semibold text-white transition hover:bg-black/80 dark:bg-white dark:text-black">
+                Открыть AI-библиотеку
+                <ArrowUpRight className="h-4 w-4" />
               </Link>
-              <Link
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-black bg-[radial-gradient(circle_at_16%_20%,rgba(14,165,233,0.25),transparent_35%),radial-gradient(circle_at_82%_15%,rgba(139,92,246,0.22),transparent_36%)] p-5 text-white transition hover:-translate-y-0.5 hover:border-white/20 hover:shadow-lg"
-              >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-black">
-                  <Instagram className="h-6 w-6" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-xs uppercase tracking-[0.18em] text-white/45">Instagram</span>
-                  <span className="mt-1 block text-lg font-semibold">@aibazaru</span>
-                </span>
-                <ArrowUpRight className="h-5 w-5 shrink-0" />
+              <Link href="#channels" className="inline-flex h-12 items-center justify-center rounded-xl border border-black/15 px-6 text-sm font-semibold transition hover:bg-black/5 dark:border-white/15 dark:hover:bg-white/10">
+                Наши каналы
               </Link>
             </div>
           </div>
         </section>
 
-        <section className="border-t border-black/10 px-5 py-16 dark:border-white/10 sm:px-8 sm:py-24 lg:px-10">
-          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.65fr_1fr] lg:gap-20">
+        <section id="channels" className="border-t border-black/10 py-16 dark:border-white/10 sm:py-24">
+          <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+            <h2 className="text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">Где следить за aiBazar</h2>
+            <p className="max-w-2xl text-base leading-7 text-black/60 dark:text-zinc-400 lg:justify-self-end">
+              Обзоры, новые инструменты и короткие практические материалы — в удобном для вас формате.
+            </p>
+          </div>
+
+          <div className="mt-10 border-y border-black/10 dark:border-white/10">
+            <Link href={DZEN_URL} target="_blank" rel="noreferrer" className="group grid gap-5 border-b border-black/10 py-7 transition hover:pl-2 dark:border-white/10 sm:grid-cols-[56px_0.7fr_1.3fr_auto] sm:items-center">
+              <YandexZenIcon className="h-10 w-10 text-black/75 dark:text-white/75" />
+              <div>
+                <div className="text-xs uppercase tracking-[0.18em] text-black/40 dark:text-white/40">Дзен</div>
+                <div className="mt-1 text-xl font-semibold">AI Bazar</div>
+              </div>
+              <p className="max-w-xl text-sm leading-6 text-black/55 dark:text-white/55">
+                Подробные обзоры нейросетей, сравнения и практические сценарии использования.
+              </p>
+              <ArrowUpRight className="h-5 w-5 text-black/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 dark:text-white/40" />
+            </Link>
+            {[
+              { title: "Telegram", subtitle: "@aiBazar1", description: "Новые публикации и быстрые обновления каталога.", href: TELEGRAM_URL, icon: Send },
+              { title: "Instagram", subtitle: "@aibazaru", description: "Короткие подборки и визуальные материалы.", href: INSTAGRAM_URL, icon: Instagram },
+            ].map(({ title, subtitle, description, href, icon: Icon }, index) => (
+              <Link key={title} href={href} target="_blank" rel="noreferrer" className={`group grid gap-5 py-7 transition hover:pl-2 sm:grid-cols-[56px_0.7fr_1.3fr_auto] sm:items-center ${index === 0 ? "border-b border-black/10 dark:border-white/10" : ""}`}>
+                <Icon className="h-8 w-8 text-black/70 dark:text-white/70" />
+                <div>
+                  <div className="text-xs uppercase tracking-[0.18em] text-black/40 dark:text-white/40">{title}</div>
+                  <div className="mt-1 text-lg font-semibold">{subtitle}</div>
+                </div>
+                <p className="max-w-xl text-sm leading-6 text-black/55 dark:text-white/55">{description}</p>
+                <ArrowUpRight className="h-5 w-5 text-black/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 dark:text-white/40" />
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-t border-black/10 py-16 dark:border-white/10 sm:py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.65fr_1fr] lg:gap-20">
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.22em] text-black/45">FAQ</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
                 Частые вопросы
               </h2>
-              <p className="mt-4 max-w-md leading-7 text-black/60">
+              <p className="mt-4 max-w-md leading-7 text-black/60 dark:text-white/60">
                 Короткие ответы о каталоге, ценах, обновлениях и материалах AI Bazar.
               </p>
             </div>
 
-            <Accordion type="single" collapsible className="border-t border-black/10">
+            <Accordion type="single" collapsible className="border-t border-black/10 dark:border-white/10">
               {faqItems.map((faq, index) => (
-                <AccordionItem key={faq.question} value={`faq-${index}`} className="border-black/10">
+                <AccordionItem key={faq.question} value={`faq-${index}`} className="border-black/10 dark:border-white/10">
                   <AccordionTrigger className="py-5 text-base font-medium hover:no-underline sm:text-lg">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="max-w-2xl pb-5 pr-8 leading-7 text-black/60">
+                  <AccordionContent className="max-w-2xl pb-5 pr-8 leading-7 text-black/60 dark:text-white/60">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

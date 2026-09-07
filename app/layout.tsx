@@ -143,7 +143,7 @@ export default function RootLayout({
         className={`${prostoOne.variable} ${geistMono.variable} bg-transparent font-sans text-foreground antialiased`}
       >
         <SessionProvider>
-          <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
+          <div aria-hidden className="global-site-background pointer-events-none fixed inset-0 z-0">
             <DarkGradientBg className="h-full min-h-0" />
           </div>
           <div className="global-page-layer relative z-10 min-h-screen">{children}</div>

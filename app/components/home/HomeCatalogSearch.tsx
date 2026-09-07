@@ -60,7 +60,7 @@ function ResultCard({ result }: { result: SearchResult }) {
   return (
     <Link
       href={result.href}
-      className="group flex min-w-0 gap-3 rounded-2xl border border-black/10 bg-white/75 p-3 text-left shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:border-black/25 hover:bg-white dark:border-white/10 dark:bg-zinc-900/90 dark:hover:border-white/25 dark:hover:bg-zinc-800 sm:p-4"
+      className="resource-card-surface group flex min-w-0 gap-3 rounded-2xl border border-black/10 p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-black/25 dark:border-white/10 dark:hover:border-white/25 sm:p-4"
     >
       <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-black/[0.035] dark:border-white/10 dark:bg-white/[0.06]">
         {result.coverImage ? (

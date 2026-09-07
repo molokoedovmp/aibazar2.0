@@ -21,5 +21,5 @@ export const metadata: Metadata = {
 };
 
 export default function CatalogLayout({ children }: { children: ReactNode }) {
-  return children;
+  return <div className="route-plain-theme catalog-shadcn-theme min-h-screen">{children}</div>;
 }

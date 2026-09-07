@@ -101,7 +101,7 @@ function formatNumber(value: number) {
 
 function CardSkeleton() {
   return (
-    <div className="min-h-[190px] rounded-2xl border border-black/10 bg-white p-3 sm:min-h-[220px] sm:p-4">
+    <div className="resource-card-surface min-h-[190px] rounded-2xl border border-black/10 p-3 sm:min-h-[220px] sm:p-4">
       <div className="flex items-center gap-3">
         <div className="h-10 w-10 animate-pulse rounded-xl bg-black/10 sm:h-12 sm:w-12" />
         <div className="h-4 w-1/2 animate-pulse rounded bg-black/10" />

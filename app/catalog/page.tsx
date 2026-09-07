@@ -351,11 +351,11 @@ export default function CatalogPage() {
   }, [activeFilter, filters]);
 
   return (
-    <div className="min-h-screen bg-[#f6f6f3] text-black dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
 
       <div className="grid w-full grid-cols-1 md:grid-cols-[240px_1px_minmax(0,1fr)]">
-        <aside className="sticky top-0 hidden h-screen overflow-y-auto bg-transparent md:block">
+        <aside className="catalog-panel sticky top-0 hidden h-screen overflow-y-auto border-r border-border md:block">
           <nav className="space-y-1 px-2 pb-2 pt-5">
             {RESOURCE_TYPES.map((type) => {
               const config = RESOURCE_CONFIG[type];
@@ -423,10 +423,10 @@ export default function CatalogPage() {
           )}
         </aside>
 
-        <div className="sticky top-0 hidden h-screen bg-black/15 dark:bg-white/15 md:block" />
+        <div className="sticky top-0 hidden h-screen bg-border md:block" />
 
         <main className="min-w-0 px-4 py-5 sm:px-6 lg:px-8">
-          <div className="contents md:block md:overflow-hidden md:rounded-3xl md:border md:border-black/10 md:bg-white md:shadow-sm md:dark:border-white/10 md:dark:bg-zinc-900">
+          <div className="catalog-panel contents md:block md:overflow-hidden md:rounded-3xl md:border md:border-border md:shadow-sm">
           <section className="relative min-h-[280px] overflow-hidden rounded-3xl border border-black/10 bg-white dark:border-white/10 dark:bg-zinc-900 sm:min-h-[320px] md:rounded-none md:border-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/ai-hero.png" alt="AI-библиотека" className="absolute inset-0 h-full w-full object-cover" />
@@ -472,7 +472,7 @@ export default function CatalogPage() {
             </div>
           </div>
 
-          <section className="sticky top-0 z-30 mt-4 rounded-2xl border border-black/10 bg-white/95 p-3 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/95 md:static md:mx-4 md:mb-4 md:mt-3 md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none md:dark:bg-transparent">
+          <section className="catalog-panel sticky top-0 z-30 mt-4 rounded-2xl border border-border p-3 shadow-sm md:static md:mx-4 md:mb-4 md:mt-3 md:rounded-none md:border-0 md:p-0 md:shadow-none">
             <div className="flex items-center gap-2">
               <div className="relative min-w-0 flex-1">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40" />
@@ -520,7 +520,7 @@ export default function CatalogPage() {
             ) : loading ? (
               <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-[repeat(auto-fit,minmax(210px,1fr))]">
                 {Array.from({ length: 12 }, (_, index) => (
-                  <div key={index} className="overflow-hidden rounded-2xl border border-black/10">
+                  <div key={index} className="catalog-card overflow-hidden rounded-2xl border border-border">
                     <div className="h-28 animate-pulse bg-black/5 sm:h-40" />
                     <div className="space-y-3 p-3 sm:p-4">
                       <div className="h-4 w-2/3 animate-pulse rounded bg-black/10" />
@@ -531,7 +531,7 @@ export default function CatalogPage() {
                 ))}
               </div>
             ) : items.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-black/15 p-10 text-center">
+              <div className="catalog-card rounded-2xl border border-dashed border-border p-10 text-center">
                 <Search className="mx-auto h-6 w-6 text-black/30" />
                 <p className="mt-3 text-sm text-black/55">По вашему запросу ничего не найдено.</p>
               </div>
