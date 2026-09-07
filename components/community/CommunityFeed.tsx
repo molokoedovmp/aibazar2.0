@@ -309,8 +309,7 @@ export function CommunityFeed({
     <div className="min-h-screen bg-[#f6f6f3] text-zinc-950 dark:bg-zinc-950 dark:text-white">
       <Navbar />
       <main>
-        <section className="relative overflow-hidden bg-black text-white">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(14,165,233,0.25),transparent_28%),radial-gradient(circle_at_80%_5%,rgba(139,92,246,0.23),transparent_30%),radial-gradient(circle_at_70%_100%,rgba(16,185,129,0.16),transparent_28%)]" />
+        <section className="community-gradient-continuation relative overflow-hidden text-white">
           <div className="relative mx-auto max-w-[1160px] px-4 py-14 sm:px-6 sm:py-20">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/7 px-3 py-1.5 text-xs font-medium text-white/80"><Sparkles className="h-3.5 w-3.5" />Лента AI Bazar</div>
             <h1 className="mt-5 max-w-3xl text-4xl font-semibold tracking-[-0.045em] sm:text-6xl">Всё новое в мире AI</h1>
@@ -323,11 +322,11 @@ export function CommunityFeed({
           </div>
         </section>
 
-        <div className="sticky top-0 z-30 border-b border-black/8 bg-[#f6f6f3]/95 backdrop-blur dark:border-white/10 dark:bg-zinc-950/95 md:top-0">
+        <div className="community-gradient-continuation sticky top-0 z-30 border-b border-white/10 text-white md:top-0">
           <div className="mx-auto flex max-w-[1160px] gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none] sm:px-6">
             {filters.map((filter) => {
               const count = filter.value === "all" ? totalResources : initialData.counts[filter.value];
-              return <button key={filter.value} type="button" onClick={() => setActiveType(filter.value)} className={cn("flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition", activeType === filter.value ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black" : "border-black/10 bg-white hover:border-black/25 dark:border-white/10 dark:bg-zinc-900 dark:hover:border-white/25")}><span>{filter.label}</span><span className={cn("text-[11px]", activeType === filter.value ? "opacity-65" : "text-zinc-400")}>{formatMetric(count)}</span></button>;
+              return <button key={filter.value} type="button" onClick={() => setActiveType(filter.value)} className={cn("flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition", activeType === filter.value ? "border-white bg-white text-black shadow-sm" : "border-white/15 bg-white/[0.07] text-white hover:border-white/30 hover:bg-white/[0.12]")}><span>{filter.label}</span><span className={cn("text-[11px]", activeType === filter.value ? "opacity-55" : "text-white/55")}>{formatMetric(count)}</span></button>;
             })}
           </div>
         </div>

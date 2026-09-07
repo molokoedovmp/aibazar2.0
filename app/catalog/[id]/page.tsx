@@ -144,7 +144,7 @@ const getToolPageData = unstable_cache(
         },
         select: { id: true, title: true, coverImage: true, previewText: true, content: true, readTime: true },
         orderBy: { updatedAt: "desc" },
-        take: 4,
+        take: 6,
       }),
       prisma.category.findMany({
         where: { name: { in: relatedNames }, aiTools: { some: { isActive: true } } },
@@ -242,7 +242,7 @@ export default async function ToolPage({ params }: PageProps) {
         </section>
 
         <div className="mt-5 grid min-w-0 grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
-          <article className="min-w-0 rounded-3xl border border-black/10 bg-white p-5 shadow-sm sm:p-8">
+          <article className="h-fit min-w-0 self-start rounded-3xl border border-black/10 bg-white p-5 shadow-sm sm:p-8">
             <h2 className="text-2xl font-semibold tracking-[-0.03em]">Описание</h2>
             <p className="mt-5 whitespace-pre-line text-sm leading-7 text-black/60 sm:text-base">{tool.description?.trim() || "Описание инструмента пока не добавлено."}</p>
 

@@ -79,7 +79,7 @@ export default function AboutPage() {
       <main className="mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
         <section className="py-16 sm:py-24">
           <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.045em] sm:text-6xl">
-            Находим полезные AI-инструменты в одном месте
+            Библиотека нейросетей и AI-инструментов
           </h1>
           <div className="mt-8 grid gap-8 border-t border-black/10 pt-8 dark:border-white/10 lg:grid-cols-[1fr_0.65fr]">
             <p className="max-w-2xl text-base leading-7 text-black/60 dark:text-white/60 sm:text-lg">
@@ -87,7 +87,7 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-self-end">
               <Link href="/catalog" className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-black px-6 text-sm font-semibold text-white transition hover:bg-black/80 dark:bg-white dark:text-black">
-                Открыть AI-библиотеку
+                Открыть каталог
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
               <Link href="#channels" className="inline-flex h-12 items-center justify-center rounded-xl border border-black/15 px-6 text-sm font-semibold transition hover:bg-black/5 dark:border-white/15 dark:hover:bg-white/10">
