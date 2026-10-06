@@ -105,7 +105,7 @@ export default function OfferPage() {
         </ul>
         <p>
           Заявление направляется с адреса аккаунта на
-          <a href="mailto:opawkino@mail.ru"> opawkino@mail.ru</a> с номером
+          <a href="mailto:molokoedovmp@gmail.com"> molokoedovmp@gmail.com</a> с номером
           заказа и причиной обращения. Возврат выполняется тем же способом,
           которым была произведена оплата, в сроки, установленные законом и
           правилами платёжной системы.

@@ -116,7 +116,7 @@ export default function PrivacyPage() {
           <li>обжаловать действия Оператора в Роскомнадзор или суд.</li>
         </ul>
         <p>
-          Обращение можно направить на <a href="mailto:opawkino@mail.ru">opawkino@mail.ru</a>.
+          Обращение можно направить на <a href="mailto:molokoedovmp@gmail.com">molokoedovmp@gmail.com</a>.
           Для защиты данных Оператор может запросить сведения, необходимые для
           подтверждения личности заявителя.
         </p>

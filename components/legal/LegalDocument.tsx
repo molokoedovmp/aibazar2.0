@@ -39,12 +39,15 @@ export function LegalDocument({
 export function OperatorDetails() {
   return (
     <div className="rounded-2xl border border-black/10 bg-black/[0.025] p-5 dark:border-white/10 dark:bg-white/[0.04]">
-      <p><strong>Индивидуальный предприниматель Батулин Илья Николаевич</strong></p>
-      <p>ИНН: 771483032370</p>
-      <p>ОГРНИП: 324774600328155</p>
-      <p>Адрес: 125252, Россия, г. Москва, ул. Гризодубовой, д. 2</p>
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-black/50 dark:text-white/50">
+        Оператор / Исполнитель
+      </p>
+      <p><strong>ФИО: Молокоедов Михаил Павлович</strong></p>
+      <p>Статус: плательщик налога на профессиональный доход (самозанятый)</p>
+      <p>ИНН: 772310798620</p>
+      <p>Адрес для корреспонденции: г. Москва, Новочеркасский бульвар, д. 47, кв. 113</p>
       <p>
-        Электронная почта: <a href="mailto:opawkino@mail.ru">opawkino@mail.ru</a>
+        E-mail для обращений: <a href="mailto:molokoedovmp@gmail.com">molokoedovmp@gmail.com</a>
       </p>
     </div>
   );
