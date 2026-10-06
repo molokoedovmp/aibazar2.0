@@ -13,7 +13,9 @@ services:
       PORT: 3000
 
     ports:
-      - "3001:3000"
+      # Reverse proxy on this server can reach the app, but port 3001 is no
+      # longer exposed on the public network interface.
+      - "127.0.0.1:3001:3000"
 
     extra_hosts:
       - "host.docker.internal:host-gateway"

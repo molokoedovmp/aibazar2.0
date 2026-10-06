@@ -17,6 +17,7 @@ export async function POST(req: Request) {
   const name = (body.name || "").toString().trim();
   const email = (body.email || "").toString().trim().toLowerCase();
   const password = (body.password || "").toString();
+  const legalConsent = body.legalConsent === true;
 
   if (!name || !email || !password) {
     return NextResponse.json({ error: "Заполните имя, email и пароль" }, { status: 400 });
@@ -26,6 +27,12 @@ export async function POST(req: Request) {
   }
   if (password.length < 8) {
     return NextResponse.json({ error: "Минимальная длина пароля — 8 символов" }, { status: 400 });
+  }
+  if (!legalConsent) {
+    return NextResponse.json(
+      { error: "Для регистрации необходимо принять обязательные документы" },
+      { status: 400 },
+    );
   }
 
   const exists = await prisma.user.findUnique({ where: { email } });

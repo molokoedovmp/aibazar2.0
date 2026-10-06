@@ -60,9 +60,10 @@ const columns: Array<{
     featured: { title: "Главная", href: "/" },
     title: "Документы",
     links: [
-      { title: "Пользовательское соглашение", href: "/legal/user-agreement" },
-      { title: "Правила и условия", href: "/legal/terms" },
-      { title: "Политика конфиденциальности", href: "/legal/privacy" },
+      { title: "Пользовательское соглашение", href: "/legal/terms" },
+      { title: "Политика персональных данных", href: "/legal/privacy" },
+      { title: "Публичная оферта", href: "/legal/offer" },
+      { title: "Политика cookie", href: "/legal/cookies" },
     ],
   },
 ];

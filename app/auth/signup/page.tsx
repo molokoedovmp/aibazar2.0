@@ -11,6 +11,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [legalConsent, setLegalConsent] = useState(false);
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
@@ -24,7 +25,7 @@ export default function SignupPage() {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, legalConsent }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -69,7 +70,16 @@ export default function SignupPage() {
           </div>
 
           <div className="grid gap-3 mb-4">
-            <YandexStaticButton className="w-full" />
+            <YandexStaticButton
+              className="w-full"
+              label="Зарегистрироваться с Яндекс ID"
+              disabled={!legalConsent}
+            />
+            {!legalConsent && (
+              <p className="text-center text-xs leading-5 text-muted-foreground">
+                Чтобы зарегистрироваться через Яндекс ID, сначала примите документы в форме ниже.
+              </p>
+            )}
           </div>
 
           <div className="my-6 flex items-center gap-3">
@@ -119,13 +129,30 @@ export default function SignupPage() {
               />
             </div>
             {error && <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>}
-            <div className="flex items-center gap-2">
-              <input id="terms" type="checkbox" className="h-4 w-4 rounded border" />
-              <label htmlFor="terms" className="text-sm text-muted-foreground">Я принимаю <a href="#" className="underline">Условия</a> и <a href="#" className="underline">Политику</a></label>
+            <div className="flex items-start gap-2">
+              <input
+                id="legal-consent"
+                name="legalConsent"
+                type="checkbox"
+                required
+                checked={legalConsent}
+                onChange={(event) => setLegalConsent(event.target.checked)}
+                className="mt-1 h-4 w-4 shrink-0 rounded border"
+              />
+              <label htmlFor="legal-consent" className="text-sm leading-6 text-muted-foreground">
+                Я принимаю{" "}
+                <Link href="/legal/terms" target="_blank" className="underline underline-offset-2">Пользовательское соглашение</Link>
+                {" "}и даю согласие на обработку данных по{" "}
+                <Link href="/legal/privacy" target="_blank" className="underline underline-offset-2">Политике персональных данных</Link>;
+                {" "}ознакомлен с{" "}
+                <Link href="/legal/offer" target="_blank" className="underline underline-offset-2">Публичной офертой</Link>
+                {" "}и{" "}
+                <Link href="/legal/cookies" target="_blank" className="underline underline-offset-2">Политикой cookie</Link>.
+              </label>
             </div>
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !legalConsent}
               className="w-full inline-flex h-10 items-center justify-center rounded-md bg-foreground px-4 text-background text-sm font-medium transition-colors hover:opacity-90 disabled:opacity-60"
             >
               {loading ? "Отправляем..." : "Зарегистрироваться"}

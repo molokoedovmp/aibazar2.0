@@ -8,15 +8,25 @@ type Props = {
   className?: string;
   callbackUrl?: string;
   label?: string;
+  disabled?: boolean;
 };
 
-export default function YandexStaticButton({ className, callbackUrl = "/account", label = "Войти с Яндекс ID" }: Props) {
+export default function YandexStaticButton({
+  className,
+  callbackUrl = "/account",
+  label = "Войти с Яндекс ID",
+  disabled = false,
+}: Props) {
   return (
     <button
       type="button"
-      onClick={() => signIn("yandex", { callbackUrl })}
+      disabled={disabled}
+      onClick={() => {
+        if (disabled) return;
+        void signIn("yandex", { callbackUrl });
+      }}
       className={cn(
-        "w-full h-12 rounded-2xl bg-black text-white transition-colors hover:bg-black/90",
+        "w-full h-12 rounded-2xl bg-black text-white transition-colors hover:bg-black/90 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-black",
         "flex items-center justify-start gap-3 px-4",
         className
       )}
