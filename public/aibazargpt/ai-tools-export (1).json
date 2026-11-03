@@ -672,18 +672,6 @@
     "coverImage": "https://files.edgestore.dev/qg46cbsp6jtjzgpl/publicFiles/_public/9b61bd83-646c-496a-ad09-6e086193218e.png"
   },
   {
-    "id": "jd7cf10jdckwhpf3qph90k75sn7c4mc7",
-    "name": "Hedra",
-    "description": "Объеденяет обработку изображений, текста и аудио для более интеллектуальной генерации видео",
-    "type": "tool",
-    "price": 1650,
-    "rating": 8,
-    "isActive": true,
-    "category": "Видео",
-    "url": "https://www.hedra.com",
-    "coverImage": "https://files.edgestore.dev/qg46cbsp6jtjzgpl/publicFiles/_public/84e39761-1bcf-4f7b-81ff-829bf00c0848.png"
-  },
-  {
     "id": "jd73gqmv4yfadn5teazpd06hjn7c5635",
     "name": "InsMind",
     "description": "Умное расширение изображений",
@@ -801,18 +789,6 @@
     "isActive": true,
     "category": "Excel",
     "url": "https://julius.ai/",
-    "coverImage": null
-  },
-  {
-    "id": "jd70r44v6mtnxnnf56vdze3r917ccbwp",
-    "name": " Hedra Studio ",
-    "description": "Создавай видео с помощью топовых моделей, таких как Luma Ray 2 T2V и I2V, Minimax T2V и I2V, Kling 1.6 T2V, Veo 2 T2V и другие ",
-    "type": "tool",
-    "price": 1470,
-    "rating": 8.9,
-    "isActive": true,
-    "category": "Видео",
-    "url": "https://www.hedra.com/app/video",
     "coverImage": null
   },
   {

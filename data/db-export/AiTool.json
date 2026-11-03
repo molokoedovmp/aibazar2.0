@@ -272,22 +272,6 @@
     "linkedDocumentId": null
   },
   {
-    "id": "jd70r44v6mtnxnnf56vdze3r917ccbwp",
-    "name": " Hedra Studio ",
-    "description": "Создавай видео с помощью топовых моделей, таких как Luma Ray 2 T2V и I2V, Minimax T2V и I2V, Kling 1.6 T2V, Veo 2 T2V и другие",
-    "coverImage": "/tool-images/jd70r44v6mtnxnnf56vdze3r917ccbwp.webp",
-    "url": "https://www.hedra.com/app/video",
-    "type": "tool",
-    "isActive": true,
-    "rating": 6.7,
-    "price": 1438,
-    "startPrice": 8,
-    "categoryId": "cat_collective_0cab1c9617404faf2b24e221",
-    "createdAt": "2025-03-19T23:06:53.035Z",
-    "updatedAt": "2025-10-13T08:02:01.631Z",
-    "linkedDocumentId": null
-  },
-  {
     "id": "jd70yw4t6hnrvpnhtrrvtmysr96zsb1r",
     "name": "AIVA",
     "description": "AI-композитор, разработанный для создания музыки в различных жанрах и стилях",
@@ -972,22 +956,6 @@
     "startPrice": 5,
     "categoryId": "cat_collective_a77de8a6daa1129516b14c8c",
     "createdAt": "2024-08-29T14:59:28.571Z",
-    "updatedAt": "2025-10-13T08:07:09.453Z",
-    "linkedDocumentId": null
-  },
-  {
-    "id": "jd7cf10jdckwhpf3qph90k75sn7c4mc7",
-    "name": "Hedra",
-    "description": "Объеденяет обработку изображений, текста и аудио для более интеллектуальной генерации видео",
-    "coverImage": "https://files.edgestore.dev/qg46cbsp6jtjzgpl/publicFiles/_public/84e39761-1bcf-4f7b-81ff-829bf00c0848.png",
-    "url": "https://www.hedra.com",
-    "type": "tool",
-    "isActive": true,
-    "rating": 6.4,
-    "price": 1610,
-    "startPrice": 10,
-    "categoryId": "cat_collective_0cab1c9617404faf2b24e221",
-    "createdAt": "2025-03-15T16:54:44.508Z",
     "updatedAt": "2025-10-13T08:07:09.453Z",
     "linkedDocumentId": null
   },

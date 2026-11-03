@@ -7,6 +7,10 @@ import { categoryDefinitionFor, categoryIdFor } from "./catalog-category-taxonom
 
 const ROOT_DIR = path.resolve(__dirname, "..");
 const EXPORT_DIR = path.join(ROOT_DIR, "data", "db-export");
+const WITHDRAWN_TOOL_IDS = [
+  "jd70r44v6mtnxnnf56vdze3r917ccbwp",
+  "jd7cf10jdckwhpf3qph90k75sn7c4mc7",
+] as const;
 
 function loadEnv() {
   const candidates = [".env.local", ".env", ".env.production"].map((fileName) =>
@@ -48,25 +52,31 @@ type CatalogTool = Prisma.AiToolCreateManyInput & { id: string; categoryId: stri
 
 async function main() {
   const categories = readJson<CatalogCategory>("Category.json");
-  const tools = readJson<CatalogTool>("AiTool.json").map((tool) => ({
-    id: tool.id,
-    name: tool.name,
-    description: tool.description,
-    coverImage: tool.coverImage,
-    url: tool.url,
-    type: tool.type,
-    isActive: tool.isActive,
-    rating: tool.rating,
-    price: tool.price,
-    startPrice: tool.startPrice,
-    categoryId: tool.categoryId,
-    createdAt: tool.createdAt,
-    updatedAt: tool.updatedAt,
-  })) as CatalogTool[];
+  const tools = readJson<CatalogTool>("AiTool.json")
+    .filter((tool) => !WITHDRAWN_TOOL_IDS.includes(tool.id as (typeof WITHDRAWN_TOOL_IDS)[number]))
+    .map((tool) => ({
+      id: tool.id,
+      name: tool.name,
+      description: tool.description,
+      coverImage: tool.coverImage,
+      url: tool.url,
+      type: tool.type,
+      isActive: tool.isActive,
+      rating: tool.rating,
+      price: tool.price,
+      startPrice: tool.startPrice,
+      categoryId: tool.categoryId,
+      createdAt: tool.createdAt,
+      updatedAt: tool.updatedAt,
+    })) as CatalogTool[];
 
   console.log(
     `Catalog database target: ${target.hostname}:${target.port || "5432"}${target.pathname}`,
   );
+
+  const withdrawnTools = await prisma.aiTool.deleteMany({
+    where: { id: { in: [...WITHDRAWN_TOOL_IDS] } },
+  });
 
   const existingCategoryIds = new Set(
     (
@@ -160,7 +170,8 @@ async function main() {
       `${addedTools} tools added,`,
       `${updatedTools} tools updated,`,
       `${categoryAssignments} tools reassigned,`,
-      `${removedCategories.count} legacy categories removed.`,
+      `${removedCategories.count} legacy categories removed,`,
+      `${withdrawnTools.count} withdrawn tools removed.`,
     ].join(" "),
   );
 }
